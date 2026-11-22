@@ -1,0 +1,5 @@
+public/pyodide
+node_modules
+dist
+test-results
+playwright-report

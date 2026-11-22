@@ -1,0 +1,496 @@
+{
+  "nav": {
+    "label": "Main menu",
+    "badges": "My badges",
+    "logout": "Log out",
+    "login": "Log in"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "fontSize": "Code size",
+    "smaller": "Smaller",
+    "bigger": "Bigger",
+    "reset": "Normal",
+    "theme": "Colours",
+    "light": "Light",
+    "dark": "Dark",
+    "dyslexic": "Easy-reading font (dyslexia friendly)",
+    "fastTurtle": "Draw turtle pictures instantly"
+  },
+  "home": {
+    "title": "What do you want to code today?",
+    "subtitle": "Pick a language, press ▶ Run, and see what happens!",
+    "chooseLanguage": "Choose a language",
+    "cards": {
+      "python": "Easy words, turtle drawings and games!",
+      "c": "Talk to the computer like robots do.",
+      "cpp": "Build fast programs and big projects."
+    },
+    "start": "Start",
+    "myAssignments": "My assignments",
+    "teacherDashboard": "Teacher dashboard",
+    "loginHint": "Have a class code? Log in"
+  },
+  "tips": [
+    "Hi, I'm Kalam! Press ▶ Run to start any program. You can change the code and run it again!",
+    "Tip: press Ctrl + Enter to run your code quickly. ⚡",
+    "Mistakes are how we learn! If something goes wrong, I'll explain it in simple words. 🤗",
+    "Try the 🐢 turtle examples in Python to draw colourful pictures!",
+    "Your code is saved automatically in this browser. Use 💾 Save to keep a copy on your computer.",
+    "Change one small thing at a time, then press Run. That's how real programmers work! 🧑‍💻"
+  ],
+  "footer": {
+    "madeBy": "Made with ❤️ by Robokalam, Hanamkonda",
+    "privacy": "No ads. No trackers. Safe for kids."
+  },
+  "common": {
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "back": "Back"
+  },
+  "toolbar": {
+    "label": "Program buttons",
+    "run": "Run",
+    "stop": "Stop",
+    "clear": "Clear",
+    "examples": "Examples",
+    "save": "Save",
+    "open": "Open",
+    "reset": "Reset example",
+    "resetStarter": "Start again",
+    "share": "Share",
+    "explain": "Explain my code"
+  },
+  "layout": {
+    "code": "Code",
+    "output": "Output"
+  },
+  "editor": {
+    "label": "Code editor",
+    "aria": "{{lang}} code editor. Press Escape then Tab to leave the editor.",
+    "autosaved": "Saved in this browser",
+    "shortcut": "Ctrl + Enter = Run"
+  },
+  "output": {
+    "title": "Output screen",
+    "empty": "Press ▶ Run and your program's answers will appear here.",
+    "inputLabel": "Your answer for the program",
+    "inputPlaceholder": "Type here and press Enter ⏎",
+    "send": "Send",
+    "longRunning": "Your program has been running for a while. Maybe a loop never stops?",
+    "stoppedNote": "⏹ You stopped the program.",
+    "turtleCanvas": "Turtle drawing"
+  },
+  "status": {
+    "idle": "Ready",
+    "loading": "Getting ready…",
+    "compiling": "Building your program…",
+    "running": "Running…",
+    "waiting": "Waiting for you to type",
+    "done": "Finished",
+    "error": "Needs a fix",
+    "stopped": "Stopped"
+  },
+  "mascot": {
+    "success": "Great job! 🎉 Try changing something and run it again.",
+    "error": "No problem — every programmer fixes bugs! Read my hint above. 🔧",
+    "waiting": "Your program is asking you something. Type your answer in the box and press Enter!"
+  },
+  "error": {
+    "title": "What went wrong (simple)",
+    "titleSystem": "Hmm, something is in the way",
+    "lookAtLine": "Show me line {{line}}",
+    "full": "Full error (for experts)",
+    "line": "line {{line}}"
+  },
+  "errors": {
+    "generic": "Something went wrong. Read the full error below, or ask your teacher for help. 🤔",
+    "timeout": "Your program ran for too long — maybe a loop never stops? 🔁",
+    "output_limit": "Your program printed too much, so we stopped it. Maybe a loop never stops? 🔁",
+    "memory": "Your program used too much memory. Maybe a list or a loop keeps growing forever? 🐘",
+    "rate_limited": "Slow down a little! Wait a moment, then press Run again. 🐢",
+    "busy": "Lots of students are running code right now. Please try again in a few seconds. 🚦",
+    "offline": "Can't reach the Kalam server. Check the internet connection. (Python works even without internet!) 📡",
+    "code_too_long": "Your program is too long to run here. 📜",
+    "python_load": "Python couldn't start in this browser. Try reloading the page, or use a newer Chrome, Edge or Firefox. 🔄",
+    "py_name_bool": "In Python, {{name}} must be written as {{correct}} — with a capital letter at the start. 🔠",
+    "py_name_typo": "Oops! The computer doesn't know the word '{{name}}'. Did you mean '{{suggestion}}'? 🔍",
+    "py_name_quotes": "The computer doesn't know '{{name}}'. If you want to show the word {{name}}, put it inside quotes: \"{{name}}\" ✍️",
+    "py_name_undefined": "The computer doesn't know the word '{{name}}' yet. Check the spelling, or create it first (like {{name}} = 5) before you use it. 🔍",
+    "py_unbound_local": "You used '{{name}}' inside a function before giving it a value there. Give it a value first, or pass it into the function. 📦",
+    "py_smart_quotes": "There are curly “fancy” quotes in your code. Python needs straight quotes like \" or '. Type them again using the keyboard. ✍️",
+    "py_invalid_char": "There is a character Python doesn't understand: {{char}} — delete it and type it again using the keyboard. ⌨️",
+    "py_print_parens": "print needs round brackets. Write it like this: print(\"Hello\") 🙂",
+    "py_else_if": "In Python we write elif, not else if. Change it to: elif ... : 🔀",
+    "py_missing_colon": "A colon (:) is missing at the end of this line. Lines that start with if, elif, else, for, while or def must end with : 🎯",
+    "py_assign_in_if": "To check if two things are equal, use two equals signs ==. One = is for storing a value. ⚖️",
+    "py_never_closed": "You opened a bracket {{open}} but never closed it. Add {{close}} in the right place. 🧩",
+    "py_unmatched": "There is an extra closing bracket {{close}} without an opening one. Remove it, or add the opening bracket. 🧩",
+    "py_bracket_mismatch": "The brackets don't match: you opened with {{open}} but closed with {{close}}. 🧩",
+    "py_unterminated_triple": "A text that starts with three quotes \"\"\" never ends. Add the closing \"\"\" 📝",
+    "py_unterminated_string": "Your text is missing its closing quote. Every \" needs a partner \" at the end of the text. 📝",
+    "py_expected_indent": "The line after a colon (:) must be moved to the right. Press Tab, or add 4 spaces at the start of the line. ➡️",
+    "py_unexpected_indent": "This line is moved to the right, but it shouldn't be. Remove the extra spaces at the start. ⬅️",
+    "py_unindent_mismatch": "The spaces at the start of this line don't line up with the lines above. Make them match exactly. 📏",
+    "py_tabs_spaces": "This code mixes Tabs and spaces at the start of lines. Use only one kind (4 spaces is best). 📏",
+    "py_number_name": "A name can't start with a number, and a number can't have letters stuck to it. Did you forget * for multiply, like 2*x? 🔢",
+    "py_assign_literal": "You can't store a value into a number or a text. The name goes on the LEFT, like: score = 10 ⬅️",
+    "py_outside_function": "'{{word}}' can only be used inside a function (after def). 📦",
+    "py_outside_loop": "'{{word}}' can only be used inside a loop (for or while). 🔁",
+    "py_forgot_comma": "It looks like a comma is missing between two things. Example: print(\"Age:\", age) 🧷",
+    "py_eof": "Python reached the end of your code, but something isn't finished — maybe a missing bracket or quote. 🧩",
+    "py_keyword_name": "'{{word}}' is a special Python word, so it can't be a name. Try another name like my_{{word}}. 🏷️",
+    "py_concat_str_num": "You can't join text and a number with +. Turn the number into text with str(), like \"Age: \" + str(age) — or use a comma inside print. 🔗",
+    "py_add_num_str": "You're doing maths with text. input() always gives text — turn it into a number with int(...) or float(...). 🔢",
+    "py_compare_str_num": "You're comparing text with a number. Use int(...) to turn the text into a number first. ⚖️",
+    "py_multiply_seq": "Text can only be repeated a whole number of times, like \"ab\" * 3. Did you forget int(...) around input()? ✖️",
+    "py_not_callable": "Something that is not a function is used with brackets ( ). Did you forget * for multiply, like 2*(3+4)? 🤔",
+    "py_not_callable_shadow": "You used the name '{{name}}' for a variable, so the computer forgot it was a command. Choose a different variable name. 🏷️",
+    "py_missing_arg": "The function {{func}}() needs {{count}} more value(s) inside its brackets. 📦",
+    "py_too_many_args": "The function {{func}}() wants {{expected}} value(s), but you gave {{given}}. ✋",
+    "py_not_iterable": "You can't loop over a single number. To count, use range(), like: for i in range(10): 🔁",
+    "py_not_subscriptable": "You used [ ] on a {{type}}, but [ ] only works on lists and text. 📋",
+    "py_index_type": "The position inside [ ] must be a whole number. If it came from input(), use int(...). 🔢",
+    "py_none_type": "Something has no value (None). Maybe a function is missing 'return', or a variable was never set. 🕳️",
+    "py_int_conversion": "You typed '{{typed}}', but the program needs a whole number like 7. Run again and type digits only. 🔢",
+    "py_int_conversion_decimal": "You typed '{{typed}}' — that has a decimal point, but int() needs a whole number. Type a number like 7, or use float() in the code. 🔢",
+    "py_int_conversion_empty": "You pressed Enter without typing anything. The program needs a number — run again and type one. ⌨️",
+    "py_float_conversion": "You typed '{{typed}}', but the program needs a number like 3.5. Run again and type a number. 🔢",
+    "py_zero_division": "You tried to divide by zero — even computers can't do that! Check the number you are dividing by. ➗",
+    "py_index_range": "You asked for an item that isn't there. Remember: a {{kind}} with 3 items has positions 0, 1 and 2. 📋",
+    "py_key_error": "The dictionary has no key called {{key}}. Check the spelling. 🔑",
+    "py_attribute": "'{{owner}}' doesn't know '{{attr}}'. Did you mean '{{suggestion}}'? 🔍",
+    "py_attribute_nosuggest": "'{{owner}}' doesn't have anything called '{{attr}}'. Check the spelling. 🔍",
+    "py_module_missing": "The module '{{module}}' isn't available here. Check the spelling. You can use random, math, time, turtle and other built-in modules. 📦",
+    "py_import_name": "That name can't be imported from '{{module}}'. Check the spelling. 📦",
+    "py_recursion": "A function kept calling itself again and again. Make sure it has a stopping condition. 🔁",
+    "py_overflow": "The number got too big for the computer to handle. 🐘",
+    "py_turtle_color": "The turtle doesn't know that colour. Try a name like \"red\" or \"blue\". 🎨",
+    "py_value_unpack": "The number of names on the left doesn't match the number of values on the right. ⚖️",
+    "py_eof_input": "The program wanted more typing, but nothing was given. ⌨️",
+    "py_generic_syntax": "Python couldn't understand this line. Look carefully for missing brackets, quotes, colons or commas. 🔍",
+    "py_generic_type": "Two kinds of things are used together that don't mix (like text and numbers). 🧪",
+    "py_generic_value": "A value wasn't right for what the program tried to do. 🤔",
+    "c_missing_semicolon": "A semicolon ; is missing. In C and C++, most lines must end with ; — check the end of this line (or the line just above). ✏️",
+    "c_std_missing": "The computer doesn't know '{{name}}'. Add  using namespace std;  below your #include lines, or write std::{{name}}. 📚",
+    "c_cpp_missing_include": "To use '{{name}}', add  #include <{{header}}>  at the top of your program. 📚",
+    "c_implicit_function_header": "To use {{name}}(), add  #include <{{header}}>  at the top of your program. 📚",
+    "c_name_typo": "Oops! The computer doesn't know the word '{{name}}'. Did you mean '{{suggestion}}'? 🔍",
+    "c_undeclared": "The computer doesn't know '{{name}}'. Check the spelling, or create it first, like: int {{name}} = 0; 📦",
+    "c_bad_header": "There is no library called '{{header}}'. Did you mean <{{suggestion}}>? 📚",
+    "c_bad_header_nosuggest": "There is no library called '{{header}}'. Check the spelling. 📚",
+    "c_include_syntax": "The #include line is written wrongly. It should look like: #include <stdio.h> 📚",
+    "c_unknown_type": "The computer doesn't know the type '{{name}}'. Check the spelling (int, float, double, char). 🏷️",
+    "c_unknown_type_string": "C has no 'string' type. Use a character array like  char name[50];  (or switch to C++). 🔤",
+    "c_unknown_type_bool": "To use bool in C, add  #include <stdbool.h>  at the top. ✅",
+    "c_missing_brace_end": "A closing curly bracket } is missing. Every { needs a partner }. 🧩",
+    "c_missing_paren": "A closing round bracket ) is missing on this line. 🧩",
+    "c_unterminated_string": "A text is missing its closing quote \". 📝",
+    "c_stray_char": "There is a strange character in your code (often curly quotes “ ” copied from a document). Type the quotes again using the keyboard. ✍️",
+    "c_main_missing": "Every C/C++ program needs a main function:  int main() { ... }  Check that it's spelled correctly. 🏠",
+    "c_undefined_reference": "The function '{{name}}' is used but never written. Check its spelling. 🔍",
+    "c_else_without_if": "This 'else' has no 'if' before it. Check for an extra ; after if (...), or a missing }. 🔀",
+    "c_break_outside": "'break' and 'continue' can only be used inside a loop or a switch. 🔁",
+    "c_lvalue": "The left side of = must be a variable name. To compare two things, use == ⚖️",
+    "c_redefinition": "'{{name}}' was created twice. Give each variable or function its own name. 🏷️",
+    "c_too_few_args": "The function {{func}}() needs more values inside its brackets. 📦",
+    "c_too_many_args": "The function {{func}}() was given too many values. ✋",
+    "c_void_value": "A void function doesn't give back a value, so you can't use its result here. 🕳️",
+    "c_return_no_value": "This function must give back a value, like: return 0; ↩️",
+    "c_type_mismatch": "You're mixing types that don't fit together (like text and a number). Check the types of your variables. 🧪",
+    "c_invalid_operands": "These two things can't be used together with this sign. 🧪",
+    "c_cin_cout_arrows": "The arrows point the wrong way! Use  cin >> x  to read and  cout << x  to print. ↔️",
+    "c_subscript": "[ ] can only be used with arrays, and this variable isn't an array. 📋",
+    "c_member_access": "That variable doesn't have a part with that name. Check the spelling after the dot. 🔍",
+    "c_case_outside": "'case' and 'default' must be inside a switch block. 🔀",
+    "c_duplicate_case": "Two 'case' labels have the same value. Each case must be different. 🔀",
+    "c_jump_case": "In C++, put { } around a case that creates a new variable. 🧩",
+    "c_expected_expression": "Something is missing here — maybe a number, a variable or a bracket. 🔍",
+    "c_expected_identifier": "The computer expected a name here. Check for extra or missing symbols. 🔍",
+    "c_does_not_name_type": "'{{name}}' isn't a type the computer knows. Check the spelling, and that your code is inside main(). 🏷️",
+    "c_main_return_type": "main must be written as:  int main()  🏠",
+    "c_string_literal_char": "Single quotes ' ' hold only one character. For words, use double quotes \" \". 🔤",
+    "c_segfault": "Your program crashed 💥 It probably used a memory place it shouldn't — like going past the end of an array, or forgetting & in scanf: scanf(\"%d\", &x).",
+    "c_div_zero": "Your program divided by zero — even computers can't do that! ➗",
+    "c_out_of_range": "Your program asked for a position that doesn't exist (like item 10 in a list of 5). 📋",
+    "c_invalid_argument": "Some text couldn't be turned into a number. Check what was typed. 🔢",
+    "c_abort": "Your program stopped itself because something went badly wrong (maybe too much memory). 🛑",
+    "c_exit_code": "Your program finished with code {{code}}. Usually main should end with  return 0;  ↩️",
+    "c_generic_compile": "The compiler found a problem on this line. Look carefully for a missing ; bracket, or a spelling mistake. 🔍",
+    "w_scanf_ampersand": "Did you forget & in scanf? Write scanf(\"%d\", &x) so the answer goes into x.",
+    "w_assign_in_if": "Inside if ( ), use == to compare. A single = changes the value!",
+    "w_format_type": "The % code doesn't match the variable type (%d for int, %f for float, %lf for double in scanf, %c for char, %s for text).",
+    "w_no_return": "This function might end without giving back a value. Add a return line.",
+    "w_uninitialized": "'{{name}}' is used before it gets a value. Give it a starting value, like  int {{name}} = 0;",
+    "w_div_zero": "This line divides by zero."
+  },
+  "examples": {
+    "title": "Examples",
+    "level1": "Level 1",
+    "level2": "Level 2",
+    "level3": "Level 3",
+    "grades1": "Grades 3–5",
+    "grades2": "Grades 6–8",
+    "grades3": "Grade 9 and up",
+    "stars_one": "{{count}} star",
+    "stars_other": "{{count}} stars",
+    "starHelp": "Run an example to earn 1 star. Change it and run it again to earn a 2nd star!",
+    "replaceTitle": "Open this example?",
+    "replaceText": "Your own code will be replaced by the example. Do you want to save your code first?",
+    "saveThenOpen": "Save my code, then open",
+    "openAnyway": "Open example"
+  },
+  "reset": {
+    "title": "Start again?",
+    "text": "Your changes will be removed and the original code will come back.",
+    "confirm": "Yes, start again"
+  },
+  "files": {
+    "tooBig": "That file is too big to open here.",
+    "saveTitle": "Save to your computer",
+    "nameLabel": "File name",
+    "saveHelp": "Your code is also saved automatically in this browser.",
+    "download": "Download",
+    "saved": "Saved!"
+  },
+  "share": {
+    "title": "Share your program",
+    "nameLabel": "Give it a name (optional)",
+    "help": "Anyone with the link can see your code and make their own copy. They can't change yours. Don't put your full name or phone number in the code.",
+    "create": "Make a link",
+    "ready": "Your link is ready!",
+    "copy": "Copy link",
+    "copied": "Copied!",
+    "tooMany": "You've shared a lot today. Please try again later.",
+    "failed": "Couldn't make a link. Check the internet connection.",
+    "untitled": "Shared program",
+    "notFound": "This shared program couldn't be found. 😕",
+    "readOnly": "Look only",
+    "makeCopy": "Make a copy",
+    "replaceTitle": "Replace your code?",
+    "replaceText": "Making a copy will replace the code you have in this language. Continue?"
+  },
+  "explain": {
+    "title": "Kalam explains your code",
+    "thinking": "Let me read your code… 🤔",
+    "failed": "Sorry, I couldn't explain it right now. Try again later.",
+    "disclaimer": "This explanation is written by a computer helper and can sometimes be wrong. Ask your teacher if you're not sure."
+  },
+  "badges": {
+    "title": "My stars and badges",
+    "summary": "⭐ {{stars}} stars · 🏅 {{badges}} of {{total}} badges",
+    "levels": "Levels",
+    "practise": "Practise",
+    "collection": "Badge collection",
+    "newBadge": "New badge!",
+    "items": {
+      "first_run": {
+        "name": "First program",
+        "how": "Run any program"
+      },
+      "bug_fixer": {
+        "name": "Bug fixer",
+        "how": "Fix an error and run again"
+      },
+      "bug_hunter": {
+        "name": "Bug hunter",
+        "how": "Fix 10 errors"
+      },
+      "turtle_artist": {
+        "name": "Turtle artist",
+        "how": "Draw with the turtle"
+      },
+      "chatty": {
+        "name": "Chatty program",
+        "how": "Run a program that asks a question"
+      },
+      "explorer_python": {
+        "name": "Python explorer",
+        "how": "Run a Python program"
+      },
+      "explorer_c": {
+        "name": "C explorer",
+        "how": "Run a C program"
+      },
+      "explorer_cpp": {
+        "name": "C++ explorer",
+        "how": "Run a C++ program"
+      },
+      "level1_python": {
+        "name": "Python Level 1",
+        "how": "Run all Level 1 Python examples"
+      },
+      "level2_python": {
+        "name": "Python Level 2",
+        "how": "Run all Level 2 Python examples"
+      },
+      "level3_python": {
+        "name": "Python Level 3",
+        "how": "Run all Level 3 Python examples"
+      },
+      "level1_c": {
+        "name": "C Level 1",
+        "how": "Run all Level 1 C examples"
+      },
+      "level2_c": {
+        "name": "C Level 2",
+        "how": "Run all Level 2 C examples"
+      },
+      "level3_c": {
+        "name": "C Level 3",
+        "how": "Run all Level 3 C examples"
+      },
+      "level1_cpp": {
+        "name": "C++ Level 1",
+        "how": "Run all Level 1 C++ examples"
+      },
+      "level2_cpp": {
+        "name": "C++ Level 2",
+        "how": "Run all Level 2 C++ examples"
+      },
+      "level3_cpp": {
+        "name": "C++ Level 3",
+        "how": "Run all Level 3 C++ examples"
+      },
+      "creator": {
+        "name": "Creator",
+        "how": "Change an example and run it"
+      },
+      "runs_50": {
+        "name": "Busy coder",
+        "how": "Run programs 50 times"
+      },
+      "assignment_star": {
+        "name": "Assignment star",
+        "how": "Pass every test in an assignment"
+      }
+    }
+  },
+  "login": {
+    "title": "Log in",
+    "student": "I'm a student",
+    "teacher": "I'm a teacher",
+    "noLoginNeeded": "You don't need to log in to code — only for class assignments.",
+    "classCode": "Type your class code",
+    "next": "Next",
+    "classNotFound": "We couldn't find that class code. Check it with your teacher.",
+    "serverProblem": "Can't reach the server right now. Try again in a moment.",
+    "pickName": "Tap your name",
+    "emptyClass": "This class has no students yet. Ask your teacher.",
+    "enterPin": "Hi {{name}}! Type your 4-digit PIN",
+    "pinProgress": "{{count}} of 4 digits typed",
+    "deleteDigit": "Delete last digit",
+    "pinTyping": "Type your PIN with the keyboard",
+    "wrongPin": "That PIN isn't right. Try again!",
+    "tooManyTries": "Too many tries. Please wait a few minutes or ask your teacher.",
+    "badPassword": "Email or password is not right.",
+    "yourName": "Your name",
+    "email": "Email",
+    "password": "Password",
+    "inviteCode": "School invite code",
+    "inviteHelp": "Get this code from your school's Kalam admin.",
+    "signIn": "Sign in",
+    "createAccount": "Create teacher account",
+    "needAccount": "New teacher? Create an account",
+    "haveAccount": "Already have an account? Sign in"
+  },
+  "student": {
+    "hello": "Hi {{name}}!",
+    "assignments": "My assignments",
+    "noAssignments": "No assignments right now. Free coding time!",
+    "status": {
+      "new": "Not started",
+      "tried": "Keep trying",
+      "passed": "All tests passed"
+    },
+    "freeCoding": "Free coding",
+    "needLogin": "Please log in first.",
+    "assignmentMissing": "This assignment couldn't be found."
+  },
+  "assignment": {
+    "panel": "Assignment",
+    "toggle": "Show or hide instructions",
+    "exampleTests": "Example tests",
+    "input": "Input",
+    "expected": "Expected output",
+    "check": "Check my work",
+    "checking": "Checking…",
+    "checkFailed": "Couldn't check right now. Try again.",
+    "teacherPreview": "Teacher preview — students see a Check button here.",
+    "allPassed": "All tests passed! Amazing work!",
+    "someFailed": "{{passed}} of {{total}} tests passed. You're getting there! 💪",
+    "test": "Test {{n}}",
+    "secret": "secret",
+    "differentOutput": "Your program's output is different from the expected output.",
+    "yours": "Yours",
+    "nothing": "(nothing)",
+    "problem": {
+      "timeout": "Your program ran for too long — maybe a loop never stops? 🔁",
+      "error": "Your program had an error. Press ▶ Run to see what went wrong.",
+      "output-limit": "Your program printed too much.",
+      "compile": "Your program has a mistake that stops it from running. Press ▶ Run to see it."
+    }
+  },
+  "teacher": {
+    "hello": "Welcome, {{name}}",
+    "myClasses": "My classes",
+    "classCode": "Class code",
+    "studentCount_one": "{{count}} student",
+    "studentCount_other": "{{count}} students",
+    "newClass": "Create a new class",
+    "classNamePlaceholder": "e.g. Grade 5 – Section A",
+    "create": "Create",
+    "classCodeHelp": "Students log in with this class code, then tap their name and type their PIN.",
+    "assignments": "Assignments",
+    "students": "Students",
+    "newAssignment": "New assignment",
+    "submissions": "Submissions",
+    "edit": "Edit",
+    "noAssignments": "No assignments yet.",
+    "newPin": "New PIN",
+    "remove": "Remove",
+    "confirmRemove": "Remove {{name}} and all their work from this class?",
+    "noStudents": "No students yet. Add names on the right.",
+    "addStudents": "Add students",
+    "namesPlaceholder": "One first name per line",
+    "namesHelp": "Use first names only. Each student gets a 4-digit PIN.",
+    "addAndMakePins": "Add and make PINs",
+    "pinCards": "PIN cards",
+    "pinCardsHelp": "Print these and give one to each student. PINs are shown only now — you can make a new PIN any time.",
+    "print": "Print",
+    "aTitle": "Title",
+    "aLanguage": "Language",
+    "aInstructions": "Instructions for students",
+    "aInstructionsPlaceholder": "e.g. Ask for a number and print its multiplication table.",
+    "aStarter": "Starter code",
+    "fromExample": "Copy from an example…",
+    "tests": "Auto-check tests",
+    "testsHelp": "For each test, type what the student would type (one answer per line) and the output you expect. Secret tests are hidden from students. Spaces at the end of lines and empty lines are ignored.",
+    "matchMode": "Check",
+    "matchExact": "Output must match exactly",
+    "matchContains": "Output must contain the expected text",
+    "testN": "Test {{n}}",
+    "inputPlaceholder": "(leave empty if no input)",
+    "removeTest": "Remove test {{n}}",
+    "addTest": "Add test",
+    "tryWithStarter": "Try tests on the starter code",
+    "saveAssignment": "Save assignment",
+    "deleteAssignment": "Delete",
+    "confirmDeleteAssignment": "Delete this assignment and all submissions?",
+    "summary": "✅ {{done}} finished · ✏️ {{tried}} tried · 👥 {{total}} students",
+    "refresh": "Refresh",
+    "exportCsv": "Download CSV",
+    "tryAsStudent": "Preview as student",
+    "student": "Student",
+    "result": "Result",
+    "attempts": "Tries",
+    "lastTry": "Last try",
+    "viewCode": "View code",
+    "notYet": "Not yet"
+  },
+  "admin": {
+    "title": "Admin",
+    "help": "Limits (time, memory, rate limits) are set in backend/config/limits.yaml — change them there and restart the backend."
+  }
+}

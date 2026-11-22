@@ -1,0 +1,23 @@
+# Single-container mode WITHOUT Piston (small servers, or where ghcr.io is unreachable).
+# C/C++ are compiled inside the backend container and each program runs as `nobody`
+# with CPU/memory/process limits and no network. Piston gives stronger isolation —
+# prefer it for big or public deployments. Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+services:
+  backend:
+    build:
+      context: ./backend
+      args:
+        INSTALL_COMPILERS: "true"
+    user: root            # needed to drop each program to `nobody`
+    environment:
+      KALAM_EXECUTOR: local
+      KALAM_WORK_DIR: /tmp
+    cap_drop: [ALL]
+    cap_add: [SETUID, SETGID, SYS_ADMIN, KILL, DAC_OVERRIDE, CHOWN, FOWNER]  # SYS_ADMIN: private network namespace per program
+    security_opt: ["no-new-privileges:true", "seccomp=unconfined"]
+    tmpfs: !override ["/tmp:exec,mode=1777,size=512m"]
+    depends_on: !override
+      postgres: { condition: service_healthy }
+      valkey: { condition: service_started }
+  piston: !reset null

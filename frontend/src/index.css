@@ -1,0 +1,223 @@
+@import "tailwindcss";
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+@import "@fontsource/noto-sans-telugu/400.css";
+@import "@fontsource/noto-sans-telugu/700.css";
+@import "@fontsource/noto-sans-devanagari/400.css";
+@import "@fontsource/noto-sans-devanagari/700.css";
+@import "@fontsource/opendyslexic/400.css";
+@import "@fontsource/opendyslexic/700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- design tokens (light is default) ---------- */
+:root {
+  --ui-font: "Atkinson Hyperlegible", "Noto Sans Telugu", "Noto Sans Devanagari", system-ui, sans-serif;
+  --code-font: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --code-font-size: 18px;
+
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-2: #eef3fa;
+  --text: #1b2433;
+  --muted: #4f5d73;
+  --border: #d5deea;
+  --primary: #1d5fd1;
+  --primary-text: #ffffff;
+  --run: #148a3c;
+  --stop: #c62828;
+  --danger: #c62828;
+  --warn: #9a5b00;
+  --focus: #f5a400;
+  --success-bg: #e3f6e8;
+  --error-bg: #fff1ef;
+  --tip-bg: #fff8e1;
+
+  --screen-bg: #fffdf6;
+  --screen-fg: #1b2433;
+  --screen-input: #1d5fd1;
+  --screen-err: #b3261e;
+
+  --editor-bg: #ffffff;
+  --editor-fg: #1b2433;
+  --editor-caret: #1d5fd1;
+  --editor-gutter-bg: #f1f5fb;
+  --editor-gutter-fg: #6b7a90;
+  --editor-active-line: #eef4ff;
+  --editor-selection: #c9dcff;
+  --editor-bracket: #ffe9a8;
+  --editor-error-line: #ffe1dc;
+
+  --syn-keyword: #a626a4;
+  --syn-string: #2f7d16;
+  --syn-number: #b55a00;
+  --syn-comment: #6b7a90;
+  --syn-function: #1d5fd1;
+  --syn-type: #0b7f86;
+  --syn-meta: #a14000;
+  --syn-punct: #3d4a5c;
+}
+
+.dark {
+  --bg: #0f1724;
+  --surface: #172234;
+  --surface-2: #1e2b40;
+  --text: #edf2fa;
+  --muted: #a9b6ca;
+  --border: #2d3c55;
+  --primary: #5b9bff;
+  --primary-text: #0b1220;
+  --run: #3fcf6e;
+  --stop: #ff7a70;
+  --danger: #ff7a70;
+  --warn: #ffc56b;
+  --focus: #ffd257;
+  --success-bg: #12301f;
+  --error-bg: #3a1a1a;
+  --tip-bg: #33290f;
+
+  --screen-bg: #101a2a;
+  --screen-fg: #e8eef8;
+  --screen-input: #8cc0ff;
+  --screen-err: #ff958c;
+
+  --editor-bg: #131d2d;
+  --editor-fg: #e8eef8;
+  --editor-caret: #8cc0ff;
+  --editor-gutter-bg: #172234;
+  --editor-gutter-fg: #7d8ba3;
+  --editor-active-line: #1b2a41;
+  --editor-selection: #2f4b78;
+  --editor-bracket: #4a4220;
+  --editor-error-line: #4a1f1f;
+
+  --syn-keyword: #e39aff;
+  --syn-string: #9be27a;
+  --syn-number: #ffb870;
+  --syn-comment: #8796ad;
+  --syn-function: #8cc0ff;
+  --syn-type: #6fe0e6;
+  --syn-meta: #ffaa7a;
+  --syn-punct: #c3cede;
+}
+
+.dyslexic {
+  --ui-font: "OpenDyslexic", "Noto Sans Telugu", "Noto Sans Devanagari", system-ui, sans-serif;
+  --code-font: "OpenDyslexic", ui-monospace, monospace;
+}
+
+html[lang="te"] {
+  --ui-font: "Noto Sans Telugu", "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+html[lang="hi"] {
+  --ui-font: "Noto Sans Devanagari", "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ui-font);
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Big, obvious keyboard focus for everyone. */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.cm-editor.cm-focused {
+  outline: none;
+}
+
+/* ---------- reusable pieces ---------- */
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 min-w-11 cursor-pointer select-none items-center justify-center gap-2 rounded-xl px-4 py-2 font-bold transition active:scale-95 disabled:cursor-not-allowed disabled:opacity-50;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .btn:hover:not(:disabled) {
+    background: var(--surface-2);
+  }
+  .btn-run {
+    background: var(--run);
+    border-color: var(--run);
+    color: #fff;
+  }
+  .dark .btn-run {
+    color: #08210f;
+  }
+  .btn-run:hover:not(:disabled) {
+    background: var(--run);
+    filter: brightness(1.08);
+  }
+  .btn-stop {
+    background: var(--stop);
+    border-color: var(--stop);
+    color: #fff;
+  }
+  .dark .btn-stop {
+    color: #2a0705;
+  }
+  .btn-stop:hover:not(:disabled) {
+    background: var(--stop);
+    filter: brightness(1.08);
+  }
+  .btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-text);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--primary);
+    filter: brightness(1.08);
+  }
+  .card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    @apply rounded-2xl;
+  }
+  .field {
+    @apply min-h-11 w-full rounded-xl px-3 py-2;
+    background: var(--surface);
+    color: var(--text);
+    border: 2px solid var(--border);
+  }
+  .muted {
+    color: var(--muted);
+  }
+}
+
+@keyframes kalam-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+.kalam-bob {
+  animation: kalam-bob 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

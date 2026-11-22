@@ -1,0 +1,38 @@
+# Kalam Compiler — admin-tunable limits.
+# Edit this file and restart the backend (docker compose restart backend).
+# No code changes needed. Path can be changed with the KALAM_LIMITS_FILE env var.
+
+run:
+  cpu_seconds: 5            # CPU time a C/C++ program may use
+  wall_seconds: 15          # Max time a program may run while NOT waiting for input
+  idle_input_seconds: 300   # Max time a program may wait for the student to type
+  memory_mb: 128            # Memory limit for a running program
+  max_output_kb: 64         # Program output beyond this is cut off and the run stopped
+  max_code_kb: 64           # Largest program accepted
+  max_processes: 16         # Max processes/threads per run (stops fork bombs)
+  max_file_kb: 1024         # Largest file a program may write in /tmp
+  compile_seconds: 15       # Max time to compile
+
+compile:
+  c_flags: ["-std=gnu17", "-O1", "-Wall", "-Werror=implicit-function-declaration", "-fdiagnostics-color=never", "-fmax-errors=5"]
+  cpp_flags: ["-std=gnu++17", "-O1", "-Wall", "-fdiagnostics-color=never", "-fmax-errors=5"]
+
+rate_limit:
+  min_seconds_between_runs: 2    # per student browser (anonymous id) — "max 1 run per 2 s per user"
+  runs_per_minute_per_ip: 240    # a whole school lab usually shares one IP, so keep this generous
+  shares_per_hour_per_ip: 60
+  login_attempts_per_10_min: 8   # per student (PIN) or per email (teacher)
+  ai_requests_per_hour_per_user: 20
+
+queue:
+  max_concurrent_runs: 8          # roughly 2 × CPU cores of the server
+  max_waiting: 100                # beyond this, students see "lots of students are running code"
+  wait_timeout_seconds: 20
+
+assignments:
+  max_tests: 20
+  test_cpu_seconds: 3
+
+compile_cache:
+  enabled: true                   # re-use the compiled program when 40 students run the same example
+  max_entries: 300

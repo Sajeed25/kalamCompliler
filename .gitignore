@@ -1,0 +1,10 @@
+.env
+*.db
+__pycache__/
+.venv/
+node_modules/
+dist/
+frontend/public/pyodide/
+test-results/
+playwright-report/
+.pytest_cache/
