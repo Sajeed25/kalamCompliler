@@ -64,7 +64,7 @@ appears *before* the program waits — essential for kids.
 
 **Errors**: the server returns the raw compiler/interpreter output plus a structured error
 (`kind`, `type`, `line`). The browser's rule engine (`frontend/src/explainer/explain.ts`,
-~95 rules) picks a message id; the text comes from the i18n files, so explanations are
+105 rules) picks a message id; the text comes from the i18n files, so explanations are
 translated like the rest of the UI.
 
 **Assignments**: "Check my work" sends the code to the backend, which runs it once per test
