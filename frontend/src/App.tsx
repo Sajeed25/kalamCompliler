@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Home from "./components/Home";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { useRoute, routeQuery } from "./lib/router";
 import { isLangId } from "./languages";
 import { useSession } from "./lib/auth";
@@ -54,6 +55,15 @@ function useProgressSync() {
 
 function Screen() {
   const r = useRoute();
+  // A new boundary per page, so going to another page clears an error.
+  return (
+    <ErrorBoundary key={r.join("/")}>
+      <ScreenFor r={r} />
+    </ErrorBoundary>
+  );
+}
+
+function ScreenFor({ r }: { r: string[] }) {
   const [a, b, c, d] = r;
   if (!a) return <Home />;
   if (a === "code" && b && isLangId(b)) return <EditorScreen key={b} lang={b} />;

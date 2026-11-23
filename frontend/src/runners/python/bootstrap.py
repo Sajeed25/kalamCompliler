@@ -12,10 +12,16 @@ import kalam_bridge
 sys.path.insert(0, "/home/pyodide/kalam")
 
 
+class KalamNoInput(EOFError):
+    """input() can't pause on this page (no cross-origin isolation)."""
+
+
 def _kalam_input(prompt=""):
     if prompt:
         sys.stdout.write(str(prompt))
     sys.stdout.flush()
+    if not kalam_bridge.can_pause():
+        raise KalamNoInput("KALAM_NO_INPUT: this page can't wait for typing (not cross-origin isolated)")
     line = kalam_bridge.read_line()
     if line is None:
         raise KeyboardInterrupt

@@ -169,6 +169,7 @@
     "py_overflow": "The number got too big for the computer to handle. 🐘",
     "py_turtle_color": "The turtle doesn't know that colour. Try a name like \"red\" or \"blue\". 🎨",
     "py_value_unpack": "The number of names on the left doesn't match the number of values on the right. ⚖️",
+    "py_no_input": "This program wants you to type an answer, but this page can't wait for typing yet. Please reload the page (Ctrl + Shift + R) and run again. If it keeps happening, tell your teacher. 🔄",
     "py_eof_input": "The program wanted more typing, but nothing was given. ⌨️",
     "py_generic_syntax": "Python couldn't understand this line. Look carefully for missing brackets, quotes, colons or commas. 🔍",
     "py_generic_type": "Two kinds of things are used together that don't mix (like text and numbers). 🧪",
@@ -493,5 +494,12 @@
   "admin": {
     "title": "Admin",
     "help": "Limits (time, memory, rate limits) are set in backend/config/limits.yaml — change them there and restart the backend."
+  },
+  "crash": {
+    "title": "Oops, this page tripped over 🙈",
+    "text": "Something went wrong while opening this page. Your code is safe — it's saved in this browser.",
+    "reload": "Reload the page",
+    "home": "Go to the home page",
+    "details": "Details (for experts)"
   }
 }

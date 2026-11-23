@@ -17,9 +17,11 @@ type PyodideAPI = {
 
 const scope = self as unknown as DedicatedWorkerGlobalScope;
 let py: PyodideAPI | null = null;
-let ctrl: Int32Array; // [0] input state 0=idle 1=ready 2=cancel, [1] input length, [2] sleep wake
-let data: Uint8Array;
-let interrupt: Uint8Array;
+// Null when the page isn't cross-origin isolated (no SharedArrayBuffer): Python still runs,
+// but input() can't pause and Stop restarts the worker.
+let ctrl: Int32Array | null = null; // [0] input state 0=idle 1=ready 2=cancel, [1] input length, [2] sleep wake
+let data: Uint8Array | null = null;
+let interrupt: Uint8Array | null = null;
 
 const outDecoder = new TextDecoder();
 const errDecoder = new TextDecoder();
@@ -48,8 +50,12 @@ function maybeFlush() {
 }
 
 const bridge = {
+  can_pause(): boolean {
+    return ctrl !== null;
+  },
   read_line(): string | null {
     flush();
+    if (!ctrl || !data) return null;
     Atomics.store(ctrl, 0, 0);
     post({ type: "input" });
     Atomics.wait(ctrl, 0, 0);
@@ -62,7 +68,14 @@ const bridge = {
   sleep(seconds: number) {
     flush();
     const ms = Math.max(0, Math.min(seconds * 1000, 60_000));
-    if (ms > 0) Atomics.wait(ctrl, 2, 0, ms);
+    if (ms <= 0) return;
+    if (ctrl) Atomics.wait(ctrl, 2, 0, ms);
+    else {
+      const end = performance.now() + ms; // no shared memory: wait by busy-looping (worker only)
+      while (performance.now() < end) {
+        /* wait */
+      }
+    }
   },
   turtle(json: string) {
     turtleBuf.push(JSON.parse(json));
@@ -70,10 +83,10 @@ const bridge = {
   },
 };
 
-async function init(msg: { ctrl: SharedArrayBuffer; data: SharedArrayBuffer; interrupt: SharedArrayBuffer; indexURL: string }) {
-  ctrl = new Int32Array(msg.ctrl);
-  data = new Uint8Array(msg.data);
-  interrupt = new Uint8Array(msg.interrupt);
+async function init(msg: { ctrl: SharedArrayBuffer | null; data: SharedArrayBuffer | null; interrupt: SharedArrayBuffer | null; indexURL: string }) {
+  ctrl = msg.ctrl ? new Int32Array(msg.ctrl) : null;
+  data = msg.data ? new Uint8Array(msg.data) : null;
+  interrupt = msg.interrupt ? new Uint8Array(msg.interrupt) : null;
   const mod = await import(/* @vite-ignore */ msg.indexURL + "pyodide.mjs");
   const pyodide: PyodideAPI = await mod.loadPyodide({ indexURL: msg.indexURL, fullStdLib: false });
   pyodide.setStdout({
@@ -90,7 +103,7 @@ async function init(msg: { ctrl: SharedArrayBuffer; data: SharedArrayBuffer; int
       return b.length;
     },
   });
-  pyodide.setInterruptBuffer(interrupt);
+  if (interrupt) pyodide.setInterruptBuffer(interrupt);
   pyodide.registerJsModule("kalam_bridge", bridge);
   pyodide.FS.mkdirTree("/home/pyodide/kalam");
   pyodide.FS.writeFile("/home/pyodide/kalam/turtle.py", turtleSource);

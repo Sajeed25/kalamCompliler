@@ -397,6 +397,10 @@ const PY_RULES: Rule[] = [
     match: ({ msg }) => /(not enough|too many) values to unpack/.test(msg),
   },
   {
+    id: "py_no_input",
+    match: ({ err, msg }) => err.type === "KalamNoInput" || msg.includes("KALAM_NO_INPUT"),
+  },
+  {
     id: "py_eof_input",
     match: ({ err }) => err.type === "EOFError",
   },

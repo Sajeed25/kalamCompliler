@@ -11,8 +11,7 @@ import Mascot from "./Mascot";
 import ShareButton from "./ShareButton";
 import ExplainCodeButton from "./ExplainCodeButton";
 import { LANGUAGES, langFromFileName, type LangId } from "../languages";
-import { getRunner, type ProgramError, type RunResult } from "../runners";
-import { PythonRunner } from "../runners/pythonRunner";
+import { getRunner, type RunResult } from "../runners";
 import { explainError, explainWarnings, type Explanation } from "../explainer/explain";
 import { EXAMPLES, getExample, localized, type Example } from "../examples";
 import { getJSON, setJSON } from "../lib/storage";
@@ -150,14 +149,6 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
     const wantsTurtle = lang === "python" && /\bturtle\b/.test(code);
     setShowTurtle(wantsTurtle);
     turtleRef.current?.reset();
-
-    if (lang === "python" && !PythonRunner.supported()) {
-      runningRef.current = false;
-      const err: ProgramError = { kind: "system", type: "LoadError", message: "crossOriginIsolated=false", raw: "This page is not cross-origin isolated, so Python cannot pause for input(). Serve it with COOP/COEP headers (see docs/DEPLOYMENT.md)." };
-      setExplanation({ exp: explainError(lang, err, code), raw: err.raw });
-      setStatus("error");
-      return;
-    }
 
     const longTimer = window.setTimeout(() => setLongRunning(true), CLIENT_LIMITS.longRunHintSeconds * 1000);
     let outputLimitHit = false;

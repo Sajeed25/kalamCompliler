@@ -7,15 +7,30 @@ const INDEX_URL = new URL(`${import.meta.env.BASE_URL}pyodide/`, location.origin
 export class PythonRunner implements Runner {
   private worker: Worker | null = null;
   private ready: Promise<void> | null = null;
-  private ctrl = new Int32Array(new SharedArrayBuffer(16));
-  private data = new Uint8Array(new SharedArrayBuffer(64 * 1024));
-  private interrupt = new Uint8Array(new SharedArrayBuffer(1));
+  // Shared memory lets Python pause for input() and be interrupted by Stop. It only exists on
+  // "cross-origin isolated" pages; without it Python still runs, but input() can't wait.
+  private ctrl: Int32Array | null = null;
+  private data: Uint8Array | null = null;
+  private interrupt: Uint8Array | null = null;
   private current: {
     onEvent: (e: RunEvent) => void;
     resolve: (r: RunResult) => void;
     started: number;
   } | null = null;
   private hardStopTimer: number | undefined;
+
+  constructor() {
+    if (PythonRunner.supported()) {
+      this.ctrl = new Int32Array(new SharedArrayBuffer(16));
+      this.data = new Uint8Array(new SharedArrayBuffer(64 * 1024));
+      this.interrupt = new Uint8Array(new SharedArrayBuffer(1));
+    }
+  }
+
+  /** True when input() and graceful Stop are available. */
+  canPause(): boolean {
+    return this.ctrl !== null;
+  }
 
   static supported(): boolean {
     return typeof SharedArrayBuffer !== "undefined" && self.crossOriginIsolated === true;
@@ -48,9 +63,9 @@ export class PythonRunner implements Runner {
     });
     worker.postMessage({
       type: "init",
-      ctrl: this.ctrl.buffer,
-      data: this.data.buffer,
-      interrupt: this.interrupt.buffer,
+      ctrl: this.ctrl?.buffer ?? null,
+      data: this.data?.buffer ?? null,
+      interrupt: this.interrupt?.buffer ?? null,
       indexURL: INDEX_URL,
     });
     this.ready.catch(() => {});
@@ -104,9 +119,11 @@ export class PythonRunner implements Runner {
       const message = String((e as Error).message);
       return { ok: false, error: { kind: "system", type: "LoadError", message, raw: message } };
     }
-    Atomics.store(this.ctrl, 0, 0);
-    Atomics.store(this.ctrl, 2, 0);
-    this.interrupt[0] = 0;
+    if (this.ctrl && this.interrupt) {
+      Atomics.store(this.ctrl, 0, 0);
+      Atomics.store(this.ctrl, 2, 0);
+      this.interrupt[0] = 0;
+    }
     onEvent({ type: "status", status: "running" });
     return new Promise<RunResult>((resolve) => {
       this.current = { onEvent, resolve, started: performance.now() };
@@ -115,6 +132,7 @@ export class PythonRunner implements Runner {
   }
 
   sendInput(line: string): void {
+    if (!this.ctrl || !this.data) return;
     const bytes = new TextEncoder().encode(line.slice(0, CLIENT_LIMITS.maxInputChars));
     const n = Math.min(bytes.length, this.data.length);
     this.data.set(bytes.subarray(0, n));
@@ -125,6 +143,13 @@ export class PythonRunner implements Runner {
 
   stop(): void {
     if (!this.current) return;
+    if (!this.ctrl || !this.interrupt) {
+      // No shared memory: the only way to stop Python is to restart it.
+      this.finish({ ok: false, stopped: true });
+      this.reset();
+      this.preload();
+      return;
+    }
     this.interrupt[0] = 2; // SIGINT -> KeyboardInterrupt
     Atomics.store(this.ctrl, 0, 2);
     Atomics.notify(this.ctrl, 0);

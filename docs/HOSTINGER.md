@@ -97,8 +97,23 @@ docker compose up -d
 
 Both addresses must be `https://`. A browser blocks an `https` page from using an `http` backend.
 
+## Updating the website files on Web hosting
+
+1. Build (or use the ready-made `kalam-website.zip`): `cd frontend && npm ci && npm run build`. The files are in `frontend/dist/`.
+2. hPanel → File Manager → the site's folder (e.g. `public_html` or the subdomain folder):
+   **delete the old files first** (old `assets/` files can confuse browsers), then upload the zip and **Extract** it there.
+3. Make sure these exist after extracting (turn on *Show hidden files*): `.htaccess`, `sw.js`,
+   `kalam-config.json`, `index.html`, `assets/`, `pyodide/`.
+4. If your `kalam-config.json` had an `apiBase`, put it back (the zip contains an empty one).
+5. hPanel → Website → **Clear cache** (LiteSpeed cache), then press Ctrl+Shift+R in the browser.
+
+Browsers that had the old version open reload themselves once automatically.
+
 ## Troubleshooting
 
+* **Blank page** (fixed in this version): the old build crashed when the host didn't send the
+  isolation headers. Upload the new build. If anything fails now, a friendly "page tripped over"
+  screen with a Reload button appears instead.
 * **Python says it can't start / input() doesn't work on Web hosting**: the host didn't apply
   `.htaccess` headers. The app's service worker adds them itself and reloads the page once on
   the first visit. If it still fails, make sure `.htaccess` and `sw.js` were uploaded and the
