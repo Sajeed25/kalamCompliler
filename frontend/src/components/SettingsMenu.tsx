@@ -32,7 +32,7 @@ export default function SettingsMenu() {
         <div
           role="dialog"
           aria-label={t("settings.title")}
-          className="card absolute right-0 z-50 mt-2 w-[min(92vw,330px)] space-y-4 p-4 shadow-xl"
+          className="card absolute end-0 z-50 mt-2 w-[min(92vw,330px)] space-y-4 p-4 shadow-xl"
         >
           <div>
             <label className="mb-1 block font-bold" htmlFor="ui-lang">
@@ -60,13 +60,13 @@ export default function SettingsMenu() {
               🔠 {t("settings.fontSize")}: {s.fontSize}px
             </div>
             <div className="flex gap-2" role="group" aria-labelledby="font-size-label">
-              <button className="btn flex-1" disabled={s.fontSize <= FONT_MIN} onClick={() => updateSettings({ fontSize: s.fontSize - 2 })}>
+              <button dir="ltr" className="btn flex-1" disabled={s.fontSize <= FONT_MIN} onClick={() => updateSettings({ fontSize: s.fontSize - 2 })}>
                 A− <span className="sr-only">{t("settings.smaller")}</span>
               </button>
               <button className="btn flex-1" onClick={() => updateSettings({ fontSize: 18 })}>
                 {t("settings.reset")}
               </button>
-              <button className="btn flex-1 text-xl" disabled={s.fontSize >= FONT_MAX} onClick={() => updateSettings({ fontSize: s.fontSize + 2 })}>
+              <button dir="ltr" className="btn flex-1 text-xl" disabled={s.fontSize >= FONT_MAX} onClick={() => updateSettings({ fontSize: s.fontSize + 2 })}>
                 A+ <span className="sr-only">{t("settings.bigger")}</span>
               </button>
             </div>

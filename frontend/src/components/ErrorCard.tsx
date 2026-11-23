@@ -30,7 +30,7 @@ export default function ErrorCard({ exp, raw, onShowLine }: { exp: Explanation; 
       {raw.trim() && (
         <details className="mt-3">
           <summary className="cursor-pointer select-none rounded-lg py-2 font-bold">🧑‍💻 {t("error.full")}</summary>
-          <pre className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-xl p-3 text-sm" style={{ background: "var(--surface)", fontFamily: "var(--code-font)" }}>
+          <pre dir="ltr" className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-xl p-3 text-sm" style={{ background: "var(--surface)", fontFamily: "var(--code-font)" }}>
             {raw}
           </pre>
         </details>

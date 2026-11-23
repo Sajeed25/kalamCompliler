@@ -23,11 +23,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "python",
     exampleId: "turtle_star",
     level: 1,
-    title: { en: "Draw a golden star", te: "బంగారు నక్షత్రం గీయండి", hi: "सुनहरा तारा बनाओ" },
+    title: { en: "Draw a golden star", te: "బంగారు నక్షత్రం గీయండి", hi: "सुनहरा तारा बनाओ", ur: "سنہرا ستارہ بنائیں" },
     challenge: {
       en: 'Change "gold" to "skyblue". Can you make the star bigger?',
       te: '"gold" ను "skyblue" గా మార్చండి. నక్షత్రాన్ని పెద్దది చేయగలరా?',
       hi: '"gold" को "skyblue" में बदलो। क्या तुम तारे को बड़ा बना सकते हो?',
+      ur: "\"gold\" کو \"skyblue\" میں بدلیں۔ کیا آپ ستارہ بڑا بنا سکتے ہیں؟",
     },
   },
   {
@@ -36,11 +37,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "python",
     exampleId: "turtle_flower",
     level: 2,
-    title: { en: "Colour flower", te: "రంగుల పువ్వు", hi: "रंगीन फूल" },
+    title: { en: "Colour flower", te: "రంగుల పువ్వు", hi: "रंगीन फूल", ur: "رنگین پھول" },
     challenge: {
       en: 'Add "pink" to the colours list. How does the flower change?',
       te: 'రంగుల జాబితాలో "pink" చేర్చండి. పువ్వు ఎలా మారుతుంది?',
       hi: 'रंगों की लिस्ट में "pink" जोड़ो। फूल कैसे बदलता है?',
+      ur: "رنگوں کی فہرست میں \"pink\" شامل کریں۔ پھول کیسے بدلتا ہے؟",
     },
   },
   {
@@ -49,11 +51,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "python",
     exampleId: "guess",
     level: 2,
-    title: { en: "Make a guessing game", te: "ఊహించే ఆట చేయండి", hi: "बूझने वाला खेल बनाओ" },
+    title: { en: "Make a guessing game", te: "ఊహించే ఆట చేయండి", hi: "बूझने वाला खेल बनाओ", ur: "بوجھنے والا کھیل بنائیں" },
     challenge: {
       en: "Make it harder: pick a secret number from 1 to 100.",
       te: "కష్టతరం చేయండి: 1 నుండి 100 వరకు రహస్య సంఖ్య ఎంచుకోండి.",
       hi: "इसे मुश्किल बनाओ: 1 से 100 तक गुप्त संख्या चुनो।",
+      ur: "اسے مشکل بنائیں: 1 سے 100 تک خفیہ نمبر چنیں۔",
     },
   },
   {
@@ -62,11 +65,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "python",
     exampleId: "stars",
     level: 2,
-    title: { en: "Star patterns", te: "నక్షత్రాల నమూనాలు", hi: "तारों के पैटर्न" },
+    title: { en: "Star patterns", te: "నక్షత్రాల నమూనాలు", hi: "तारों के पैटर्न", ur: "ستاروں کے نمونے" },
     challenge: {
       en: "Make the pyramid 8 rows tall.",
       te: "పిరమిడ్‌ను 8 వరుసల ఎత్తు చేయండి.",
       hi: "पिरामिड को 8 पंक्तियों जितना ऊँचा बनाओ।",
+      ur: "اہرام کو 8 قطاروں جتنا اونچا بنائیں۔",
     },
   },
   {
@@ -75,11 +79,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "python",
     exampleId: "countdown",
     level: 2,
-    title: { en: "Rocket launch", te: "రాకెట్ ప్రయోగం", hi: "रॉकेट लॉन्च" },
+    title: { en: "Rocket launch", te: "రాకెట్ ప్రయోగం", hi: "रॉकेट लॉन्च", ur: "راکٹ لانچ" },
     challenge: {
       en: "Count down from 20, and print 🌍 after lift off.",
       te: "20 నుండి లెక్కించి, ప్రయోగం తర్వాత 🌍 ముద్రించండి.",
       hi: "20 से उलटी गिनती करो, और लॉन्च के बाद 🌍 छापो।",
+      ur: "20 سے الٹی گنتی کریں، اور لانچ کے بعد 🌍 لکھیں۔",
     },
   },
   {
@@ -88,11 +93,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "c",
     exampleId: "table",
     level: 2,
-    title: { en: "Times tables in C", te: "C లో ఎక్కాలు", hi: "C में पहाड़े" },
+    title: { en: "Times tables in C", te: "C లో ఎక్కాలు", hi: "C में पहाड़े", ur: "C میں پہاڑے" },
     challenge: {
       en: "Print the table up to × 20 instead of × 10.",
       te: "× 10 కాకుండా × 20 వరకు ఎక్కం ముద్రించండి.",
       hi: "× 10 की जगह × 20 तक पहाड़ा छापो।",
+      ur: "× 10 کی جگہ × 20 تک پہاڑا لکھیں۔",
     },
   },
   {
@@ -101,11 +107,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "c",
     exampleId: "robot_path",
     level: 3,
-    title: { en: "Drive a robot", te: "రోబోను నడపండి", hi: "रोबोट चलाओ" },
+    title: { en: "Drive a robot", te: "రోబోను నడపండి", hi: "रोबोट चलाओ", ur: "روبوٹ چلائیں" },
     challenge: {
       en: "Change the moves so the robot reaches the bottom-right corner.",
       te: "రోబో కుడి కింది మూలకు చేరేలా కదలికలను మార్చండి.",
       hi: "चालें बदलो ताकि रोबोट नीचे दाएँ कोने तक पहुँचे।",
+      ur: "چالیں بدلیں تاکہ روبوٹ نیچے دائیں کونے تک پہنچے۔",
     },
   },
   {
@@ -114,11 +121,12 @@ export const ACTIVITIES: Activity[] = [
     lang: "cpp",
     exampleId: "calculator",
     level: 2,
-    title: { en: "Build a calculator", te: "కాలిక్యులేటర్ తయారు చేయండి", hi: "कैलकुलेटर बनाओ" },
+    title: { en: "Build a calculator", te: "కాలిక్యులేటర్ తయారు చేయండి", hi: "कैलकुलेटर बनाओ", ur: "کیلکولیٹر بنائیں" },
     challenge: {
       en: "Add a new sign: ^ to multiply a number by itself.",
       te: "కొత్త గుర్తు చేర్చండి: ఒక సంఖ్యను దానితోనే గుణించడానికి ^.",
       hi: "नया चिह्न जोड़ो: किसी संख्या को खुद से गुणा करने के लिए ^।",
+      ur: "نیا نشان شامل کریں: کسی نمبر کو خود سے ضرب دینے کے لیے ^۔",
     },
   },
 ];

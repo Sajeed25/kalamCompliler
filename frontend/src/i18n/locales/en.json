@@ -361,6 +361,14 @@
       "assignment_star": {
         "name": "Assignment star",
         "how": "Pass every test in an assignment"
+      },
+      "cbse_11": {
+        "name": "CBSE Class 11",
+        "how": "Run all CBSE Class 11 Python programs"
+      },
+      "cbse_12": {
+        "name": "CBSE Class 12",
+        "how": "Run all CBSE Class 12 Python programs"
       }
     }
   },
@@ -504,5 +512,25 @@
     "all": "All levels",
     "challenge": "Your challenge",
     "done": "Got it!"
+  },
+  "cbse": {
+    "label": "CBSE",
+    "onlyCbse": "Only CBSE syllabus programs",
+    "class11": "Class 11",
+    "class12": "Class 12",
+    "chapters": {
+      "basics": "Python basics",
+      "flow": "Flow of control",
+      "strings": "Strings",
+      "lists": "Lists",
+      "tuples": "Tuples",
+      "dictionaries": "Dictionaries",
+      "modules": "Modules",
+      "functions": "Functions",
+      "exceptions": "Exception handling",
+      "files": "File handling",
+      "stack": "Stack"
+    },
+    "note": "Programs from the CBSE Computer Science (083) Python syllabus."
   }
 }

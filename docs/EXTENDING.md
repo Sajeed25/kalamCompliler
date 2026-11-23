@@ -21,6 +21,18 @@ Examples live in `frontend/src/examples/python.ts`, `c.ts` and `cpp.ts`. Add an 
 The first example in each file is the one shown when a student opens that language.
 Run `npm run dev` and open 📚 Examples to check it. Level badges update automatically.
 
+## Add a CBSE example
+
+Give an example a `cbse` tag and it appears in the Examples window's **Only CBSE syllabus programs**
+view, under its class and chapter:
+
+```ts
+cbse: { cls: 11, chapter: "strings" },   // chapters: basics, flow, strings, lists, tuples,
+                                         // dictionaries, modules, functions, exceptions, files, stack
+```
+
+Level badges count only untagged examples; the **CBSE Class 11/12** badges count the tagged ones.
+
 ## Add an activity
 
 Activities are the project cards on the home page (`frontend/src/activities.ts`). Each points at an
@@ -51,8 +63,12 @@ Example: Kannada (`kn`).
 3. In `frontend/src/lib/settings.ts`, add `"kn"` to the `uiLang` type and to `detectLang()`.
 4. Add a font if the script needs one: `npm i @fontsource/noto-sans-kannada`, import its
    `400.css`/`700.css` in `src/index.css`, and add an `html[lang="kn"] { --ui-font: ... }` rule.
-5. Add the locale to the `translations` tests in `src/explainer/explain.test.ts`. They check
-   that every key and placeholder exists. Run `npx vitest run`.
+5. Add the locale to the `translations` tests in `src/explainer/explain.test.ts` and the example/activity
+   language checks in `src/brand.test.ts`. They check that every key and placeholder exists. Run `npx vitest run`.
+6. **Right-to-left languages** (like Urdu, Arabic): add the code to `RTL_LANGUAGES` in `i18n/index.ts`
+   and to the `root.dir` line in `lib/settings.ts`. Use logical CSS classes (`ms-`/`me-`, `start`/`end`,
+   `text-start`) instead of left/right. Code areas already carry `dir="ltr"`. In translations, put an
+   invisible left-to-right mark (U+200E) after code words such as `C++` or `input()` so they don't flip.
 
 Example titles can get a `kn` field (`Localized` type in `examples/types.ts`).
 

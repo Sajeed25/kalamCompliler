@@ -57,10 +57,10 @@ export default function Home() {
                   <span className="relative text-6xl" aria-hidden="true">
                     {l.emoji}
                   </span>
-                  <span className="relative font-[family-name:var(--brand-font)] text-4xl">{l.name}</span>
+                  <span dir="ltr" className="relative font-[family-name:var(--brand-font)] text-4xl">{l.name}</span>
                   <span className="relative text-lg font-bold leading-snug">{t(`home.cards.${id}`)}</span>
                   <span className="relative mt-1 rounded-full px-5 py-1.5 font-bold" style={{ background: "#024067", color: "#ffffff" }}>
-                    {t("home.start")} →
+                    {t("home.start")} <span className="inline-block rtl:-scale-x-100">→</span>
                   </span>
                 </a>
               </li>
@@ -104,7 +104,7 @@ export default function Home() {
                       <span className="text-4xl" aria-hidden="true">
                         {a.emoji}
                       </span>
-                      <span className="rounded-full px-2.5 py-0.5 text-sm font-bold" style={{ background: l.card.bg, color: l.card.fg }}>
+                      <span dir="ltr" className="rounded-full px-2.5 py-0.5 text-sm font-bold" style={{ background: l.card.bg, color: l.card.fg }}>
                         {l.name}
                       </span>
                     </span>

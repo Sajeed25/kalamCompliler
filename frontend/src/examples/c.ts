@@ -5,8 +5,8 @@ export const C_EXAMPLES: Example[] = [
   {
     id: "hello",
     level: 1,
-    title: { en: "Hello World", te: "హలో వరల్డ్", hi: "हैलो वर्ल्ड" },
-    about: { en: "Your first C program.", te: "మీ మొదటి C ప్రోగ్రామ్.", hi: "आपका पहला C प्रोग्राम।" },
+    title: { en: "Hello World", te: "హలో వరల్డ్", hi: "हैलो वर्ल्ड", ur: "ہیلو ورلڈ" },
+    about: { en: "Your first C program.", te: "మీ మొదటి C ప్రోగ్రామ్.", hi: "आपका पहला C प्रोग्राम।", ur: "آپ کا پہلا C پروگرام۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -20,8 +20,8 @@ int main() {
     id: "name_age",
     level: 1,
     input: true,
-    title: { en: "My name and age", te: "నా పేరు, వయస్సు", hi: "मेरा नाम और उम्र" },
-    about: { en: "Read your name and age with scanf.", te: "scanf తో పేరు, వయస్సు చదవండి.", hi: "scanf से नाम और उम्र पढ़ो।" },
+    title: { en: "My name and age", te: "నా పేరు, వయస్సు", hi: "मेरा नाम और उम्र", ur: "میرا نام اور عمر" },
+    about: { en: "Read your name and age with scanf.", te: "scanf తో పేరు, వయస్సు చదవండి.", hi: "scanf से नाम और उम्र पढ़ो।", ur: "scanf سے نام اور عمر پڑھیں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -42,8 +42,8 @@ int main() {
   {
     id: "maths",
     level: 1,
-    title: { en: "Maths magic", te: "లెక్కల మ్యాజిక్", hi: "गणित का जादू" },
-    about: { en: "Add, subtract, multiply and divide.", te: "కూడిక, తీసివేత, గుణకారం, భాగహారం.", hi: "जोड़, घटाव, गुणा और भाग।" },
+    title: { en: "Maths magic", te: "లెక్కల మ్యాజిక్", hi: "गणित का जादू", ur: "حساب کا جادو" },
+    about: { en: "Add, subtract, multiply and divide.", te: "కూడిక, తీసివేత, గుణకారం, భాగహారం.", hi: "जोड़, घटाव, गुणा और भाग।", ur: "جمع، تفریق، ضرب اور تقسیم۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -62,8 +62,8 @@ int main() {
     id: "sum_two",
     level: 1,
     input: true,
-    title: { en: "Add two numbers", te: "రెండు సంఖ్యలు కూడండి", hi: "दो संख्याएँ जोड़ो" },
-    about: { en: "Type two numbers, get their sum.", te: "రెండు సంఖ్యలు టైప్ చేసి మొత్తం పొందండి.", hi: "दो संख्याएँ लिखो, योग पाओ।" },
+    title: { en: "Add two numbers", te: "రెండు సంఖ్యలు కూడండి", hi: "दो संख्याएँ जोड़ो", ur: "دو نمبر جمع کریں" },
+    about: { en: "Type two numbers, get their sum.", te: "రెండు సంఖ్యలు టైప్ చేసి మొత్తం పొందండి.", hi: "दो संख्याएँ लिखो, योग पाओ।", ur: "دو نمبر لکھیں، ان کا مجموعہ پائیں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -80,8 +80,8 @@ int main() {
   {
     id: "repeat_hello",
     level: 1,
-    title: { en: "Say it 5 times", te: "5 సార్లు చెప్పు", hi: "5 बार बोलो" },
-    about: { en: "A for loop repeats things.", te: "for లూప్ పనిని మళ్ళీ చేస్తుంది.", hi: "for लूप काम दोहराता है।" },
+    title: { en: "Say it 5 times", te: "5 సార్లు చెప్పు", hi: "5 बार बोलो", ur: "5 بار کہیں" },
+    about: { en: "A for loop repeats things.", te: "for లూప్ పనిని మళ్ళీ చేస్తుంది.", hi: "for लूप काम दोहराता है।", ur: "for لوپ کام دہراتا ہے۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -97,8 +97,8 @@ int main() {
     id: "even_odd",
     level: 2,
     input: true,
-    title: { en: "Even or odd?", te: "సరి సంఖ్యా? బేసి సంఖ్యా?", hi: "सम या विषम?" },
-    about: { en: "Use if/else and %.", te: "if/else మరియు % వాడండి.", hi: "if/else और % का उपयोग।" },
+    title: { en: "Even or odd?", te: "సరి సంఖ్యా? బేసి సంఖ్యా?", hi: "सम या विषम?", ur: "جفت یا طاق؟" },
+    about: { en: "Use if/else and %.", te: "if/else మరియు % వాడండి.", hi: "if/else और % का उपयोग।", ur: "if/else اور % استعمال کریں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -119,8 +119,8 @@ int main() {
     id: "calculator",
     level: 2,
     input: true,
-    title: { en: "Simple calculator", te: "సాధారణ కాలిక్యులేటర్", hi: "सरल कैलकुलेटर" },
-    about: { en: "A calculator using switch.", te: "switch తో కాలిక్యులేటర్.", hi: "switch वाला कैलकुलेटर।" },
+    title: { en: "Simple calculator", te: "సాధారణ కాలిక్యులేటర్", hi: "सरल कैलकुलेटर", ur: "سادہ کیلکولیٹر" },
+    about: { en: "A calculator using switch.", te: "switch తో కాలిక్యులేటర్.", hi: "switch वाला कैलकुलेटर।", ur: "switch والا کیلکولیٹر۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -152,8 +152,8 @@ int main() {
     id: "table",
     level: 2,
     input: true,
-    title: { en: "Multiplication table", te: "ఎక్కాల పట్టిక", hi: "पहाड़ा (गुणा तालिका)" },
-    about: { en: "Print the table of any number.", te: "ఏ సంఖ్య ఎక్కమైనా ముద్రించండి.", hi: "किसी भी संख्या का पहाड़ा छापो।" },
+    title: { en: "Multiplication table", te: "ఎక్కాల పట్టిక", hi: "पहाड़ा (गुणा तालिका)", ur: "پہاڑا" },
+    about: { en: "Print the table of any number.", te: "ఏ సంఖ్య ఎక్కమైనా ముద్రించండి.", hi: "किसी भी संख्या का पहाड़ा छापो।", ur: "کسی بھی نمبر کا پہاڑا لکھیں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -171,8 +171,8 @@ int main() {
     id: "temperature",
     level: 2,
     input: true,
-    title: { en: "Temperature converter", te: "ఉష్ణోగ్రత మార్పిడి", hi: "तापमान बदलने वाला" },
-    about: { en: "Celsius to Fahrenheit with float.", te: "float తో సెల్సియస్ నుండి ఫారెన్‌హీట్.", hi: "float से सेल्सियस को फ़ारेनहाइट।" },
+    title: { en: "Temperature converter", te: "ఉష్ణోగ్రత మార్పిడి", hi: "तापमान बदलने वाला", ur: "درجۂ حرارت بدلنے والا" },
+    about: { en: "Celsius to Fahrenheit with float.", te: "float తో సెల్సియస్ నుండి ఫారెన్‌హీట్.", hi: "float से सेल्सियस को फ़ारेनहाइट।", ur: "float سے سیلسیس کو فارن ہائیٹ میں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -188,8 +188,8 @@ int main() {
   {
     id: "stars",
     level: 2,
-    title: { en: "Star patterns", te: "నక్షత్రాల నమూనాలు", hi: "तारों के पैटर्न" },
-    about: { en: "Nested loops make shapes.", te: "లూప్ లోపల లూప్‌తో ఆకారాలు.", hi: "लूप के अंदर लूप से आकार।" },
+    title: { en: "Star patterns", te: "నక్షత్రాల నమూనాలు", hi: "तारों के पैटर्न", ur: "ستاروں کے نمونے" },
+    about: { en: "Nested loops make shapes.", te: "లూప్ లోపల లూప్‌తో ఆకారాలు.", hi: "लूप के अंदर लूप से आकार।", ur: "لوپ کے اندر لوپ سے شکلیں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -207,8 +207,8 @@ int main() {
     id: "guess",
     level: 2,
     input: true,
-    title: { en: "Guess the number game", te: "సంఖ్య ఊహించే ఆట", hi: "संख्या बूझो खेल" },
-    about: { en: "Random numbers and a while loop.", te: "యాదృచ్ఛిక సంఖ్యలు, while లూప్.", hi: "रैंडम संख्या और while लूप।" },
+    title: { en: "Guess the number game", te: "సంఖ్య ఊహించే ఆట", hi: "संख्या बूझो खेल", ur: "نمبر بوجھو کھیل" },
+    about: { en: "Random numbers and a while loop.", te: "యాదృచ్ఛిక సంఖ్యలు, while లూప్.", hi: "रैंडम संख्या और while लूप।", ur: "بے ترتیب نمبر اور while لوپ۔" },
     code: `#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -235,8 +235,8 @@ int main() {
     id: "largest",
     level: 2,
     input: true,
-    title: { en: "Largest of three", te: "మూడింటిలో పెద్దది", hi: "तीन में सबसे बड़ा" },
-    about: { en: "Compare numbers with && and if.", te: "&& మరియు if తో పోల్చండి.", hi: "&& और if से तुलना करो।" },
+    title: { en: "Largest of three", te: "మూడింటిలో పెద్దది", hi: "तीन में सबसे बड़ा", ur: "تین میں سب سے بڑا" },
+    about: { en: "Compare numbers with && and if.", te: "&& మరియు if తో పోల్చండి.", hi: "&& और if से तुलना करो।", ur: "&& اور if سے نمبروں کا مقابلہ۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -257,8 +257,8 @@ int main() {
     id: "factorial",
     level: 3,
     input: true,
-    title: { en: "Factorial with a function", te: "ఫంక్షన్‌తో ఫాక్టోరియల్", hi: "फ़ंक्शन से फ़ैक्टोरियल" },
-    about: { en: "Write your own function.", te: "మీ సొంత ఫంక్షన్ రాయండి.", hi: "अपना फ़ंक्शन लिखो।" },
+    title: { en: "Factorial with a function", te: "ఫంక్షన్‌తో ఫాక్టోరియల్", hi: "फ़ंक्शन से फ़ैक्टोरियल", ur: "فنکشن سے فیکٹوریل" },
+    about: { en: "Write your own function.", te: "మీ సొంత ఫంక్షన్ రాయండి.", hi: "अपना फ़ंक्शन लिखो।", ur: "اپنا فنکشن لکھیں۔" },
     code: `#include <stdio.h>
 
 long long factorial(int n) {
@@ -284,8 +284,8 @@ int main() {
     id: "prime",
     level: 3,
     input: true,
-    title: { en: "Prime number checker", te: "ప్రధాన సంఖ్య పరీక్ష", hi: "अभाज्य संख्या जाँच" },
-    about: { en: "Loops and a true/false function.", te: "లూప్‌లు, నిజం/అబద్ధం ఫంక్షన్.", hi: "लूप और सही/गलत फ़ंक्शन।" },
+    title: { en: "Prime number checker", te: "ప్రధాన సంఖ్య పరీక్ష", hi: "अभाज्य संख्या जाँच", ur: "مفرد عدد کی جانچ" },
+    about: { en: "Loops and a true/false function.", te: "లూప్‌లు, నిజం/అబద్ధం ఫంక్షన్.", hi: "लूप और सही/गलत फ़ंक्शन।", ur: "لوپ اور صحیح/غلط فنکشن۔" },
     code: `#include <stdio.h>
 
 int is_prime(int n) {
@@ -313,8 +313,8 @@ int main() {
   {
     id: "fibonacci",
     level: 3,
-    title: { en: "Fibonacci numbers", te: "ఫిబొనాచ్చి సంఖ్యలు", hi: "फ़िबोनाची संख्याएँ" },
-    about: { en: "Each number is the sum of the two before it.", te: "ప్రతి సంఖ్య ముందు రెండింటి మొత్తం.", hi: "हर संख्या पिछली दो का योग है।" },
+    title: { en: "Fibonacci numbers", te: "ఫిబొనాచ్చి సంఖ్యలు", hi: "फ़िबोनाची संख्याएँ", ur: "فبوناچی نمبر" },
+    about: { en: "Each number is the sum of the two before it.", te: "ప్రతి సంఖ్య ముందు రెండింటి మొత్తం.", hi: "हर संख्या पिछली दो का योग है।", ur: "ہر نمبر پچھلے دو کا مجموعہ ہے۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -333,8 +333,8 @@ int main() {
   {
     id: "array_stats",
     level: 3,
-    title: { en: "Array: average and max", te: "అర్రే: సగటు, గరిష్ఠం", hi: "ऐरे: औसत और अधिकतम" },
-    about: { en: "Store many numbers in an array.", te: "అర్రేలో చాలా సంఖ్యలు ఉంచండి.", hi: "ऐरे में कई संख्याएँ रखो।" },
+    title: { en: "Array: average and max", te: "అర్రే: సగటు, గరిష్ఠం", hi: "ऐरे: औसत और अधिकतम", ur: "ارے: اوسط اور سب سے بڑا" },
+    about: { en: "Store many numbers in an array.", te: "అర్రేలో చాలా సంఖ్యలు ఉంచండి.", hi: "ऐरे में कई संख्याएँ रखो।", ur: "ارے میں بہت سے نمبر رکھیں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -357,8 +357,8 @@ int main() {
     id: "reverse",
     level: 3,
     input: true,
-    title: { en: "Reverse a number", te: "సంఖ్యను తిప్పండి", hi: "संख्या उलटो" },
-    about: { en: "Use % and / to take digits apart.", te: "% మరియు / తో అంకెలను వేరు చేయండి.", hi: "% और / से अंक अलग करो।" },
+    title: { en: "Reverse a number", te: "సంఖ్యను తిప్పండి", hi: "संख्या उलटो", ur: "نمبر الٹیں" },
+    about: { en: "Use % and / to take digits apart.", te: "% మరియు / తో అంకెలను వేరు చేయండి.", hi: "% और / से अंक अलग करो।", ur: "% اور / سے ہندسے الگ کریں۔" },
     code: `#include <stdio.h>
 
 int main() {
@@ -379,8 +379,8 @@ int main() {
   {
     id: "robot_path",
     level: 3,
-    title: { en: "Robot on a grid", te: "గ్రిడ్‌పై రోబో", hi: "ग्रिड पर रोबोट" },
-    about: { en: "Move a robot with commands (a 2D array).", te: "ఆదేశాలతో రోబోను కదపండి (2D అర్రే).", hi: "आदेशों से रोबोट चलाओ (2D ऐरे)।" },
+    title: { en: "Robot on a grid", te: "గ్రిడ్‌పై రోబో", hi: "ग्रिड पर रोबोट", ur: "جال پر روبوٹ" },
+    about: { en: "Move a robot with commands (a 2D array).", te: "ఆదేశాలతో రోబోను కదపండి (2D అర్రే).", hi: "आदेशों से रोबोट चलाओ (2D ऐरे)।", ur: "حکموں سے روبوٹ چلائیں (2D ارے)۔" },
     code: `#include <stdio.h>
 
 int main() {

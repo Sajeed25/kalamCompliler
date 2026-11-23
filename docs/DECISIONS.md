@@ -33,6 +33,8 @@ need someone at Robokalam to confirm.**
 | Mascot | "Kalam", an original friendly robot drawn in SVG in Robokalam colours (no copyrighted characters) | ❓ Replace with Robokalam's own artwork when available |
 | Look & feel | Robokalam brand: logo in the header, navy `#024067`, sky blue `#01BCE1`, light green `#98BD3A`, orange `#F9A912`; headings in **Marcellus** (OFL), the closest open font to the ROBOKALAM wordmark; body text stays in Atkinson Hyperlegible for young readers. Run = green, Stop = orange, C = sky, C++ = orange, Python = green. All text/background pairs pass WCAG AA (tested). | |
 | No AI | No AI features anywhere in the product: everything is written, rule-based code (the error explainer is a hand-written rule list). | |
+| Urdu | Right-to-left interface in **Noto Nastaliq Urdu** (traditional Urdu style used in Urdu-medium schools). Code, output and file names stay left-to-right. | ❓ Review by an Urdu-medium teacher, like Telugu/Hindi |
+| CBSE | Python programs mapped to CBSE Computer Science (083) Class 11 (Computational Thinking and Programming-1) and Class 12 (…-2) chapters, written like practical-file programs. C/C++ examples are not tagged: CBSE moved Computer Science to Python. | ❓ A CS teacher should confirm the chapter mapping against the current year's official syllabus PDF (cbseacademic.nic.in), which couldn't be opened from the build machine |
 
 ## Needs confirmation ❓
 

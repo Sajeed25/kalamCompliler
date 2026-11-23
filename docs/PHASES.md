@@ -106,6 +106,16 @@ assignment flow and share/copy. Hello World runs in all 3 languages on desktop a
 * Fixed: Telugu/Hindi headings, code ligatures (`<=` showed as `≤`).
 * Tests: activities point at real examples in 3 languages; every brand colour pair passes WCAG AA.
 
+## Urdu and CBSE update
+
+* **Urdu (اردو)** interface at the same level as Telugu and Hindi: every label, all error
+  explanations, example and activity titles, badges. Right-to-left layout with the Noto Nastaliq
+  Urdu font; the code editor, output and code snippets stay left-to-right.
+* **21 CBSE Computer Science (083) Python programs** (Class 11: Python basics, flow of control,
+  strings, lists, tuples, dictionaries, modules; Class 12: functions, exception handling, text/CSV/binary
+  files, stack, dice simulator), plus CBSE tags on 4 existing examples. A filter shows them by class and
+  chapter; new CBSE Class 11 / 12 badges.
+
 ## Verified in this session
 
 | Check | Result |

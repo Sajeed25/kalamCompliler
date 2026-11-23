@@ -16,6 +16,7 @@ Every dependency allows commercial use. Regenerate with `backend/.venv/bin/pytho
 | @fontsource/atkinson-hyperlegible | 5.3.0 | OFL-1.1 |
 | @fontsource/jetbrains-mono | 5.3.0 | OFL-1.1 |
 | @fontsource/marcellus | 5.3.0 | OFL-1.1 |
+| @fontsource/noto-nastaliq-urdu | 5.3.0 | OFL-1.1 |
 | @fontsource/noto-sans-devanagari | 5.3.0 | OFL-1.1 |
 | @fontsource/noto-sans-telugu | 5.3.0 | OFL-1.1 |
 | @fontsource/opendyslexic | 5.3.0 | OFL-1.1 |

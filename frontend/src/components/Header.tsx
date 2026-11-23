@@ -11,7 +11,7 @@ export default function Header({ children }: { children?: ReactNode }) {
   const server = useServerConfig(); // no backend (e.g. web hosting) = no accounts
   return (
     <header className="relative flex flex-wrap items-center gap-2 px-3 py-2 sm:px-4" style={{ background: "var(--surface)" }}>
-      <a href="#/" className="mr-1 flex min-w-0 items-center gap-2 rounded-xl px-1 no-underline sm:gap-3" aria-label="Kalam Compiler by Robokalam — home">
+      <a href="#/" className="me-1 flex min-w-0 items-center gap-2 rounded-xl px-1 no-underline sm:gap-3" aria-label="Kalam Compiler by Robokalam — home">
         <span className="flex items-center rounded-lg dark:bg-white dark:px-1.5 dark:py-1">
           <img src={`${import.meta.env.BASE_URL}brand/robokalam-logo.webp`} alt="Robokalam" className="hidden h-9 w-auto sm:block" width={153} height={36} />
           <img src={`${import.meta.env.BASE_URL}brand/robokalam-globe.png`} alt="Robokalam" className="h-9 w-9 sm:hidden" width={36} height={36} />

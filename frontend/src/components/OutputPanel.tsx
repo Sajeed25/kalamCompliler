@@ -75,7 +75,8 @@ export default function OutputPanel({ segments, status, waitingForInput, inputAl
         {empty && <p className="muted text-[16px]">{t("output.empty")}</p>}
         {segments.length > 0 && (
           <pre
-            className="whitespace-pre-wrap break-words leading-relaxed"
+            dir="ltr"
+            className="whitespace-pre-wrap break-words text-left leading-relaxed"
             style={{ fontFamily: "var(--code-font)", fontSize: "calc(var(--code-font-size) * 0.95)" }}
             data-testid="output-text"
             aria-live="polite"
@@ -107,6 +108,7 @@ export default function OutputPanel({ segments, status, waitingForInput, inputAl
             <input
               ref={inputRef}
               id="program-input"
+              dir="auto"
               data-testid="program-input"
               className="field min-w-0 flex-1"
               style={{ fontFamily: "var(--code-font)", fontSize: "var(--code-font-size)", borderColor: "var(--screen-input)", borderWidth: 3 }}
