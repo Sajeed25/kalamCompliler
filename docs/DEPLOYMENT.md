@@ -101,28 +101,6 @@ differences.
 4. **Managed PostgreSQL** with daily backups.
 5. Kubernetes is optional. The same containers work; give Piston a privileged node pool.
 
-## Optional: "Explain my code"
-
-Off by default. To enable with Claude, set in `.env`:
-
-```
-KALAM_AI_PROVIDER=anthropic
-KALAM_AI_API_KEY=sk-ant-...
-KALAM_AI_MODEL=claude-opus-5-5
-```
-
-Or keep everything on your own hardware with a local model server that has an
-OpenAI-style API, such as [Ollama](https://ollama.com):
-
-```
-KALAM_AI_PROVIDER=openai_compatible
-KALAM_AI_BASE_URL=http://ollama:11434
-KALAM_AI_MODEL=qwen2.5-coder:7b
-```
-
-Only the program text goes to the provider (never names or accounts). Each user is limited
-to `ai_requests_per_hour_per_user` (20) requests. The button appears only when this is enabled.
-
 ## Environment variables
 
 See [`.env.example`](../.env.example). Every variable starts with `KALAM_` and maps to `backend/app/config.py`.

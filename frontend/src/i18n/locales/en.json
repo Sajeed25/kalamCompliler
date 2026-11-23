@@ -59,8 +59,7 @@
     "open": "Open",
     "reset": "Reset example",
     "resetStarter": "Start again",
-    "share": "Share",
-    "explain": "Explain my code"
+    "share": "Share"
   },
   "layout": {
     "code": "Code",
@@ -274,12 +273,6 @@
     "makeCopy": "Make a copy",
     "replaceTitle": "Replace your code?",
     "replaceText": "Making a copy will replace the code you have in this language. Continue?"
-  },
-  "explain": {
-    "title": "Kalam explains your code",
-    "thinking": "Let me read your code… 🤔",
-    "failed": "Sorry, I couldn't explain it right now. Try again later.",
-    "disclaimer": "This explanation is written by a computer helper and can sometimes be wrong. Ask your teacher if you're not sure."
   },
   "badges": {
     "title": "My stars and badges",
@@ -503,5 +496,13 @@
     "reload": "Reload the page",
     "home": "Go to the home page",
     "details": "Details (for experts)"
+  },
+  "activities": {
+    "title": "Activities",
+    "subtitle": "Pick a project, run it, then try the challenge!",
+    "filter": "Show activities for",
+    "all": "All levels",
+    "challenge": "Your challenge",
+    "done": "Got it!"
   }
 }

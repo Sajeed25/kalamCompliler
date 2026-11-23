@@ -1,11 +1,24 @@
 {
-  "name": "Kalam Compiler",
+  "name": "Kalam Compiler \u00b7 Robokalam",
   "short_name": "Kalam",
-  "description": "Write and run Python, C and C++ — made for students by Robokalam.",
+  "description": "Write and run Python, C and C++ \u2014 made for students by Robokalam.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f7fb",
-  "theme_color": "#1d5fd1",
-  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+  "background_color": "#f3f8fb",
+  "theme_color": "#024067",
+  "icons": [
+    {
+      "src": "brand/robokalam-globe.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "brand/robokalam-globe-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }

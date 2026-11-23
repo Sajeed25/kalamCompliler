@@ -9,7 +9,6 @@ import ExamplesDialog from "./ExamplesDialog";
 import Modal from "./Modal";
 import Mascot from "./Mascot";
 import ShareButton from "./ShareButton";
-import ExplainCodeButton from "./ExplainCodeButton";
 import { LANGUAGES, langFromFileName, type LangId } from "../languages";
 import { getRunner, type RunResult } from "../runners";
 import { explainError, explainWarnings, type Explanation } from "../explainer/explain";
@@ -19,7 +18,8 @@ import { downloadText, cleanFileName, MAX_OPEN_BYTES } from "../lib/files";
 import { CLIENT_LIMITS } from "../config";
 import { recordRun, BADGES, type BadgeId } from "../lib/progress";
 import { useSettings } from "../lib/settings";
-import { navigate } from "../lib/router";
+import { navigate, routeQuery } from "../lib/router";
+import { findActivity, type Activity } from "../activities";
 import { useServerConfig } from "../lib/serverConfig";
 
 interface Workspace {
@@ -83,6 +83,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
   const [newBadges, setNewBadges] = useState<BadgeId[]>([]);
   const [mobileTab, setMobileTab] = useState<"code" | "output">("code");
   const [download, setDownload] = useState<{ loaded: number; total: number } | null>(null);
+  const [activity, setActivity] = useState<Activity | null>(null);
 
   const turtleRef = useRef<TurtleCanvasHandle>(null);
   const outChars = useRef(0);
@@ -108,6 +109,26 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
     setErrorLine(null);
     setShowTurtle(false);
     runner.preload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initial]);
+
+  // Opened from an activity card (#/code/python?activity=turtle-star): load its example
+  // (asking first if the student has their own code) and show the challenge.
+  useEffect(() => {
+    const a = findActivity(routeQuery().get("activity"));
+    if (!a || a.lang !== lang || storageKey) return;
+    history.replaceState(null, "", `#/code/${lang}`);
+    setActivity(a);
+    const ex = getExample(lang, a.exampleId);
+    if (initial.exampleId === ex.id) return;
+    const ownCode = initial.exampleId === null || EXAMPLES[lang].find((e) => e.id === initial.exampleId)?.code.trim() !== initial.code.trim();
+    if (ownCode && initial.code.trim()) {
+      setPendingExample(ex);
+      setDialog("replace");
+    } else {
+      setCode(ex.code);
+      setExampleId(ex.id);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial]);
 
@@ -355,7 +376,6 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
         </button>
       )}
       {serverCfg?.share_enabled && <ShareButton lang={lang} code={code} />}
-      {serverCfg?.ai_enabled && <ExplainCodeButton lang={lang} code={code} />}
     </div>
   );
 
@@ -412,6 +432,22 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
 
         <div className={`${mobileTab === "output" ? "flex" : "hidden"} min-h-[45vh] flex-col gap-3 lg:flex lg:min-h-0`}>
           {sidePanel?.({ code })}
+          {activity && (
+            <section className="card flex shrink-0 items-start gap-3 p-3" style={{ borderLeft: "6px solid var(--brand-orange)", background: "var(--tip-bg)" }} aria-label={t("activities.challenge")} data-testid="activity-challenge">
+              <span className="text-3xl" aria-hidden="true">
+                {activity.emoji}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="font-bold">
+                  🎯 {t("activities.challenge")}: {localized(activity.title, i18n.language)}
+                </div>
+                <p className="leading-snug">{localized(activity.challenge, i18n.language)}</p>
+              </div>
+              <button className="btn" onClick={() => setActivity(null)}>
+                ✓ {t("activities.done")}
+              </button>
+            </section>
+          )}
           <div className="min-h-0 flex-1">
             <OutputPanel
               segments={segments}
@@ -429,7 +465,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
                     📦 {t("output.downloadingCompiler", { percent: Math.min(100, Math.round((download.loaded / Math.max(1, download.total)) * 100)), mb: Math.round(download.total / 1e6) })}
                   </div>
                   <div className="h-3 overflow-hidden rounded-full" style={{ background: "var(--surface-2)" }}>
-                    <div className="h-full rounded-full bg-sky-500 transition-all" style={{ width: `${Math.min(100, (download.loaded / Math.max(1, download.total)) * 100)}%` }} />
+                    <div className="h-full rounded-full transition-all"  style={{ background: "var(--brand-sky)", width: `${Math.min(100, (download.loaded / Math.max(1, download.total)) * 100)}%` }} />
                   </div>
                 </div>
               )}

@@ -7,105 +7,131 @@
 @import "@fontsource/noto-sans-telugu/700.css";
 @import "@fontsource/noto-sans-devanagari/400.css";
 @import "@fontsource/noto-sans-devanagari/700.css";
+@import "@fontsource/marcellus/400.css";
 @import "@fontsource/opendyslexic/400.css";
 @import "@fontsource/opendyslexic/700.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ---------- design tokens (light is default) ---------- */
+/* ---------- design tokens: Robokalam brand (light is default) ----------
+ * From the Robokalam logo: navy #024067, light green #98BD3A, sky blue #01BCE1, orange #F9A912.
+ * Text/background pairs keep WCAG AA contrast (e.g. navy text on green/orange buttons).
+ */
 :root {
+  --brand-navy: #024067;
+  --brand-green: #98bd3a;
+  --brand-sky: #01bce1;
+  --brand-orange: #f9a912;
+
+  --brand-font: "Marcellus", "Atkinson Hyperlegible", Georgia, serif;
   --ui-font: "Atkinson Hyperlegible", "Noto Sans Telugu", "Noto Sans Devanagari", system-ui, sans-serif;
   --code-font: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --code-font-size: 18px;
 
-  --bg: #f4f7fb;
+  --bg: #f3f8fb;
   --surface: #ffffff;
-  --surface-2: #eef3fa;
-  --text: #1b2433;
-  --muted: #4f5d73;
-  --border: #d5deea;
-  --primary: #1d5fd1;
+  --surface-2: #e8f3f9;
+  --text: #0d2b40;
+  --muted: #47606f;
+  --border: #cfe0ea;
+  --primary: var(--brand-navy);
   --primary-text: #ffffff;
-  --run: #148a3c;
-  --stop: #c62828;
+  --run: var(--brand-green);
+  --run-text: #023152;
+  --stop: var(--brand-orange);
+  --stop-text: #023152;
+  --link: #0077a8;
   --danger: #c62828;
   --warn: #9a5b00;
-  --focus: #f5a400;
-  --success-bg: #e3f6e8;
-  --error-bg: #fff1ef;
-  --tip-bg: #fff8e1;
+  --focus: var(--brand-orange);
+  --success-bg: #eef6dc;
+  --error-bg: #fff2ef;
+  --tip-bg: #fff6df;
+  --info-bg: #e3f7fc;
 
-  --screen-bg: #fffdf6;
-  --screen-fg: #1b2433;
-  --screen-input: #1d5fd1;
+  --screen-bg: #fbfdfe;
+  --screen-fg: #0d2b40;
+  --screen-input: #0077a8;
   --screen-err: #b3261e;
 
   --editor-bg: #ffffff;
-  --editor-fg: #1b2433;
-  --editor-caret: #1d5fd1;
-  --editor-gutter-bg: #f1f5fb;
-  --editor-gutter-fg: #6b7a90;
-  --editor-active-line: #eef4ff;
-  --editor-selection: #c9dcff;
-  --editor-bracket: #ffe9a8;
+  --editor-fg: #0d2b40;
+  --editor-caret: var(--brand-navy);
+  --editor-gutter-bg: #eef5f9;
+  --editor-gutter-fg: #5a7282;
+  --editor-active-line: #eef8fc;
+  --editor-selection: #c6ecf7;
+  --editor-bracket: #fde7b4;
   --editor-error-line: #ffe1dc;
 
-  --syn-keyword: #a626a4;
-  --syn-string: #2f7d16;
-  --syn-number: #b55a00;
-  --syn-comment: #6b7a90;
-  --syn-function: #1d5fd1;
-  --syn-type: #0b7f86;
-  --syn-meta: #a14000;
-  --syn-punct: #3d4a5c;
+  --syn-keyword: #024067;
+  --syn-string: #4e7a12;
+  --syn-number: #985a00;
+  --syn-comment: #5a7282;
+  --syn-function: #00799c;
+  --syn-type: #7a4fc0;
+  --syn-meta: #a34f00;
+  --syn-punct: #3b5263;
 }
 
 .dark {
-  --bg: #0f1724;
-  --surface: #172234;
-  --surface-2: #1e2b40;
-  --text: #edf2fa;
-  --muted: #a9b6ca;
-  --border: #2d3c55;
-  --primary: #5b9bff;
-  --primary-text: #0b1220;
-  --run: #3fcf6e;
-  --stop: #ff7a70;
-  --danger: #ff7a70;
+  --bg: #061c2b;
+  --surface: #0b2a3f;
+  --surface-2: #10364f;
+  --text: #eaf4fa;
+  --muted: #a3bccb;
+  --border: #1d4a66;
+  --primary: #4fd3f0;
+  --primary-text: #052233;
+  --run: #a9cf4b;
+  --run-text: #10260a;
+  --stop: #ffbb36;
+  --stop-text: #2b1a00;
+  --link: #6ad8f2;
+  --danger: #ff8a80;
   --warn: #ffc56b;
-  --focus: #ffd257;
-  --success-bg: #12301f;
-  --error-bg: #3a1a1a;
-  --tip-bg: #33290f;
+  --focus: #ffbb36;
+  --success-bg: #1c3313;
+  --error-bg: #3b1a1a;
+  --tip-bg: #33280c;
+  --info-bg: #0b3447;
 
-  --screen-bg: #101a2a;
-  --screen-fg: #e8eef8;
-  --screen-input: #8cc0ff;
+  --screen-bg: #071f30;
+  --screen-fg: #e7f2f8;
+  --screen-input: #6ad8f2;
   --screen-err: #ff958c;
 
-  --editor-bg: #131d2d;
-  --editor-fg: #e8eef8;
-  --editor-caret: #8cc0ff;
-  --editor-gutter-bg: #172234;
-  --editor-gutter-fg: #7d8ba3;
-  --editor-active-line: #1b2a41;
-  --editor-selection: #2f4b78;
-  --editor-bracket: #4a4220;
+  --editor-bg: #072336;
+  --editor-fg: #e7f2f8;
+  --editor-caret: #6ad8f2;
+  --editor-gutter-bg: #0b2a3f;
+  --editor-gutter-fg: #7f9cad;
+  --editor-active-line: #0c3048;
+  --editor-selection: #17506f;
+  --editor-bracket: #4a3b10;
   --editor-error-line: #4a1f1f;
 
-  --syn-keyword: #e39aff;
-  --syn-string: #9be27a;
-  --syn-number: #ffb870;
-  --syn-comment: #8796ad;
-  --syn-function: #8cc0ff;
-  --syn-type: #6fe0e6;
+  --syn-keyword: #6ad8f2;
+  --syn-string: #b6dc66;
+  --syn-number: #ffc053;
+  --syn-comment: #86a3b4;
+  --syn-function: #9be7f7;
+  --syn-type: #d4b2ff;
   --syn-meta: #ffaa7a;
-  --syn-punct: #c3cede;
+  --syn-punct: #c3d4de;
 }
 
 .dyslexic {
   --ui-font: "OpenDyslexic", "Noto Sans Telugu", "Noto Sans Devanagari", system-ui, sans-serif;
   --code-font: "OpenDyslexic", ui-monospace, monospace;
+}
+
+/* The brand font has only Latin letters: Telugu/Hindi titles use Noto so letters join correctly. */
+html[lang="te"] .brand-title,
+html[lang="hi"] .brand-title {
+  font-family: var(--ui-font);
+  letter-spacing: normal;
+  font-weight: 700;
 }
 
 html[lang="te"] {
@@ -136,6 +162,14 @@ body {
   outline-offset: 2px;
 }
 
+/* Show exactly what was typed: no "<=" -> "≤" style ligatures in code. */
+.cm-editor,
+pre,
+code {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+
 .cm-editor.cm-focused {
   outline: none;
 }
@@ -154,10 +188,7 @@ body {
   .btn-run {
     background: var(--run);
     border-color: var(--run);
-    color: #fff;
-  }
-  .dark .btn-run {
-    color: #08210f;
+    color: var(--run-text);
   }
   .btn-run:hover:not(:disabled) {
     background: var(--run);
@@ -166,10 +197,7 @@ body {
   .btn-stop {
     background: var(--stop);
     border-color: var(--stop);
-    color: #fff;
-  }
-  .dark .btn-stop {
-    color: #2a0705;
+    color: var(--stop-text);
   }
   .btn-stop:hover:not(:disabled) {
     background: var(--stop);
@@ -197,6 +225,20 @@ body {
   }
   .muted {
     color: var(--muted);
+  }
+  /* Robokalam wordmark style for titles */
+  .brand-title {
+    font-family: var(--brand-font);
+    letter-spacing: 0.01em;
+    color: var(--primary);
+  }
+  .dark .brand-title {
+    color: var(--text);
+  }
+  /* The four-colour stripe from the logo */
+  .brand-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-navy) 0 25%, var(--brand-sky) 25% 50%, var(--brand-green) 50% 75%, var(--brand-orange) 75% 100%);
   }
 }
 

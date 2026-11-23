@@ -21,7 +21,7 @@ export default function LoginScreen() {
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">
         <div className="mb-6 flex items-center justify-center gap-3">
           <KalamFace size={64} />
-          <h1 className="text-3xl font-bold">{t("login.title")}</h1>
+          <h1 className="brand-title text-3xl">{t("login.title")}</h1>
         </div>
         <div className="mb-6 flex gap-2" role="tablist">
           <button role="tab" aria-selected={who === "student"} className={`btn flex-1 text-lg ${who === "student" ? "btn-primary" : ""}`} onClick={() => setWho("student")}>

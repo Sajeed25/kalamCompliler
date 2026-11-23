@@ -37,11 +37,6 @@ class Settings(BaseSettings):
     token_hours_student: int = 12
     token_hours_teacher: int = 24 * 7
 
-    # Optional AI "Explain my code" (off by default)
-    ai_provider: Literal["none", "anthropic", "openai_compatible"] = "none"
-    ai_model: str = "claude-haiku-5-5"
-    ai_api_key: str = ""
-    ai_base_url: str = ""  # for openai_compatible (e.g. a local Ollama server)
 
     share_enabled: bool = True
     trust_proxy_headers: bool = True  # use X-Forwarded-For from nginx for per-IP limits
@@ -69,7 +64,6 @@ class RateLimits(BaseModel):
     runs_per_minute_per_ip: int = 240
     shares_per_hour_per_ip: int = 60
     login_attempts_per_10_min: int = 8
-    ai_requests_per_hour_per_user: int = 20
 
 
 class QueueLimits(BaseModel):

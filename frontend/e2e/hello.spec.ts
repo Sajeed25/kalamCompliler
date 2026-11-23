@@ -70,3 +70,20 @@ test("UI switches to Telugu", async ({ page }) => {
   await page.locator("#ui-lang").selectOption("te");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("ఈరోజు ఏం కోడ్ చేద్దాం?");
 });
+
+test("an activity opens its example with the challenge, and runs @tablet", async ({ page }) => {
+  await page.goto("/");
+  await page.getByTestId("activity-turtle-star").click();
+  await expect(page.getByTestId("activity-challenge")).toContainText('Change "gold" to "skyblue"');
+  await expect(page.locator(".cm-content")).toContainText("begin_fill");
+  await run(page);
+  await expectStatus(page, /Finished/);
+});
+
+test("no AI features are shown anywhere", async ({ page }) => {
+  for (const route of ["/", "/#/code/python", "/#/code/c", "/#/badges"]) {
+    await page.goto(route);
+    await page.waitForTimeout(500);
+    await expect(page.getByText(/explain my code|\bAI\b/i)).toHaveCount(0);
+  }
+});

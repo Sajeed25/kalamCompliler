@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { api } from "./api";
 
 export interface ServerConfig {
-  ai_enabled: boolean;
   share_enabled: boolean;
   accounts_enabled: boolean;
   executor: string;

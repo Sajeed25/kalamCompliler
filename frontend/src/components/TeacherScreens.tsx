@@ -81,7 +81,7 @@ export function TeacherHome() {
 
   return (
     <Shell>
-      <h1 className="mb-6 text-3xl font-bold">🧑‍🏫 {t("teacher.hello", { name: session.name })}</h1>
+      <h1 className="mb-6 brand-title text-3xl">🧑‍🏫 {t("teacher.hello", { name: session.name })}</h1>
       {session.isAdmin && (
         <a className="btn mb-6" href="#/admin">
           🛠️ {t("admin.title")}
@@ -172,7 +172,7 @@ export function TeacherClass({ id }: { id: number }) {
       </a>
       <div className="card mb-6 flex flex-wrap items-center gap-4 p-4">
         <div>
-          <h1 className="text-2xl font-bold">{data.class.name}</h1>
+          <h1 className="brand-title text-2xl">{data.class.name}</h1>
           <p className="text-lg">
             {t("teacher.classCode")}: <strong className="text-2xl tracking-[0.25em]" data-testid="class-code-display">{data.class.code}</strong>
           </p>
@@ -521,7 +521,7 @@ export function AssignmentSubmissions({ id }: { id: number }) {
       <a href={`#/teacher/class/${a.class_id}`} className="btn mb-4">
         ← {t("common.back")}
       </a>
-      <h1 className="mb-1 text-2xl font-bold">
+      <h1 className="mb-1 brand-title text-2xl">
         {LANGUAGES[a.language].emoji} {a.title}
       </h1>
       <p className="muted mb-4">
@@ -599,7 +599,7 @@ export function AdminScreen() {
   if (session?.role !== "teacher" || !session.isAdmin) return <NeedLogin />;
   return (
     <Shell title={t("admin.title")}>
-      <h1 className="mb-4 text-2xl font-bold">🛠️ {t("admin.title")}</h1>
+      <h1 className="mb-4 brand-title text-2xl">🛠️ {t("admin.title")}</h1>
       <button className="btn mb-4" onClick={reload}>
         🔄 {t("teacher.refresh")}
       </button>

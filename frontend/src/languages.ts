@@ -10,8 +10,8 @@ export interface LangInfo {
   openExts: string[];
   /** Where the code runs. */
   engine: "pyodide" | "server";
-  /** Tailwind gradient classes for the home card. */
-  cardClass: string;
+  /** Home card colours (Robokalam brand). */
+  card: { bg: string; fg: string };
 }
 
 export const LANGUAGES: Record<LangId, LangInfo> = {
@@ -22,7 +22,7 @@ export const LANGUAGES: Record<LangId, LangInfo> = {
     ext: "py",
     openExts: ["py", "txt"],
     engine: "pyodide",
-    cardClass: "from-emerald-400 to-teal-500",
+    card: { bg: "#98bd3a", fg: "#023152" },
   },
   c: {
     id: "c",
@@ -31,7 +31,7 @@ export const LANGUAGES: Record<LangId, LangInfo> = {
     ext: "c",
     openExts: ["c", "h", "txt"],
     engine: "server",
-    cardClass: "from-sky-400 to-blue-600",
+    card: { bg: "#01bce1", fg: "#023152" },
   },
   cpp: {
     id: "cpp",
@@ -40,7 +40,7 @@ export const LANGUAGES: Record<LangId, LangInfo> = {
     ext: "cpp",
     openExts: ["cpp", "cc", "cxx", "hpp", "txt"],
     engine: "server",
-    cardClass: "from-violet-400 to-fuchsia-500",
+    card: { bg: "#f9a912", fg: "#023152" },
   },
 };
 
