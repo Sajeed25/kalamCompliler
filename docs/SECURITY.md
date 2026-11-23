@@ -38,8 +38,7 @@ For public deployments use Piston.
 * No leaderboards or comparisons between students; badges are private.
 * Shared programs are read-only links with unguessable 10-character ids. The share dialog
   tells kids not to put personal information in code.
-* The optional AI helper is off by default, rate limited, receives only code, and its system
-  prompt keeps answers simple, kind and on-topic.
+* No AI services: student code never leaves the school's server or the student's browser.
 
 ## Reporting a problem
 

@@ -60,7 +60,7 @@ export function StudentHome() {
     <div className="flex min-h-full flex-col">
       <Header />
       <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-6">
-        <h1 className="mb-1 text-3xl font-bold">🎒 {t("student.hello", { name: session.name })}</h1>
+        <h1 className="mb-1 brand-title text-3xl">🎒 {t("student.hello", { name: session.name })}</h1>
         <p className="muted mb-6">{session.className}</p>
         <h2 className="mb-3 text-xl font-bold">📚 {t("student.assignments")}</h2>
         {error && <p role="alert">{t("login.serverProblem")}</p>}

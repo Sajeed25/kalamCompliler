@@ -19,7 +19,7 @@ export default function BadgesScreen() {
         <div className="mb-6 flex flex-wrap items-center gap-4">
           <KalamFace size={64} mood="party" />
           <div>
-            <h1 className="text-3xl font-bold">🏅 {t("badges.title")}</h1>
+            <h1 className="brand-title text-3xl">🏅 {t("badges.title")}</h1>
             <p className="muted text-lg">{t("badges.summary", { stars, badges: earned, total: BADGES.length })}</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function BadgesScreen() {
                       </span>
                     </div>
                     <div className="h-3 overflow-hidden rounded-full" style={{ background: "var(--surface-2)" }} role="progressbar" aria-valuemin={0} aria-valuemax={max} aria-valuenow={got} aria-label={`${LANGUAGES[lang].name} ${t(`examples.level${level}`)}`}>
-                      <div className="h-full rounded-full bg-amber-400" style={{ width: `${(got / max) * 100}%` }} />
+                      <div className="h-full rounded-full" style={{ background: "var(--brand-orange)", width: `${(got / max) * 100}%` }} />
                     </div>
                   </div>
                 );

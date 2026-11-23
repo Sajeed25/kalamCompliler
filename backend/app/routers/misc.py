@@ -30,7 +30,6 @@ async def public_config():
     s = get_settings()
     lim = get_limits()
     return {
-        "ai_enabled": s.ai_provider != "none",
         "share_enabled": s.share_enabled,
         "accounts_enabled": True,
         "executor": s.executor,

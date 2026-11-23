@@ -15,6 +15,7 @@ Every dependency allows commercial use. Regenerate with `backend/.venv/bin/pytho
 | @codemirror/view | 6.43.15 | MIT |
 | @fontsource/atkinson-hyperlegible | 5.3.0 | OFL-1.1 |
 | @fontsource/jetbrains-mono | 5.3.0 | OFL-1.1 |
+| @fontsource/marcellus | 5.3.0 | OFL-1.1 |
 | @fontsource/noto-sans-devanagari | 5.3.0 | OFL-1.1 |
 | @fontsource/noto-sans-telugu | 5.3.0 | OFL-1.1 |
 | @fontsource/opendyslexic | 5.3.0 | OFL-1.1 |
@@ -57,7 +58,6 @@ Every dependency allows commercial use. Regenerate with `backend/.venv/bin/pytho
 | pyyaml | 6.0.3 | MIT License |
 | websockets | 15.0.1 | BSD License |
 | httpx | 0.28.1 | BSD License |
-| anthropic | 2.12.0 | Apache Software License |
 
 ## Services and tools (Docker images, not linked into our code)
 

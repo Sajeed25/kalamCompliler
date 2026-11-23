@@ -67,7 +67,6 @@ covered by automated tests unless marked otherwise.
 * **Share links**: read-only view + **Make a copy**.
 * **Stars and badges** (20 badges, 2 stars per example, level badges). Private, no leaderboards,
   synced to the server for logged-in students.
-* **Explain my code**: pluggable (Claude or self-hosted model), **off by default**.
 * **Offline PWA**: service worker + web manifest; Python works offline after first use.
 
 **Test:** `cd frontend && npm run e2e`. 14 browser tests, including the full teacher → student
@@ -96,6 +95,16 @@ assignment flow and share/copy. Hello World runs in all 3 languages on desktop a
 * `npm run build` / `npm start` at the repository root + `frontend/server.mjs` for Node.js hosting.
 * `kalam-config.json` (backend address, C/C++ mode) editable without rebuilding.
 * Error boundary, stale-file auto-reload, login hidden when there is no backend.
+
+## Robokalam branding update
+
+* Robokalam logo, colours (navy, sky blue, light green, orange) and wordmark-style headings
+  (Marcellus) across the app, light and dark themes, favicon/app icon from the logo globe.
+* **Activities** on the home page: 8 ready-made projects with a challenge each, level filter,
+  stars; the challenge stays visible next to the output while the student works.
+* All AI features removed (front end, back end, settings, docs).
+* Fixed: Telugu/Hindi headings, code ligatures (`<=` showed as `≤`).
+* Tests: activities point at real examples in 3 languages; every brand colour pair passes WCAG AA.
 
 ## Verified in this session
 

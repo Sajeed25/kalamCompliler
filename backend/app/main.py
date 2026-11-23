@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import get_settings
 from .db import init_db, sessionmaker
-from .routers import ai, assignments, auth, classes, misc
+from .routers import assignments, auth, classes, misc
 from .runs import router as runs_router
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -49,7 +49,7 @@ def create_app() -> FastAPI:
             allow_methods=["*"],
             allow_headers=["*"],
         )
-    for r in (auth.router, classes.router, assignments.router, misc.router, ai.router, runs_router):
+    for r in (auth.router, classes.router, assignments.router, misc.router, runs_router):
         app.include_router(r)
     return app
 

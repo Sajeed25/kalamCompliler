@@ -28,14 +28,15 @@ need someone at Robokalam to confirm.**
 | Teacher accounts | Sign-up with a **school invite code** (`KALAM_TEACHER_INVITE_CODE`), or the admin creates them. The first admin comes from `.env`. | Open sign-up |
 | Stars | ⭐ for running an example, ⭐⭐ for changing it and running it again. Level badges when every example in a level has ≥ 1 star. Stored locally, synced when a student logs in. **No leaderboards.** | |
 | Sharing | Anyone can create a read-only link (rate limited, 64 KB max). The share dialog warns kids not to put personal details in code. | Logged-in only — could be switched with `KALAM_SHARE_ENABLED=false` |
-| AI "Explain my code" | **Off by default.** Providers: Claude (Anthropic SDK; default model `claude-opus-5-5`, low effort, server-side refusal fallback on) or any self-hosted OpenAI-style server such as Ollama (no data leaves the school). Only the code is sent. | |
 | Offline | Service worker caches the app and Pyodide after first use → Python works offline; C/C++ need the server | |
 | Fonts | All self-hosted (no Google Fonts requests). Default Atkinson Hyperlegible (designed for readability); OpenDyslexic option; Noto Sans Telugu/Devanagari | |
-| Mascot | "Kalam", an original friendly robot drawn in SVG (no copyrighted characters) | ❓ Replace with Robokalam's own artwork when available |
+| Mascot | "Kalam", an original friendly robot drawn in SVG in Robokalam colours (no copyrighted characters) | ❓ Replace with Robokalam's own artwork when available |
+| Look & feel | Robokalam brand: logo in the header, navy `#024067`, sky blue `#01BCE1`, light green `#98BD3A`, orange `#F9A912`; headings in **Marcellus** (OFL), the closest open font to the ROBOKALAM wordmark; body text stays in Atkinson Hyperlegible for young readers. Run = green, Stop = orange, C = sky, C++ = orange, Python = green. All text/background pairs pass WCAG AA (tested). | |
+| No AI | No AI features anywhere in the product: everything is written, rule-based code (the error explainer is a hand-written rule list). | |
 
 ## Needs confirmation ❓
 
-1. **Telugu and Hindi texts** were written by me (an AI). They're careful and consistent, but
+1. **Telugu and Hindi texts** were machine-written during development. They're careful and consistent, but
    **a native-speaking teacher must review them** before students see them, especially the
    error explanations (`frontend/src/i18n/locales/te.json`, `hi.json`). The unit tests already
    check that every message exists and keeps the same `{{placeholders}}`.
@@ -43,10 +44,8 @@ need someone at Robokalam to confirm.**
    service worker and recommended for passwords.
 3. **Server size**: I suggest 4 vCPU / 8 GB RAM for ~200 simultaneous students
    (Python costs the server nothing; C/C++ compiles take ~0.3–1 s CPU each). See DEPLOYMENT.md.
-4. **AI helper**: keep off, use Claude, or run a local model? And do schools' privacy
-   policies allow sending code to an external provider?
-5. **Data retention**: how long to keep submissions and shared programs? (Nothing is deleted
+4. **Data retention**: how long to keep submissions and shared programs? (Nothing is deleted
    automatically today.)
-6. **Mascot artwork and brand colours** (I used a blue/green palette).
-7. **Repository**: this work is in the session's container and in a zip file; tell me where to
+5. **Mascot artwork and brand colours** (I used a blue/green palette).
+6. **Repository**: this work is in the session's container and in a zip file; tell me where to
    push (GitHub org/repo name).

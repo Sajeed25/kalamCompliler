@@ -39,7 +39,7 @@ services:
     tmpfs: [/tmp]
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
-    networks: [internal, egress]   # egress only needed if the optional AI helper is enabled
+    networks: [internal]   # no internet access needed
 
   piston:
     image: ghcr.io/engineer-man/piston:latest

@@ -28,7 +28,7 @@ function CrashScreen({ error }: { error: Error }) {
   return (
     <main className="mx-auto flex min-h-full max-w-xl flex-col items-center justify-center gap-4 p-6 text-center" role="alert">
       <KalamFace mood="oops" size={88} />
-      <h1 className="text-2xl font-bold">{t("crash.title")}</h1>
+      <h1 className="brand-title text-2xl">{t("crash.title")}</h1>
       <p className="text-lg">{t("crash.text")}</p>
       <div className="flex flex-wrap justify-center gap-3">
         <button className="btn btn-primary text-lg" onClick={() => location.reload()}>

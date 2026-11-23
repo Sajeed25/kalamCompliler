@@ -29,12 +29,10 @@ flowchart LR
     API --> VK
   end
 
-  AI["Optional AI provider<br/>(Claude or self-hosted model)<br/>off by default"]
 
   UI -- "HTTPS: page, Pyodide files" --> NGX
   UI -- "WSS /api/run/ws (C/C++ runs)" --> NGX
   UI -- "HTTPS /api/* (login, assignments, shares)" --> NGX
-  API -. "only if enabled; code only, no names" .-> AI
 ```
 
 ## How a run works
@@ -113,7 +111,7 @@ kalam-compiler/
 │   │   ├── runs.py             # WebSocket run endpoint, slots/queue, stats
 │   │   ├── grader.py           # assignment auto-check
 │   │   ├── executors/          # base.py, piston.py, local.py (+ kalam_shim/turtle.py)
-│   │   ├── routers/            # auth, classes, assignments, misc (shares/progress/admin), ai
+│   │   ├── routers/            # auth, classes, assignments, misc (shares/progress/admin)
 │   │   └── tools/piston_setup.py
 │   └── tests/                  # 18 sandbox tests + 19 API tests
 ├── runner/README.md            # Piston configuration and hardening

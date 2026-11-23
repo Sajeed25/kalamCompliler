@@ -21,6 +21,25 @@ Examples live in `frontend/src/examples/python.ts`, `c.ts` and `cpp.ts`. Add an 
 The first example in each file is the one shown when a student opens that language.
 Run `npm run dev` and open 📚 Examples to check it. Level badges update automatically.
 
+## Add an activity
+
+Activities are the project cards on the home page (`frontend/src/activities.ts`). Each points at an
+existing example and adds a challenge:
+
+```ts
+{
+  id: "turtle-house",          // unique, used in the link #/code/python?activity=turtle-house
+  emoji: "🏠",
+  lang: "python",
+  exampleId: "turtle_square",  // must exist in src/examples/python.ts
+  level: 1,
+  title: { en: "Draw a house", te: "…", hi: "…" },
+  challenge: { en: "Add a triangle roof on top of the square.", te: "…", hi: "…" },
+},
+```
+
+`npx vitest run` checks the example exists and all three languages are filled in.
+
 ## Add a UI language
 
 Example: Kannada (`kn`).

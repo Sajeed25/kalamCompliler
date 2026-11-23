@@ -22,7 +22,6 @@ rate_limit:
   runs_per_minute_per_ip: 240    # a whole school lab usually shares one IP, so keep this generous
   shares_per_hour_per_ip: 60
   login_attempts_per_10_min: 8   # per student (PIN) or per email (teacher)
-  ai_requests_per_hour_per_user: 20
 
 queue:
   max_concurrent_runs: 8          # roughly 2 × CPU cores of the server

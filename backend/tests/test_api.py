@@ -26,7 +26,6 @@ def student_login(client, c, s):
 def test_health_and_config(client):
     assert client.get("/api/health").json() == {"ok": True}
     cfg = client.get("/api/config").json()
-    assert cfg["ai_enabled"] is False
     assert cfg["limits"]["cpu_seconds"] == 5
 
 
@@ -168,8 +167,9 @@ def test_progress_sync(client):
     assert "first_run" in p["badges"]
 
 
-def test_ai_disabled_by_default(client):
-    assert client.post("/api/ai/explain", json={"language": "python", "code": "print(1)"}).status_code == 404
+def test_no_ai_endpoint(client):
+    assert client.post("/api/ai/explain", json={"language": "python", "code": "print(1)"}).status_code in (404, 405)
+    assert "ai_enabled" not in client.get("/api/config").json()
 
 
 # ---------------------------------------------------------------- WebSocket runs
