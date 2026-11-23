@@ -5,7 +5,7 @@ export interface Settings {
   fontSize: number;
   theme: "light" | "dark";
   dyslexicFont: boolean;
-  uiLang: "en" | "te" | "hi";
+  uiLang: "en" | "te" | "hi" | "ur";
   /** Draw turtle pictures instantly instead of animating (for slow computers). */
   fastTurtle: boolean;
 }
@@ -21,7 +21,7 @@ const defaults: Settings = {
 
 function detectLang(): Settings["uiLang"] {
   const l = (navigator.language || "en").slice(0, 2);
-  return l === "te" || l === "hi" ? l : "en";
+  return l === "te" || l === "hi" || l === "ur" ? l : "en";
 }
 
 let settings: Settings = { ...defaults, ...getJSON<Partial<Settings>>(KEY, {}) };
@@ -49,6 +49,7 @@ export function applySettingsToDocument(): void {
   root.classList.toggle("dyslexic", settings.dyslexicFont);
   root.style.setProperty("--code-font-size", `${settings.fontSize}px`);
   root.lang = settings.uiLang;
+  root.dir = settings.uiLang === "ur" ? "rtl" : "ltr";
 }
 
 export function useSettings(): Settings {

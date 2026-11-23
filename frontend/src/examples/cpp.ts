@@ -5,8 +5,8 @@ export const CPP_EXAMPLES: Example[] = [
   {
     id: "hello",
     level: 1,
-    title: { en: "Hello World", te: "హలో వరల్డ్", hi: "हैलो वर्ल्ड" },
-    about: { en: "Your first C++ program.", te: "మీ మొదటి C++ ప్రోగ్రామ్.", hi: "आपका पहला C++ प्रोग्राम।" },
+    title: { en: "Hello World", te: "హలో వరల్డ్", hi: "हैलो वर्ल्ड", ur: "ہیلو ورلڈ" },
+    about: { en: "Your first C++ program.", te: "మీ మొదటి C++ ప్రోగ్రామ్.", hi: "आपका पहला C++ प्रोग्राम।", ur: "آپ کا پہلا C++‎ پروگرام۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -21,8 +21,8 @@ int main() {
     id: "name_age",
     level: 1,
     input: true,
-    title: { en: "My name and age", te: "నా పేరు, వయస్సు", hi: "मेरा नाम और उम्र" },
-    about: { en: "Read with cin, print with cout.", te: "cin తో చదవండి, cout తో చూపండి.", hi: "cin से पढ़ो, cout से छापो।" },
+    title: { en: "My name and age", te: "నా పేరు, వయస్సు", hi: "मेरा नाम और उम्र", ur: "میرا نام اور عمر" },
+    about: { en: "Read with cin, print with cout.", te: "cin తో చదవండి, cout తో చూపండి.", hi: "cin से पढ़ो, cout से छापो।", ur: "cin سے پڑھیں، cout سے لکھیں۔" },
     code: `#include <iostream>
 #include <string>
 using namespace std;
@@ -43,8 +43,8 @@ int main() {
   {
     id: "maths",
     level: 1,
-    title: { en: "Maths magic", te: "లెక్కల మ్యాజిక్", hi: "गणित का जादू" },
-    about: { en: "Add, subtract, multiply and divide.", te: "కూడిక, తీసివేత, గుణకారం, భాగహారం.", hi: "जोड़, घटाव, गुणा और भाग।" },
+    title: { en: "Maths magic", te: "లెక్కల మ్యాజిక్", hi: "गणित का जादू", ur: "حساب کا جادو" },
+    about: { en: "Add, subtract, multiply and divide.", te: "కూడిక, తీసివేత, గుణకారం, భాగహారం.", hi: "जोड़, घटाव, गुणा और भाग।", ur: "جمع، تفریق، ضرب اور تقسیم۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -64,8 +64,8 @@ int main() {
     id: "sum_two",
     level: 1,
     input: true,
-    title: { en: "Add two numbers", te: "రెండు సంఖ్యలు కూడండి", hi: "दो संख्याएँ जोड़ो" },
-    about: { en: "Type two numbers, get their sum.", te: "రెండు సంఖ్యలు టైప్ చేసి మొత్తం పొందండి.", hi: "दो संख्याएँ लिखो, योग पाओ।" },
+    title: { en: "Add two numbers", te: "రెండు సంఖ్యలు కూడండి", hi: "दो संख्याएँ जोड़ो", ur: "دو نمبر جمع کریں" },
+    about: { en: "Type two numbers, get their sum.", te: "రెండు సంఖ్యలు టైప్ చేసి మొత్తం పొందండి.", hi: "दो संख्याएँ लिखो, योग पाओ।", ur: "دو نمبر لکھیں، ان کا مجموعہ پائیں۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -83,8 +83,8 @@ int main() {
   {
     id: "repeat_hello",
     level: 1,
-    title: { en: "Say it 5 times", te: "5 సార్లు చెప్పు", hi: "5 बार बोलो" },
-    about: { en: "A for loop repeats things.", te: "for లూప్ పనిని మళ్ళీ చేస్తుంది.", hi: "for लूप काम दोहराता है।" },
+    title: { en: "Say it 5 times", te: "5 సార్లు చెప్పు", hi: "5 बार बोलो", ur: "5 بار کہیں" },
+    about: { en: "A for loop repeats things.", te: "for లూప్ పనిని మళ్ళీ చేస్తుంది.", hi: "for लूप काम दोहराता है।", ur: "for لوپ کام دہراتا ہے۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -101,8 +101,8 @@ int main() {
     id: "even_odd",
     level: 2,
     input: true,
-    title: { en: "Even or odd?", te: "సరి సంఖ్యా? బేసి సంఖ్యా?", hi: "सम या विषम?" },
-    about: { en: "Use if/else and %.", te: "if/else మరియు % వాడండి.", hi: "if/else और % का उपयोग।" },
+    title: { en: "Even or odd?", te: "సరి సంఖ్యా? బేసి సంఖ్యా?", hi: "सम या विषम?", ur: "جفت یا طاق؟" },
+    about: { en: "Use if/else and %.", te: "if/else మరియు % వాడండి.", hi: "if/else और % का उपयोग।", ur: "if/else اور % استعمال کریں۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -122,8 +122,8 @@ int main() {
     id: "calculator",
     level: 2,
     input: true,
-    title: { en: "Simple calculator", te: "సాధారణ కాలిక్యులేటర్", hi: "सरल कैलकुलेटर" },
-    about: { en: "A calculator using switch.", te: "switch తో కాలిక్యులేటర్.", hi: "switch वाला कैलकुलेटर।" },
+    title: { en: "Simple calculator", te: "సాధారణ కాలిక్యులేటర్", hi: "सरल कैलकुलेटर", ur: "سادہ کیلکولیٹر" },
+    about: { en: "A calculator using switch.", te: "switch తో కాలిక్యులేటర్.", hi: "switch वाला कैलकुलेटर।", ur: "switch والا کیلکولیٹر۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -155,8 +155,8 @@ int main() {
     id: "table",
     level: 2,
     input: true,
-    title: { en: "Multiplication table", te: "ఎక్కాల పట్టిక", hi: "पहाड़ा (गुणा तालिका)" },
-    about: { en: "Print the table of any number.", te: "ఏ సంఖ్య ఎక్కమైనా ముద్రించండి.", hi: "किसी भी संख्या का पहाड़ा छापो।" },
+    title: { en: "Multiplication table", te: "ఎక్కాల పట్టిక", hi: "पहाड़ा (गुणा तालिका)", ur: "پہاڑا" },
+    about: { en: "Print the table of any number.", te: "ఏ సంఖ్య ఎక్కమైనా ముద్రించండి.", hi: "किसी भी संख्या का पहाड़ा छापो।", ur: "کسی بھی نمبر کا پہاڑا لکھیں۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -174,8 +174,8 @@ int main() {
     id: "temperature",
     level: 2,
     input: true,
-    title: { en: "Temperature converter", te: "ఉష్ణోగ్రత మార్పిడి", hi: "तापमान बदलने वाला" },
-    about: { en: "Celsius to Fahrenheit.", te: "సెల్సియస్ నుండి ఫారెన్‌హీట్.", hi: "सेल्सियस से फ़ारेनहाइट।" },
+    title: { en: "Temperature converter", te: "ఉష్ణోగ్రత మార్పిడి", hi: "तापमान बदलने वाला", ur: "درجۂ حرارت بدلنے والا" },
+    about: { en: "Celsius to Fahrenheit.", te: "సెల్సియస్ నుండి ఫారెన్‌హీట్.", hi: "सेल्सियस से फ़ारेनहाइट।", ur: "سیلسیس سے فارن ہائیٹ۔" },
     code: `#include <iostream>
 #include <iomanip>
 using namespace std;
@@ -194,8 +194,8 @@ int main() {
   {
     id: "stars",
     level: 2,
-    title: { en: "Star patterns", te: "నక్షత్రాల నమూనాలు", hi: "तारों के पैटर्न" },
-    about: { en: "Nested loops make shapes.", te: "లూప్ లోపల లూప్‌తో ఆకారాలు.", hi: "लूप के अंदर लूप से आकार।" },
+    title: { en: "Star patterns", te: "నక్షత్రాల నమూనాలు", hi: "तारों के पैटर्न", ur: "ستاروں کے نمونے" },
+    about: { en: "Nested loops make shapes.", te: "లూప్ లోపల లూప్‌తో ఆకారాలు.", hi: "लूप के अंदर लूप से आकार।", ur: "لوپ کے اندر لوپ سے شکلیں۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -214,8 +214,8 @@ int main() {
     id: "guess",
     level: 2,
     input: true,
-    title: { en: "Guess the number game", te: "సంఖ్య ఊహించే ఆట", hi: "संख्या बूझो खेल" },
-    about: { en: "Random numbers and a while loop.", te: "యాదృచ్ఛిక సంఖ్యలు, while లూప్.", hi: "रैंडम संख्या और while लूप।" },
+    title: { en: "Guess the number game", te: "సంఖ్య ఊహించే ఆట", hi: "संख्या बूझो खेल", ur: "نمبر بوجھو کھیل" },
+    about: { en: "Random numbers and a while loop.", te: "యాదృచ్ఛిక సంఖ్యలు, while లూప్.", hi: "रैंडम संख्या और while लूप।", ur: "بے ترتیب نمبر اور while لوپ۔" },
     code: `#include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -243,8 +243,8 @@ int main() {
     id: "largest",
     level: 2,
     input: true,
-    title: { en: "Largest of three", te: "మూడింటిలో పెద్దది", hi: "तीन में सबसे बड़ा" },
-    about: { en: "Use the max() function.", te: "max() ఫంక్షన్ వాడండి.", hi: "max() फ़ंक्शन का उपयोग।" },
+    title: { en: "Largest of three", te: "మూడింటిలో పెద్దది", hi: "तीन में सबसे बड़ा", ur: "تین میں سب سے بڑا" },
+    about: { en: "Use the max() function.", te: "max() ఫంక్షన్ వాడండి.", hi: "max() फ़ंक्शन का उपयोग।", ur: "max()‎ فنکشن استعمال کریں۔" },
     code: `#include <iostream>
 #include <algorithm>
 using namespace std;
@@ -263,8 +263,8 @@ int main() {
     id: "factorial",
     level: 3,
     input: true,
-    title: { en: "Factorial with recursion", te: "రికర్షన్‌తో ఫాక్టోరియల్", hi: "रिकर्शन से फ़ैक्टोरियल" },
-    about: { en: "A function that calls itself.", te: "తనను తానే పిలిచే ఫంక్షన్.", hi: "ख़ुद को बुलाने वाला फ़ंक्शन।" },
+    title: { en: "Factorial with recursion", te: "రికర్షన్‌తో ఫాక్టోరియల్", hi: "रिकर्शन से फ़ैक्टोरियल", ur: "ریکرژن سے فیکٹوریل" },
+    about: { en: "A function that calls itself.", te: "తనను తానే పిలిచే ఫంక్షన్.", hi: "ख़ुद को बुलाने वाला फ़ंक्शन।", ur: "خود کو بلانے والا فنکشن۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -290,8 +290,8 @@ int main() {
     id: "prime",
     level: 3,
     input: true,
-    title: { en: "Prime number checker", te: "ప్రధాన సంఖ్య పరీక్ష", hi: "अभाज्य संख्या जाँच" },
-    about: { en: "A bool function and loops.", te: "bool ఫంక్షన్, లూప్‌లు.", hi: "bool फ़ंक्शन और लूप।" },
+    title: { en: "Prime number checker", te: "ప్రధాన సంఖ్య పరీక్ష", hi: "अभाज्य संख्या जाँच", ur: "مفرد عدد کی جانچ" },
+    about: { en: "A bool function and loops.", te: "bool ఫంక్షన్, లూప్‌లు.", hi: "bool फ़ंक्शन और लूप।", ur: "bool فنکشن اور لوپ۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -320,8 +320,8 @@ int main() {
     id: "vector_marks",
     level: 3,
     input: true,
-    title: { en: "Marks with a vector", te: "vector తో మార్కులు", hi: "vector से अंक" },
-    about: { en: "A growing list of numbers.", te: "పెరుగుతూ ఉండే సంఖ్యల జాబితా.", hi: "बढ़ने वाली संख्याओं की सूची।" },
+    title: { en: "Marks with a vector", te: "vector తో మార్కులు", hi: "vector से अंक", ur: "vector سے نمبر" },
+    about: { en: "A growing list of numbers.", te: "పెరుగుతూ ఉండే సంఖ్యల జాబితా.", hi: "बढ़ने वाली संख्याओं की सूची।", ur: "بڑھنے والی نمبروں کی فہرست۔" },
     code: `#include <iostream>
 #include <vector>
 #include <string>
@@ -351,8 +351,8 @@ int main() {
   {
     id: "fibonacci",
     level: 3,
-    title: { en: "Fibonacci numbers", te: "ఫిబొనాచ్చి సంఖ్యలు", hi: "फ़िबोनाची संख्याएँ" },
-    about: { en: "Each number is the sum of the two before it.", te: "ప్రతి సంఖ్య ముందు రెండింటి మొత్తం.", hi: "हर संख्या पिछली दो का योग है।" },
+    title: { en: "Fibonacci numbers", te: "ఫిబొనాచ్చి సంఖ్యలు", hi: "फ़िबोनाची संख्याएँ", ur: "فبوناچی نمبر" },
+    about: { en: "Each number is the sum of the two before it.", te: "ప్రతి సంఖ్య ముందు రెండింటి మొత్తం.", hi: "हर संख्या पिछली दो का योग है।", ur: "ہر نمبر پچھلے دو کا مجموعہ ہے۔" },
     code: `#include <iostream>
 using namespace std;
 
@@ -373,8 +373,8 @@ int main() {
     id: "string_fun",
     level: 3,
     input: true,
-    title: { en: "Fun with words", te: "పదాలతో ఆట", hi: "शब्दों से खेल" },
-    about: { en: "Count letters and reverse a word.", te: "అక్షరాలు లెక్కించి, పదం తిప్పండి.", hi: "अक्षर गिनो और शब्द उलटो।" },
+    title: { en: "Fun with words", te: "పదాలతో ఆట", hi: "शब्दों से खेल", ur: "الفاظ کا کھیل" },
+    about: { en: "Count letters and reverse a word.", te: "అక్షరాలు లెక్కించి, పదం తిప్పండి.", hi: "अक्षर गिनो और शब्द उलटो।", ur: "حروف گنیں اور لفظ الٹیں۔" },
     code: `#include <iostream>
 #include <string>
 #include <algorithm>
@@ -405,8 +405,8 @@ int main() {
   {
     id: "robot_class",
     level: 3,
-    title: { en: "Robot class", te: "రోబో క్లాస్", hi: "रोबोट क्लास" },
-    about: { en: "Make your own type with a class.", te: "క్లాస్‌తో మీ సొంత రకం చేయండి.", hi: "क्लास से अपना टाइप बनाओ।" },
+    title: { en: "Robot class", te: "రోబో క్లాస్", hi: "रोबोट क्लास", ur: "روبوٹ کلاس" },
+    about: { en: "Make your own type with a class.", te: "క్లాస్‌తో మీ సొంత రకం చేయండి.", hi: "क्लास से अपना टाइप बनाओ।", ur: "کلاس سے اپنی قسم بنائیں۔" },
     code: `#include <iostream>
 #include <string>
 using namespace std;

@@ -117,7 +117,7 @@ function StudentLogin() {
         />
         {error && <p className="mt-3 font-bold" style={{ color: "var(--danger)" }} role="alert">{error}</p>}
         <button type="submit" className="btn btn-primary mt-4 w-full text-lg" disabled={classCode.length < 4 || busy}>
-          {t("login.next")} →
+          {t("login.next")} <span className="inline-block rtl:-scale-x-100">→</span>
         </button>
       </form>
     );

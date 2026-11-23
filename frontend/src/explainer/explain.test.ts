@@ -4,6 +4,7 @@ import type { ProgramError } from "../runners/types";
 import en from "../i18n/locales/en.json";
 import te from "../i18n/locales/te.json";
 import hi from "../i18n/locales/hi.json";
+import ur from "../i18n/locales/ur.json";
 
 const py = (type: string, message: string, extra: Partial<ProgramError> = {}, code = "") =>
   explainError("python", { kind: type.includes("Syntax") || type.includes("Indent") ? "compile" : "runtime", type, message, raw: `${type}: ${message}`, ...extra }, code);
@@ -248,7 +249,7 @@ describe("closest()", () => {
 });
 
 describe("translations", () => {
-  const locales = { en, te, hi } as Record<string, { errors: Record<string, string> }>;
+  const locales = { en, te, hi, ur } as Record<string, { errors: Record<string, string> }>;
   for (const [code, loc] of Object.entries(locales)) {
     it(`${code} has a message for every explainer id`, () => {
       const missing = ALL_IDS.filter((id) => !loc.errors[id]);
@@ -268,5 +269,6 @@ describe("translations", () => {
     const base = keys(en).sort();
     expect(keys(te).sort()).toEqual(base);
     expect(keys(hi).sort()).toEqual(base);
+    expect(keys(ur).sort()).toEqual(base);
   });
 });

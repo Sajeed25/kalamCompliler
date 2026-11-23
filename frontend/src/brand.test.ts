@@ -35,12 +35,32 @@ describe("activities", () => {
   it("each points at an existing example and has all three languages", () => {
     for (const a of ACTIVITIES) {
       expect(EXAMPLES[a.lang].some((e) => e.id === a.exampleId), `${a.id} -> ${a.exampleId}`).toBe(true);
-      for (const lang of ["en", "te", "hi"] as const) {
+      for (const lang of ["en", "te", "hi", "ur"] as const) {
         expect(a.title[lang], `${a.id} title ${lang}`).toBeTruthy();
         expect(a.challenge[lang], `${a.id} challenge ${lang}`).toBeTruthy();
       }
     }
     expect(new Set(ACTIVITIES.map((a) => a.id)).size).toBe(ACTIVITIES.length);
+  });
+});
+
+describe("examples", () => {
+  it("every example has a title and description in English, Telugu, Hindi and Urdu", () => {
+    for (const lang of LANG_IDS)
+      for (const e of EXAMPLES[lang])
+        for (const l of ["en", "te", "hi", "ur"] as const) {
+          expect(e.title[l], `${lang}/${e.id} title ${l}`).toBeTruthy();
+          expect(e.about[l], `${lang}/${e.id} about ${l}`).toBeTruthy();
+        }
+  });
+  it("CBSE programs cover every Computer Science chapter of Classes 11 and 12", () => {
+    const has = (cls: number, ch: string) => EXAMPLES.python.some((e) => e.cbse?.cls === cls && e.cbse.chapter === ch);
+    for (const ch of ["basics", "flow", "strings", "lists", "tuples", "dictionaries", "modules"]) expect(has(11, ch), `Class 11 ${ch}`).toBe(true);
+    for (const ch of ["functions", "exceptions", "files", "stack"]) expect(has(12, ch), `Class 12 ${ch}`).toBe(true);
+    expect(EXAMPLES.python.filter((e) => e.cbse).length).toBeGreaterThanOrEqual(20);
+  });
+  it("example ids are unique per language", () => {
+    for (const lang of LANG_IDS) expect(new Set(EXAMPLES[lang].map((e) => e.id)).size).toBe(EXAMPLES[lang].length);
   });
 });
 

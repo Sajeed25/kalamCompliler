@@ -37,6 +37,8 @@ export const BADGES = [
   { id: "creator", emoji: "🎨" },
   { id: "runs_50", emoji: "🏃" },
   { id: "assignment_star", emoji: "🌟" },
+  { id: "cbse_11", emoji: "📘" },
+  { id: "cbse_12", emoji: "🎓" },
 ] as const;
 export type BadgeId = (typeof BADGES)[number]["id"];
 
@@ -121,9 +123,14 @@ export function recordRun(r: RunInfo): BadgeId[] {
     const s = Math.max(progress.stars[key] ?? 0, r.changed ? 2 : 1);
     progress.stars = { ...progress.stars, [key]: s };
     if (r.changed) award("creator");
+    // Level badges count the general examples; CBSE programs have their own badges.
     for (const level of [1, 2, 3] as const) {
-      const ex = EXAMPLES[r.lang].filter((e) => e.level === level);
+      const ex = EXAMPLES[r.lang].filter((e) => e.level === level && !e.cbse);
       if (ex.length && ex.every((e) => (progress.stars[`${r.lang}/${e.id}`] ?? 0) >= 1)) award(`level${level}_${r.lang}` as BadgeId);
+    }
+    for (const cls of [11, 12] as const) {
+      const ex = EXAMPLES[r.lang].filter((e) => e.cbse?.cls === cls);
+      if (ex.length && ex.every((e) => (progress.stars[`${r.lang}/${e.id}`] ?? 0) >= 1)) award(`cbse_${cls}` as BadgeId);
     }
   }
   save();

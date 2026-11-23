@@ -9,7 +9,7 @@ Made in-house by **Robokalam** (Hanamkonda, Telangana) for school coding labs an
 * **Errors explained like a teacher would**: *"Oops! The computer doesn't know the word 'pritn'. Did you mean 'print'? 🔍"*, with the line highlighted. The full compiler error is one click away.
 * **Robokalam look**: brand colours (navy, sky blue, light green, orange), the Robokalam logo and wordmark-style headings, light and dark themes.
 * **Activities**: ready-made projects (turtle art, games, patterns, robots, calculators), each with a small challenge.
-* **English, Telugu and Hindi** interface. 56 graded examples across 3 levels. Stars and badges, no leaderboards.
+* **English, Telugu, Hindi and Urdu** interface (Urdu right-to-left, with code kept left-to-right). 77 graded examples across 3 levels, including **21 CBSE Computer Science (083) Python programs** for Classes 11–12, grouped by chapter. Stars and badges, no leaderboards.
 * **Classrooms** (optional): class code + name + 4-digit PIN for students, auto-checked assignments, a teacher dashboard, CSV export.
 * No ads, no trackers, no third-party requests. Everything is self-hosted.
 

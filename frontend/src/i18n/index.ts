@@ -15,11 +15,16 @@ export const UI_LANGUAGES = [
   { code: "en", label: "English" },
   { code: "te", label: "తెలుగు" },
   { code: "hi", label: "हिन्दी" },
+  { code: "ur", label: "اردو" },
 ] as const;
+
+/** Languages written right-to-left: the page mirrors, code stays left-to-right. */
+export const RTL_LANGUAGES = new Set(["ur"]);
 
 const LOADERS: Record<string, () => Promise<{ default: object }>> = {
   te: () => import("./locales/te.json"),
   hi: () => import("./locales/hi.json"),
+  ur: () => import("./locales/ur.json"),
 };
 
 void i18n.use(initReactI18next).init({

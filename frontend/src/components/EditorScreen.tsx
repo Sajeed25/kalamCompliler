@@ -384,7 +384,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
       <Header>
         <span className="flex items-center gap-2 rounded-xl px-3 py-1 text-lg font-bold" style={{ background: "var(--surface-2)" }}>
           <span aria-hidden="true">{info.emoji}</span>
-          {info.name}
+          <span dir="ltr">{info.name}</span>
         </span>
         {example && !storageKey && (
           <span className="muted hidden truncate md:inline" data-testid="example-title">
@@ -433,7 +433,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
         <div className={`${mobileTab === "output" ? "flex" : "hidden"} min-h-[45vh] flex-col gap-3 lg:flex lg:min-h-0`}>
           {sidePanel?.({ code })}
           {activity && (
-            <section className="card flex shrink-0 items-start gap-3 p-3" style={{ borderLeft: "6px solid var(--brand-orange)", background: "var(--tip-bg)" }} aria-label={t("activities.challenge")} data-testid="activity-challenge">
+            <section className="card flex shrink-0 items-start gap-3 p-3" style={{ borderInlineStart: "6px solid var(--brand-orange)", background: "var(--tip-bg)" }} aria-label={t("activities.challenge")} data-testid="activity-challenge">
               <span className="text-3xl" aria-hidden="true">
                 {activity.emoji}
               </span>
@@ -492,7 +492,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
                 <div className="mt-3 rounded-2xl p-3" style={{ background: "var(--success-bg)" }} role="status" data-testid="badge-toast">
                   <strong>🏅 {t("badges.newBadge")}</strong>{" "}
                   {newBadges.map((b) => (
-                    <span key={b} className="mr-2 inline-block">
+                    <span key={b} className="me-2 inline-block">
                       {BADGES.find((x) => x.id === b)?.emoji} {t(`badges.items.${b}.name`)}
                     </span>
                   ))}

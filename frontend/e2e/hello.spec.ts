@@ -87,3 +87,37 @@ test("no AI features are shown anywhere", async ({ page }) => {
     await expect(page.getByText(/explain my code|\bAI\b/i)).toHaveCount(0);
   }
 });
+
+test("CBSE syllabus programs: filter, chapter chips, CSV file handling and statistics run", async ({ page }) => {
+  await page.goto("/#/code/python");
+  await page.getByTestId("examples-button").click();
+  await page.getByTestId("cbse-only").check();
+  await expect(page.getByText("Class 12").first()).toBeVisible();
+  await page.getByTestId("example-cbse_csv_file").click();
+  const confirm = page.getByTestId("confirm-replace");
+  if (await confirm.isVisible().catch(() => false)) await confirm.click();
+  await run(page);
+  await typeInput(page, "ravi07");
+  await expectStatus(page, /Finished/);
+  await expect(page.getByTestId("output-text")).toContainText("Password for ravi07 is moon456");
+
+  await page.getByTestId("examples-button").click();
+  await page.getByTestId("example-cbse_modules").click();
+  if (await confirm.isVisible().catch(() => false)) await confirm.click();
+  await run(page);
+  await expectStatus(page, /Finished/);
+  await expect(page.getByTestId("output-text")).toContainText("Median: 78");
+});
+
+test("Urdu: right-to-left page, code stays left-to-right", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /Settings/ }).click();
+  await page.locator("#ui-lang").selectOption("ur");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("آج کیا کوڈ کرنا ہے؟");
+  expect(await page.evaluate(() => document.documentElement.dir)).toBe("rtl");
+  await page.getByTestId("lang-card-python").click();
+  await run(page);
+  await expectStatus(page, /مکمل/);
+  expect(await page.getByTestId("code-editor").evaluate((e) => getComputedStyle(e).direction)).toBe("ltr");
+  expect(await page.getByTestId("output-text").evaluate((e) => getComputedStyle(e).direction)).toBe("ltr");
+});

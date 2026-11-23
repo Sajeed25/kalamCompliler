@@ -167,5 +167,5 @@ export default function CodeEditor({ value, lang, onChange, onRun, errorLine, re
     v.dispatch({ effects });
   }, [errorLine]);
 
-  return <div ref={host} className="h-full min-h-0 overflow-hidden" data-testid="code-editor" />;
+  return <div ref={host} dir="ltr" className="h-full min-h-0 overflow-hidden" data-testid="code-editor" />;
 }

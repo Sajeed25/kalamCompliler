@@ -38,9 +38,9 @@ function CrashScreen({ error }: { error: Error }) {
           🏠 {t("crash.home")}
         </a>
       </div>
-      <details className="w-full text-left">
+      <details className="w-full text-start">
         <summary className="cursor-pointer font-bold">🧑‍💻 {t("crash.details")}</summary>
-        <pre className="mt-2 max-h-60 overflow-auto whitespace-pre-wrap rounded-xl p-3 text-sm" style={{ background: "var(--surface)" }}>
+        <pre dir="ltr" className="mt-2 max-h-60 overflow-auto whitespace-pre-wrap rounded-xl p-3 text-sm" style={{ background: "var(--surface)" }}>
           {String(error?.stack ?? error)}
         </pre>
       </details>

@@ -428,13 +428,13 @@ export function AssignmentEditor({ id, classId }: { id: number | null; classId: 
                   <label className="mb-1 block text-sm font-bold" htmlFor={`in-${i}`}>
                     {t("teacher.testN", { n: i + 1 })} · {t("assignment.input")}
                   </label>
-                  <textarea id={`in-${i}`} className="field min-h-20 font-mono" value={tc.input} onChange={(e) => setTest(i, { input: e.target.value })} placeholder={t("teacher.inputPlaceholder")} />
+                  <textarea id={`in-${i}`} dir="ltr" className="field min-h-20 font-mono" value={tc.input} onChange={(e) => setTest(i, { input: e.target.value })} placeholder={t("teacher.inputPlaceholder")} />
                 </div>
                 <div>
                   <label className="mb-1 block text-sm font-bold" htmlFor={`out-${i}`}>
                     {t("assignment.expected")}
                   </label>
-                  <textarea id={`out-${i}`} className="field min-h-20 font-mono" value={tc.expected} onChange={(e) => setTest(i, { expected: e.target.value })} />
+                  <textarea id={`out-${i}`} dir="ltr" className="field min-h-20 font-mono" value={tc.expected} onChange={(e) => setTest(i, { expected: e.target.value })} />
                 </div>
                 <div className="flex flex-row items-center gap-2 sm:flex-col sm:items-stretch">
                   <label className="flex min-h-11 items-center gap-2">
@@ -541,7 +541,7 @@ export function AssignmentSubmissions({ id }: { id: number }) {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[560px] border-separate border-spacing-y-2">
           <thead>
-            <tr className="text-left">
+            <tr className="text-start">
               <th className="px-3">{t("teacher.student")}</th>
               <th className="px-3">{t("teacher.result")}</th>
               <th className="px-3">{t("teacher.attempts")}</th>
@@ -552,13 +552,13 @@ export function AssignmentSubmissions({ id }: { id: number }) {
           <tbody>
             {data.submissions.map((s) => (
               <tr key={s.student_id} style={{ background: "var(--surface)" }}>
-                <td className="rounded-l-xl px-3 py-2 font-bold">{s.student_name}</td>
+                <td className="rounded-s-xl px-3 py-2 font-bold">{s.student_name}</td>
                 <td className="px-3 py-2">
                   {!s.submitted_at ? "—" : s.passed === s.total ? `✅ ${s.passed}/${s.total}` : `🟡 ${s.passed}/${s.total}`}
                 </td>
                 <td className="px-3 py-2">{s.attempts}</td>
                 <td className="px-3 py-2">{s.submitted_at ? new Date(s.submitted_at).toLocaleString() : t("teacher.notYet")}</td>
-                <td className="rounded-r-xl px-3 py-2 text-right">
+                <td className="rounded-e-xl px-3 py-2 text-end">
                   {s.code != null && (
                     <button className="btn" onClick={() => setView(s)}>
                       👀 {t("teacher.viewCode")}
@@ -605,7 +605,7 @@ export function AdminScreen() {
       </button>
       {error && <p role="alert">{error}</p>}
       {data && (
-        <pre className="card overflow-auto p-4 text-sm" style={{ fontFamily: "var(--code-font)" }}>
+        <pre dir="ltr" className="card overflow-auto p-4 text-sm" style={{ fontFamily: "var(--code-font)" }}>
           {JSON.stringify(data, null, 2)}
         </pre>
       )}

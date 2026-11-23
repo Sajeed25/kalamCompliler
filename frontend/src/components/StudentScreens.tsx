@@ -233,7 +233,7 @@ function AssignmentPanel({ assignment: a, code, canSubmit }: { assignment: Assig
                   <div className="mt-1 text-[15px]">
                     {r.problem ? t(`assignment.problem.${r.problem}`) : t("assignment.differentOutput")}
                     {!r.hidden && r.actual != null && (
-                      <pre className="mt-1 whitespace-pre-wrap rounded-lg p-2 text-sm" style={{ background: "var(--surface)", fontFamily: "var(--code-font)" }}>
+                      <pre dir="ltr" className="mt-1 whitespace-pre-wrap rounded-lg p-2 text-sm" style={{ background: "var(--surface)", fontFamily: "var(--code-font)" }}>
                         {t("assignment.yours")}: {r.actual || t("assignment.nothing")}
                         {"\n"}
                         {t("assignment.expected")}: {r.expected}
