@@ -5,7 +5,7 @@ import { KalamFace } from "./Mascot";
 /** Two views of a problem: a simple one for kids and the full error for experts. */
 export default function ErrorCard({ exp, raw, onShowLine }: { exp: Explanation; raw: string; onShowLine?: (line: number) => void }) {
   const { t } = useTranslation();
-  const isSystem = ["offline", "busy", "rate_limited", "python_load", "code_too_long", "server_setup"].includes(exp.id);
+  const isSystem = ["offline", "busy", "rate_limited", "python_load", "code_too_long", "server_setup", "compiler_load"].includes(exp.id);
   return (
     <section
       className="mt-3 rounded-2xl p-4"

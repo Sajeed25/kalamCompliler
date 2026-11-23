@@ -10,11 +10,18 @@ export interface ServerConfig {
 }
 
 let cached: Promise<ServerConfig | null> | null = null;
+let failedAt = 0;
 
-/** Features the server has switched on. null = server not reachable (Python still works). */
+/**
+ * Features the server has switched on. null = no Kalam backend reachable (static or
+ * Node.js web hosting): Python and C/C++ still run in the browser. A failure is
+ * remembered for 30 s so pages don't keep asking.
+ */
 export function loadServerConfig(): Promise<ServerConfig | null> {
-  if (!cached) cached = api<ServerConfig>("/api/config").catch(() => {
-    cached = null; // try again next time
+  if (cached && (failedAt === 0 || Date.now() - failedAt < 30_000)) return cached;
+  failedAt = 0;
+  cached = api<ServerConfig>("/api/config").catch(() => {
+    failedAt = Date.now();
     return null;
   });
   return cached;

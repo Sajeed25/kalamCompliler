@@ -82,6 +82,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
   const [savedFlash, setSavedFlash] = useState(false);
   const [newBadges, setNewBadges] = useState<BadgeId[]>([]);
   const [mobileTab, setMobileTab] = useState<"code" | "output">("code");
+  const [download, setDownload] = useState<{ loaded: number; total: number } | null>(null);
 
   const turtleRef = useRef<TurtleCanvasHandle>(null);
   const outChars = useRef(0);
@@ -142,6 +143,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
     setInputAlwaysOpen(false);
     setLongRunning(false);
     setNewBadges([]);
+    setDownload(null);
     setMobileTab("output");
     outChars.current = 0;
     usedInput.current = false;
@@ -157,6 +159,10 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
       switch (e.type) {
         case "status":
           setStatus(e.status);
+          if (e.status !== "loading") setDownload(null);
+          break;
+        case "progress":
+          setDownload({ loaded: e.loaded, total: e.total });
           break;
         case "stdout":
         case "stderr": {
@@ -195,6 +201,7 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
 
     window.clearTimeout(longTimer);
     runningRef.current = false;
+    setDownload(null);
     setWaiting(false);
     setInputAlwaysOpen(false);
     setLongRunning(false);
@@ -416,6 +423,16 @@ export default function EditorScreen({ lang, storageKey, starterCode, sidePanel,
               longRunning={longRunning}
               onStop={stop}
             >
+              {download && status === "loading" && (
+                <div className="mb-3 rounded-xl p-3" style={{ background: "var(--tip-bg)" }} role="status" data-testid="download-progress">
+                  <div className="mb-2">
+                    📦 {t("output.downloadingCompiler", { percent: Math.min(100, Math.round((download.loaded / Math.max(1, download.total)) * 100)), mb: Math.round(download.total / 1e6) })}
+                  </div>
+                  <div className="h-3 overflow-hidden rounded-full" style={{ background: "var(--surface-2)" }}>
+                    <div className="h-full rounded-full bg-sky-500 transition-all" style={{ width: `${Math.min(100, (download.loaded / Math.max(1, download.total)) * 100)}%` }} />
+                  </div>
+                </div>
+              )}
               <div className={showTurtle ? "mt-3" : "hidden"}>
                 <TurtleCanvas ref={turtleRef} label={t("output.turtleCanvas")} />
               </div>

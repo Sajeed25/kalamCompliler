@@ -1,0 +1,12 @@
+{
+  "name": "kalam-compiler",
+  "private": true,
+  "description": "Kalam Compiler. For Node.js web hosting (e.g. Hostinger Web apps): build = `npm run build`, start = `npm start`.",
+  "scripts": {
+    "build": "npm --prefix frontend ci --include=dev --no-audit --no-fund && npm --prefix frontend run build",
+    "start": "node frontend/server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

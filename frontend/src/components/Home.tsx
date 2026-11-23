@@ -5,10 +5,12 @@ import Mascot from "./Mascot";
 import { LANGUAGES, LANG_IDS } from "../languages";
 import { getRunner, preloadPythonWhenIdle } from "../runners";
 import { useSession } from "../lib/auth";
+import { useServerConfig } from "../lib/serverConfig";
 
 export default function Home() {
   const { t } = useTranslation();
   const session = useSession();
+  const server = useServerConfig();
   const tips = t("tips", { returnObjects: true }) as string[];
   const tip = useMemo(() => tips[Math.floor(Math.random() * tips.length)], [tips]);
 
@@ -62,7 +64,7 @@ export default function Home() {
               🧑‍🏫 {t("home.teacherDashboard")}
             </a>
           )}
-          {!session && (
+          {!session && server?.accounts_enabled && (
             <a className="btn" href="#/login">
               🔑 {t("home.loginHint")}
             </a>

@@ -87,6 +87,16 @@ assignment flow and share/copy. Hello World runs in all 3 languages on desktop a
 * Admin stats page (runs today by language/outcome, queue, totals, executor health, limits).
 * Privacy hardening: no access logs with IPs, strict CSP, no third-party requests at all.
 
+## After deployment on Hostinger (Node.js Web apps)
+
+* Fixed: blank screen on the Python page when the host doesn't send COOP/COEP headers.
+* **C and C++ now also run in the browser** when there is no backend (Clang → WebAssembly,
+  ~27 MB once per device, cached and offline-capable), with typed input, Stop, a 5 s limit,
+  crash detection and clang-aware error explanations (19 new tests).
+* `npm run build` / `npm start` at the repository root + `frontend/server.mjs` for Node.js hosting.
+* `kalam-config.json` (backend address, C/C++ mode) editable without rebuilding.
+* Error boundary, stale-file auto-reload, login hidden when there is no backend.
+
 ## Verified in this session
 
 | Check | Result |

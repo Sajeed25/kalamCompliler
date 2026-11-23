@@ -1,34 +1,58 @@
 # Deploying on Hostinger
 
-## Why "Can't reach the Kalam server" appears
+## Which Hostinger plan does what
 
-Kalam has two parts:
+| Plan | Python | C / C++ | Logins, classes, assignments, sharing |
+|---|---|---|---|
+| **Web apps (Node.js)**, e.g. Business / Cloud "Web apps" | ✅ in the browser | ✅ **in the browser** (Clang → WebAssembly) | ❌ needs a backend: add a VPS (see the end of this guide) |
+| Web hosting (static files in `public_html`) | ✅ | ✅ in the browser | ❌ |
+| **VPS** (KVM, Docker) | ✅ | ✅ on the server (Piston) | ✅ |
 
-| Part | What it does | Where it can run |
-|---|---|---|
-| **Website** (`frontend/dist`) | the editor, **Python** (runs in the student's browser) | anywhere, including Hostinger **Web/shared hosting** |
-| **Backend** (Docker: API + Piston + PostgreSQL) | **C/C++** compiling, logins, assignments, sharing | needs a **VPS** (root + Docker). Shared hosting can't run it. |
+Hostinger's Node.js web apps can't run Docker, Python services or inbound WebSockets
+([Hostinger's limits](https://www.hostinger.com/support/hostinger-node-js-limits-for-web-and-cloud-plans/)),
+so the Kalam backend can't run there. That's fine for coding: **Python and C/C++ both run inside
+the student's browser**. The C/C++ compiler (about 27 MB) downloads the first time a device runs C
+or C++, then it is cached and also works offline.
 
-If only the website files are uploaded (e.g. into `public_html`), Python works, but C/C++ show
-*"Can't reach the Kalam server"* and the 🔗 Share button is missing. Open **Full error (for
-experts)** under the message. It says exactly what is wrong:
+## Hostinger Web apps (Node.js) — your current plan
 
-| Full error says | Meaning | Fix |
-|---|---|---|
-| `…/api/health returned HTTP 404 (text/html…)` | No backend behind this website | Option 1 or 2 below |
-| `…backend answers… but the WebSocket connection… was refused` | Backend runs, but a proxy blocks WebSockets | Enable WebSockets in the proxy/CDN (see Troubleshooting) |
-| `Could not reach … at all` | Wrong `apiBase`, DNS, CORS, or `http://` backend on an `https://` site | Check `kalam-config.json`, `KALAM_CORS_ORIGINS`, HTTPS |
+In hPanel → **Websites → Add website → Node.js web app** (or the existing app's **Settings**):
 
-## Option 1 (recommended): everything on one Hostinger VPS
+| Setting | Value |
+|---|---|
+| Source | GitHub repo `Sajeed25/kalamCompliler`, branch `main` (or upload a zip of the repo) |
+| Framework | **Other** (or "Express") |
+| Root directory | `/` (the repository root) |
+| Node.js version | **20** or newer |
+| Build command | `npm run build` |
+| Start command / entry file | `npm start` (entry file: `frontend/server.mjs`) |
+| Output directory | leave empty: `frontend/server.mjs` serves `frontend/dist` itself |
 
-Any Hostinger **KVM VPS** works (KVM 2: 2 vCPU / 8 GB is plenty for a few schools).
+Then **Deploy**. Each push to GitHub redeploys (if auto-deploy is on). The build installs
+packages, copies Python and the C/C++ compiler into the site, and builds the app. It takes about
+1–2 minutes.
 
-1. **hPanel → VPS → OS**: choose **Ubuntu 24.04 with Docker** (or plain Ubuntu, then install Docker:
-   `curl -fsSL https://get.docker.com | sh`).
-2. **DNS**: in hPanel → Domains → DNS, make `compile.robokalam.com` an **A record** pointing to the
-   VPS IP. If the domain currently points to web hosting, change that record. Remove any
-   `public_html` copy for this subdomain to avoid confusion.
-3. On the VPS (SSH):
+`frontend/server.mjs` is a tiny web server with no dependencies. It sends the headers the app
+needs (COOP/COEP for typed input, the right file types, gzip and caching) and answers `/api/*`
+with "no backend", so the app switches to in-browser C/C++ at once.
+
+### Check it works
+
+1. Open `https://compile.robokalam.com/#/code/c`, press **▶ Run**. The first time, a bar shows
+   "Getting the C/C++ compiler ready… only the first time". Then *Hello, World!* appears.
+2. Try a program with `scanf`/`cin`: the input box appears inside the output screen.
+3. Open the same page on a second device to check the download also works on school internet.
+
+## If you uploaded files instead (static / `public_html`)
+
+Upload the contents of `frontend/dist/` (or the ready-made `kalam-website.zip`). Delete old files
+first, keep the hidden `.htaccess`, then **Clear cache** in hPanel and press Ctrl+Shift+R.
+
+## Adding classes, assignments and sharing later (needs a VPS)
+
+1. Get a Hostinger **KVM VPS** (Ubuntu 24.04 with Docker). Point `api.compile.robokalam.com`
+   (DNS A record) at it.
+2. On the VPS:
 
 ```bash
 git clone https://github.com/Sajeed25/kalamCompliler.git /opt/kalam && cd /opt/kalam
@@ -38,93 +62,44 @@ git clone https://github.com/Sajeed25/kalamCompliler.git /opt/kalam && cd /opt/k
 cp .env.example .env && nano .env
 ```
 
-   Set every `CHANGE-ME` value and `KALAM_HTTP_PORT=8080` (Caddy will own ports 80/443).
+   Set the `CHANGE-ME` values, `KALAM_HTTP_PORT=8080` and
+   `KALAM_CORS_ORIGINS=https://compile.robokalam.com`.
 
 ```bash
-docker compose up -d --build
+docker compose up -d --build && docker compose exec backend python -m app.tools.piston_setup
 ```
 
-```bash
-docker compose exec backend python -m app.tools.piston_setup
-```
-
-4. **HTTPS** with Caddy (free automatic certificates):
+3. HTTPS with Caddy:
 
 ```bash
-sudo apt install -y caddy
-```
-
-```bash
-echo 'compile.robokalam.com {
+sudo apt install -y caddy && echo 'api.compile.robokalam.com {
     reverse_proxy localhost:8080
 }' | sudo tee /etc/caddy/Caddyfile && sudo systemctl reload caddy
 ```
 
-5. **Firewall** (hPanel → VPS → Firewall, and `ufw` if enabled): allow ports 22, 80, 443 only.
-6. Check: open `https://compile.robokalam.com/api/health`. It should show `{"ok":true}`. Then run a C program.
+4. In the repository, set `frontend/public/kalam-config.json` to
+   `{ "apiBase": "https://api.compile.robokalam.com", "cRunner": "auto" }` and push. The web app
+   redeploys, **Log in** appears, and C/C++ then run on the VPS (with the in-browser compiler as
+   automatic fallback if the VPS is down).
 
-If `ghcr.io` (Piston) can't be downloaded, use the single-container mode instead:
-`docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build`.
-
-## Option 2: keep the website on Web hosting, backend on a VPS
-
-Use this if you want to keep the site in `public_html`.
-
-1. Set up the VPS as in Option 1, but give it its own name, e.g. `api.compile.robokalam.com`
-   (A record → VPS IP; Caddyfile uses that name).
-2. In the VPS `.env`, allow the website to call the backend, then restart:
-
-```
-KALAM_CORS_ORIGINS=https://compile.robokalam.com
-```
-
-```bash
-docker compose up -d
-```
-
-3. On Web hosting, upload the **contents** of `frontend/dist/` (build it with
-   `cd frontend && npm ci && npm run build`) into the subdomain's folder. Keep the hidden
-   `.htaccess` file: it sets the headers Python needs. In File Manager, enable "show hidden files".
-4. Edit `kalam-config.json` in that folder (no rebuild needed):
-
-```json
-{
-  "apiBase": "https://api.compile.robokalam.com"
-}
-```
-
-5. Reload the site (Ctrl+Shift+R). The 🔗 Share button appears when the backend is reachable.
-
-Both addresses must be `https://`. A browser blocks an `https` page from using an `http` backend.
-
-## Updating the website files on Web hosting
-
-1. Build (or use the ready-made `kalam-website.zip`): `cd frontend && npm ci && npm run build`. The files are in `frontend/dist/`.
-2. hPanel → File Manager → the site's folder (e.g. `public_html` or the subdomain folder):
-   **delete the old files first** (old `assets/` files can confuse browsers), then upload the zip and **Extract** it there.
-3. Make sure these exist after extracting (turn on *Show hidden files*): `.htaccess`, `sw.js`,
-   `kalam-config.json`, `index.html`, `assets/`, `pyodide/`.
-4. If your `kalam-config.json` had an `apiBase`, put it back (the zip contains an empty one).
-5. hPanel → Website → **Clear cache** (LiteSpeed cache), then press Ctrl+Shift+R in the browser.
-
-Browsers that had the old version open reload themselves once automatically.
+Alternatively run everything on the VPS and point `compile.robokalam.com` itself at it
+(see [DEPLOYMENT.md](DEPLOYMENT.md)).
 
 ## Troubleshooting
 
-* **Blank page** (fixed in this version): the old build crashed when the host didn't send the
-  isolation headers. Upload the new build. If anything fails now, a friendly "page tripped over"
-  screen with a Reload button appears instead.
-* **Python says it can't start / input() doesn't work on Web hosting**: the host didn't apply
-  `.htaccess` headers. The app's service worker adds them itself and reloads the page once on
-  the first visit. If it still fails, make sure `.htaccess` and `sw.js` were uploaded and the
-  site is served over HTTPS (service workers need HTTPS).
-* **WebSocket refused but `/api/health` works**: a proxy in front is not passing WebSocket
-  upgrades. Our `nginx.conf` and Caddy already do this. Hostinger CDN / Cloudflare must have
-  WebSockets enabled.
-* **Backend logs**: `docker compose logs -f backend`. The first lines say whether the code
-  runner (Piston) is reachable.
-* **Test the live site end-to-end** from any computer with Node:
+| What you see | Fix |
+|---|---|
+| Blank page | Redeploy the latest version (fixed). Any error now shows a friendly screen with a Reload button. |
+| "Getting the C/C++ compiler ready" never finishes | The device's internet blocked a 27 MB download. Try again on a better connection; after one success it's cached. Check `https://compile.robokalam.com/clang/llvm.core.wasm.kgz` downloads. |
+| "The C/C++ compiler couldn't be downloaded" | Same as above; or the build didn't create `frontend/dist/clang/`. Check the build log for `[copy-runtimes]`. |
+| Typing answers says "reload the page" | Press Ctrl+Shift+R once. If it persists, the site isn't sending COOP/COEP headers: make sure the start command is `npm start` (our server), not a generic static host. |
+| C/C++ say "server isn't set up" | `kalam-config.json` has `"cRunner": "server"` or an `apiBase` that's down. Use `"cRunner": "auto"`. |
+
+Test the live site end-to-end from any computer with Node:
 
 ```bash
-cd frontend && npm ci && KALAM_URL=https://compile.robokalam.com E2E_INVITE=<teacher invite code> npx playwright test -c playwright.deployed.config.ts
+cd frontend && npm ci && KALAM_URL=https://compile.robokalam.com npx playwright test -c playwright.deployed.config.ts e2e/hello.spec.ts e2e/browser-compiler.spec.ts
 ```
+
+Sources: [Hostinger Node.js limits](https://www.hostinger.com/support/hostinger-node-js-limits-for-web-and-cloud-plans/),
+[How to add a Node.js web app](https://www.hostinger.com/support/how-to-deploy-a-nodejs-website-in-hostinger/).

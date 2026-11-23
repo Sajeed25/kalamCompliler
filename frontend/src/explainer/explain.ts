@@ -412,7 +412,7 @@ const PY_RULES: Rule[] = [
 
 // ---------------------------------------------------------------- C / C++
 
-/** Pull the first compiler error out of gcc/g++ output. */
+/** Pull the first compiler error out of gcc/g++ or clang output (same "file:line:col: error:" format). */
 export function parseGccError(raw: string): { line?: number; column?: number; msg: string; lineText: string } {
   const re = /(?:^|[\s/])main\.(?:c|cpp|cc):(\d+):(\d+):\s*(?:fatal error|error):\s*(.*)$/m;
   const m = re.exec(raw);
@@ -422,7 +422,7 @@ export function parseGccError(raw: string): { line?: number; column?: number; ms
     const src = /^\s*\d+\s*\|(.*)$/m.exec(after)?.[1] ?? "";
     return { line: +m[1], column: +m[2], msg: m[3].trim(), lineText: src };
   }
-  const link = /undefined reference to [`'‘]([^'’`]+)['’`]/.exec(raw);
+  const link = /undefined reference to [`'‘]([^'’`]+)['’`]/.exec(raw) ?? /undefined symbol: ([\w:]+)/.exec(raw);
   if (link) return { msg: `undefined reference to '${link[1]}'`, lineText: "" };
   return { msg: raw.split("\n").find((l) => l.trim()) ?? "", lineText: "" };
 }
@@ -449,6 +449,20 @@ function cRules(lang: LangId): Rule[] {
   const cpp = lang === "cpp";
   return [
     {
+      // clang reports this as a warning followed by confusing errors, so check it first
+      id: "c_unterminated_string",
+      match: ({ msg, raw }) => /missing terminating (["']|'["']') character/.test(msg) || /warning: missing terminating/.test(raw),
+    },
+    {
+      // In C, "string"/"bool" are not types (clang: "use of undeclared identifier 'string'")
+      id: "c_unknown_type",
+      match: ({ msg }) => {
+        if (cpp) return null;
+        const m = /use of undeclared identifier '(string|bool)'/.exec(msg);
+        return m ? { name: m[1], context: m[1] } : null;
+      },
+    },
+    {
       id: "c_missing_semicolon",
       match: ({ msg }) => {
         const m = /expected ';' (before|at end of|after) ?(.*)$/.exec(msg);
@@ -459,7 +473,9 @@ function cRules(lang: LangId): Rule[] {
       id: "c_std_missing",
       match: ({ msg }) => {
         if (!cpp) return null;
-        const m = /'(\w+)' was not declared in this scope; did you mean 'std::(\w+)'/.exec(msg);
+        const m =
+          /'(\w+)' was not declared in this scope; did you mean 'std::(\w+)'/.exec(msg) ??
+          /(?:use of undeclared identifier|unknown type name) '(\w+)'; did you mean 'std::(\w+)'/.exec(msg);
         return m ? { name: m[1], header: CPP_HEADER_FOR[m[1]] ?? "iostream" } : null;
       },
     },
@@ -467,7 +483,9 @@ function cRules(lang: LangId): Rule[] {
       id: "c_cpp_missing_include",
       match: ({ msg, code }) => {
         if (!cpp) return null;
-        const m = /'(\w+)' (?:was not declared in this scope|is not a member of 'std'|does not name a type)/.exec(msg);
+        const m =
+          /'(\w+)' (?:was not declared in this scope|is not a member of 'std'|does not name a type)/.exec(msg) ??
+          /(?:use of undeclared identifier|unknown type name|no (?:type|member) named) '(\w+)'/.exec(msg);
         if (!m) return null;
         const header = CPP_HEADER_FOR[m[1]];
         if (!header || new RegExp(`#\\s*include\\s*<${header}>`).test(code)) return null;
@@ -477,8 +495,9 @@ function cRules(lang: LangId): Rule[] {
     {
       id: "c_implicit_function_header",
       match: ({ msg, code }) => {
-        const m = /implicit declaration of function '(\w+)'/.exec(msg);
+        const m = /implicit declaration of function '(\w+)'|call to undeclared (?:library )?function '(\w+)'/.exec(msg);
         if (!m) return null;
+        m[1] = m[1] ?? m[2];
         const header = HEADER_FOR[m[1]];
         if (!header || code.includes(`<${header}>`)) return null;
         return { name: m[1], header };
@@ -490,7 +509,9 @@ function cRules(lang: LangId): Rule[] {
         const m =
           /implicit declaration of function '(\w+)'(?:.*did you mean '(\w+)')?/.exec(msg) ??
           /'(\w+)' undeclared(?:.*did you mean '(\w+)')?/.exec(msg) ??
-          /'(\w+)' was not declared in this scope(?:; did you mean '(\w+)')?/.exec(msg);
+          /'(\w+)' was not declared in this scope(?:; did you mean '(\w+)')?/.exec(msg) ??
+          /use of undeclared identifier '(\w+)'(?:; did you mean '([\w:]+)')?/.exec(msg) ??
+          /call to undeclared (?:library )?function '(\w+)'/.exec(msg);
         if (!m) return null;
         const gccHint = m[2] && !C_KEYWORDS.has(m[2]) ? m[2] : undefined;
         const suggestion =
@@ -503,14 +524,14 @@ function cRules(lang: LangId): Rule[] {
     {
       id: "c_undeclared",
       match: ({ msg }) => {
-        const m = /'(\w+)' undeclared|'(\w+)' was not declared in this scope|implicit declaration of function '(\w+)'/.exec(msg);
-        return m ? { name: m[1] ?? m[2] ?? m[3] } : null;
+        const m = /'(\w+)' undeclared|'(\w+)' was not declared in this scope|implicit declaration of function '(\w+)'|use of undeclared identifier '(\w+)'|call to undeclared (?:library )?function '(\w+)'/.exec(msg);
+        return m ? { name: m[1] ?? m[2] ?? m[3] ?? m[4] ?? m[5] } : null;
       },
     },
     {
       id: "c_bad_header",
       match: ({ msg }) => {
-        const m = /([\w./+]+): No such file or directory/.exec(msg);
+        const m = /([\w./+]+): No such file or directory/.exec(msg) ?? /'([\w./+]+)' file not found/.exec(msg);
         if (!m) return null;
         const suggestion = closest(m[1], cpp ? [...KNOWN_CPP_HEADERS, ...KNOWN_C_HEADERS] : KNOWN_C_HEADERS) ?? "";
         return suggestion ? { header: m[1], suggestion } : { header: m[1], context: "nosuggest" };
@@ -531,23 +552,19 @@ function cRules(lang: LangId): Rule[] {
     },
     {
       id: "c_missing_brace_end",
-      match: ({ msg }) => /expected '}' at end of input|expected declaration or statement at end of input/.test(msg),
+      match: ({ msg }) => /expected '}' at end of input|expected declaration or statement at end of input|^expected '}'$/.test(msg),
     },
     {
       id: "c_missing_paren",
       match: ({ msg }) => /expected '\)' before|expected '\)' at end/.test(msg),
     },
     {
-      id: "c_unterminated_string",
-      match: ({ msg }) => /missing terminating (["']) character/.test(msg),
-    },
-    {
       id: "c_stray_char",
-      match: ({ msg }) => /stray '\\?(3\d\d|\S)' in program/.test(msg),
+      match: ({ msg }) => /stray '\\?(3\d\d|\S)' in program|unexpected character <U\+|character <U\+[0-9A-Fa-f]+> not allowed|non-ASCII characters are not allowed/.test(msg),
     },
     {
       id: "c_main_missing",
-      match: ({ raw }) => /undefined reference to [`'‘](main|WinMain)/.test(raw),
+      match: ({ raw }) => /undefined reference to [`'‘](main|WinMain)|undefined symbol: (main|__main_argc_argv|__main_void)\b/.test(raw),
     },
     {
       id: "c_undefined_reference",
@@ -562,11 +579,11 @@ function cRules(lang: LangId): Rule[] {
     },
     {
       id: "c_break_outside",
-      match: ({ msg }) => /break statement not within loop or switch|continue statement not within a loop/.test(msg),
+      match: ({ msg }) => /break statement not within loop or switch|continue statement not within a loop|'(break|continue)' statement not in loop/.test(msg),
     },
     {
       id: "c_lvalue",
-      match: ({ msg }) => /lvalue required as left operand of assignment/.test(msg),
+      match: ({ msg }) => /lvalue required as left operand of assignment|expression is not assignable/.test(msg),
     },
     {
       id: "c_redefinition",
@@ -577,51 +594,53 @@ function cRules(lang: LangId): Rule[] {
     },
     {
       id: "c_too_few_args",
-      match: ({ msg }) => {
-        const m = /too few arguments to function '([^']+)'/.exec(msg);
-        return m ? { func: m[1].replace(/\(.*$/, "").replace(/^.*\s/, "") } : null;
+      match: ({ msg, lineText }) => {
+        const m = /too few arguments to function(?: call)?(?: '([^']+)')?/.exec(msg);
+        if (!m) return null;
+        return { func: m[1] ? m[1].replace(/\(.*$/, "").replace(/^.*\s/, "") : (/(\w+)\s*\(/.exec(lineText)?.[1] ?? "") };
       },
     },
     {
       id: "c_too_many_args",
-      match: ({ msg }) => {
-        const m = /too many arguments to function '([^']+)'/.exec(msg);
-        return m ? { func: m[1].replace(/\(.*$/, "").replace(/^.*\s/, "") } : null;
+      match: ({ msg, lineText }) => {
+        const m = /too many arguments to function(?: call)?(?: '([^']+)')?/.exec(msg);
+        if (!m) return null;
+        return { func: m[1] ? m[1].replace(/\(.*$/, "").replace(/^.*\s/, "") : (/(\w+)\s*\(/.exec(lineText)?.[1] ?? "") };
       },
     },
     {
       id: "c_void_value",
-      match: ({ msg }) => /void value not ignored|return-statement with a value, in function returning 'void'/.test(msg),
+      match: ({ msg }) => /void value not ignored|return-statement with a value, in function returning 'void'|void function '\w+' should not return a value|expression of incompatible type 'void'/.test(msg),
     },
     {
       id: "c_return_no_value",
-      match: ({ msg }) => /return-statement with no value/.test(msg),
+      match: ({ msg }) => /return-statement with no value|non-void function '\w+' should return a value/.test(msg),
     },
     {
       id: "c_type_mismatch",
       match: ({ msg }) =>
-        /incompatible types|invalid conversion from|cannot convert|incompatible type for argument|makes (integer|pointer) from (pointer|integer) without a cast/.test(msg),
+        /incompatible types|invalid conversion from|cannot convert|incompatible type for argument|makes (integer|pointer) from (pointer|integer) without a cast|incompatible (pointer|integer) to|from incompatible type|cannot initialize a variable of type|no viable conversion/.test(msg),
+    },
+    {
+      id: "c_cin_cout_arrows",
+      match: ({ msg, lineText }) =>
+        cpp && /no match for 'operator(<<|>>)'|invalid operands to binary expression/.test(msg) && /\b(cin\s*<<|cout\s*>>)/.test(lineText),
     },
     {
       id: "c_invalid_operands",
       match: ({ msg }) => /invalid operands to binary|no match for 'operator[+\-*/]'/.test(msg),
     },
     {
-      id: "c_cin_cout_arrows",
-      match: ({ msg, lineText }) =>
-        cpp && /no match for 'operator(<<|>>)'/.test(msg) && /\b(cin\s*<<|cout\s*>>)/.test(lineText),
-    },
-    {
       id: "c_subscript",
-      match: ({ msg }) => /subscripted value is neither array nor pointer|invalid types .* for array subscript/.test(msg),
+      match: ({ msg }) => /subscripted value is (neither array nor pointer|not an array)|invalid types .* for array subscript/.test(msg),
     },
     {
       id: "c_member_access",
-      match: ({ msg }) => /request for member '(\w+)' in something not a structure|has no member named/.test(msg),
+      match: ({ msg }) => /request for member '(\w+)' in something not a structure|has no member named|member reference base type .* is not a structure|no member named '\w+' in/.test(msg),
     },
     {
       id: "c_case_outside",
-      match: ({ msg }) => /case label not within a switch|'default' label not within a switch/.test(msg),
+      match: ({ msg }) => /case label not within a switch|'default' label not within a switch|'(case|default)' statement not in switch/.test(msg),
     },
     {
       id: "c_duplicate_case",
@@ -629,7 +648,7 @@ function cRules(lang: LangId): Rule[] {
     },
     {
       id: "c_jump_case",
-      match: ({ msg }) => /jump to case label|crosses initialization/.test(msg),
+      match: ({ msg }) => /jump to case label|crosses initialization|cannot jump from switch statement to this case label/.test(msg),
     },
     {
       id: "c_expected_expression",
@@ -648,7 +667,7 @@ function cRules(lang: LangId): Rule[] {
     },
     {
       id: "c_main_return_type",
-      match: ({ msg }) => /'::main' must return 'int'|return type of 'main' is not 'int'/.test(msg),
+      match: ({ msg }) => /'::main' must return 'int'|return type of 'main' is not 'int'|'main' must return 'int'/.test(msg),
     },
     {
       id: "c_string_literal_char",
@@ -684,6 +703,8 @@ const SHARED_RULES: Rule[] = [
   { id: "busy", match: ({ err }) => err.type === "busy" },
   { id: "offline", match: ({ err }) => err.type === "offline" },
   { id: "server_setup", match: ({ err }) => err.type === "server_setup" },
+  { id: "compiler_load", match: ({ err }) => err.type === "compiler_load" },
+  { id: "py_no_input", match: ({ err, msg }) => err.type === "KalamNoInput" || msg.includes("KALAM_NO_INPUT") },
   { id: "code_too_long", match: ({ err }) => err.type === "code_too_long" },
   { id: "python_load", match: ({ err }) => err.type === "LoadError" },
 ];
@@ -715,7 +736,7 @@ export function explainError(lang: LangId, err: ProgramError, code: string): Exp
   return { id: "generic", params: { type: err.type ?? "" }, line, column };
 }
 
-/** Friendly tips for gcc warnings that usually cause wrong answers or crashes. */
+/** Friendly tips for gcc/clang warnings that usually cause wrong answers or crashes. */
 export function explainWarnings(rawText: string): Explanation[] {
   const raw = rawText.replace(/[‘’]/g, "'");
   const out: Explanation[] = [];
@@ -724,15 +745,15 @@ export function explainWarnings(rawText: string): Explanation[] {
   while ((m = re.exec(raw)) && out.length < 3) {
     const line = +m[1];
     const w = m[2];
-    if (/format '%\w+' expects argument of type '\w+ \*', but argument \d+ has type/.test(w))
+    if (/format '%\w+' expects argument of type '\w+ \*', but argument \d+ has type|format specifies type '\w+ \*' but the argument has type '\w+'/.test(w))
       out.push({ id: "w_scanf_ampersand", params: {}, line });
-    else if (/suggest parentheses around assignment used as truth value/.test(w))
+    else if (/suggest parentheses around assignment used as truth value|using the result of an assignment as a condition/.test(w))
       out.push({ id: "w_assign_in_if", params: {}, line });
-    else if (/format '%(\w+)' expects argument of type '(\w+)', but argument \d+ has type '(\w+)'/.test(w))
+    else if (/format '%(\w+)' expects argument of type '(\w+)', but argument \d+ has type '(\w+)'|format specifies type '[^']+' but the argument has type/.test(w))
       out.push({ id: "w_format_type", params: {}, line });
-    else if (/control reaches end of non-void function/.test(w)) out.push({ id: "w_no_return", params: {}, line });
-    else if (/is used uninitialized/.test(w)) {
-      const name = /'(\w+)' is used uninitialized/.exec(w)?.[1] ?? "";
+    else if (/control reaches end of non-void function|non-void function does not return a value/.test(w)) out.push({ id: "w_no_return", params: {}, line });
+    else if (/is used uninitialized|is uninitialized when used here/.test(w)) {
+      const name = /'(\w+)' is (?:used uninitialized|uninitialized when used)/.exec(w)?.[1] ?? "";
       out.push({ id: "w_uninitialized", params: { name }, line });
     } else if (/division by zero/.test(w)) out.push({ id: "w_div_zero", params: {}, line });
   }

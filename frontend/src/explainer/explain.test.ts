@@ -172,6 +172,52 @@ describe("C / C++ rules (real gcc output)", () => {
   });
 });
 
+describe("C / C++ rules (real clang output, used for in-browser compiling)", () => {
+  it.each([
+    ["c", "main.c:4:20: error: expected ';' after expression", "c_missing_semicolon", ""],
+    ["c", "main.c:2:3: error: call to undeclared function 'prinf'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]", "c_name_typo", 'int main(){\n  prinf("hi");\n}'],
+    ["c", "main.c:1:13: error: call to undeclared library function 'printf' with type 'int (const char *, ...)'; ISO C99 and later do not support implicit function declarations", "c_implicit_function_header", 'int main(){ printf("x"); }'],
+    ["c", "main.c:1:10: fatal error: 'stdio' file not found", "c_bad_header", ""],
+    ["c", "main.c:3:16: error: expected '}'", "c_missing_brace_end", ""],
+    ["c", "main.c:3:3: error: use of undeclared identifier 'string'; did you mean 'stdin'?", "c_unknown_type", ""],
+    ["c", "main.c:4:5: error: expression is not assignable", "c_lvalue", ""],
+    ["c", "main.c:3:10: error: unexpected character <U+201C>", "c_stray_char", ""],
+    ["c", "main.c:3:18: error: too few arguments to function call, expected 2, have 1", "c_too_few_args", "int add(int a,int b){return a+b;}\nint main(){\n  add(1);\n}"],
+    ["c", "main.c:2:13: error: 'break' statement not in loop or switch statement", "c_break_outside", ""],
+    ["cpp", "main.cpp:3:3: error: unknown type name 'string'; did you mean 'std::string'?", "c_std_missing", "#include <iostream>\n#include <string>\nint main(){ string s; }"],
+    ["cpp", "main.cpp:2:3: error: use of undeclared identifier 'cout'", "c_cpp_missing_include", 'int main(){\n  cout << "hi";\n}'],
+    ["cpp", "main.cpp:3:3: error: use of undeclared identifier 'cout'; did you mean 'std::cout'?", "c_std_missing", "#include <iostream>\nint main(){\n  cout << 1;\n}"],
+  ])("%s: %s", (lang, raw, id, code) => {
+    expect(gcc(lang as "c" | "cpp", raw + "\n", code).id).toBe(id);
+  });
+  it("names the function for clang's 'too few arguments to function call'", () => {
+    const e = gcc("c", "main.c:3:3: error: too few arguments to function call, expected 2, have 1\n", "int add(int a,int b){return a+b;}\nint main(){\n  add(1);\n}");
+    expect(e.params.func).toBe("add");
+  });
+  it("unterminated string is found even though clang reports it as a warning first", () => {
+    const raw = "main.c:3:10: warning: missing terminating '\"' character [-Winvalid-pp-token]\nmain.c:3:10: error: expected expression\n";
+    expect(gcc("c", raw)).toMatchObject({ id: "c_unterminated_string", line: 3 });
+  });
+  it("cin with the wrong arrows (clang)", () => {
+    const raw = "main.cpp:5:7: error: invalid operands to binary expression ('istream' (aka 'basic_istream<char>') and 'int')\n    5 |   cin << x;\n";
+    expect(gcc("cpp", raw).id).toBe("c_cin_cout_arrows");
+  });
+  it("missing main (wasm-ld)", () => {
+    expect(gcc("c", "wasm-ld: error: crt1-command.o: undefined symbol: main\n").id).toBe("c_main_missing");
+  });
+  it("clang warnings become tips", () => {
+    const raw = [
+      "main.c:2:32: warning: format specifies type 'int *' but the argument has type 'int' [-Wformat]",
+      "main.c:3:7: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]",
+      "main.c:4:9: warning: variable 'y' is uninitialized when used here [-Wuninitialized]",
+    ].join("\n");
+    expect(explainWarnings(raw).map((w) => w.id)).toEqual(["w_scanf_ampersand", "w_assign_in_if", "w_uninitialized"]);
+  });
+  it("browser compiler download failure", () => {
+    expect(explainError("c", { kind: "system", type: "compiler_load", message: "", raw: "" }, "").id).toBe("compiler_load");
+  });
+});
+
 describe("shared rules", () => {
   it("timeout uses the spec message", () => {
     expect(explainError("c", { kind: "timeout", message: "", raw: "" }, "").id).toBe("timeout");

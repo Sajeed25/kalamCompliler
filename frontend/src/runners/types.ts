@@ -25,6 +25,8 @@ export type RunEvent =
   | { type: "stdout"; text: string }
   | { type: "stderr"; text: string }
   | { type: "input-request" }
+  /** Downloading something big the first time (e.g. the in-browser C/C++ compiler). */
+  | { type: "progress"; loaded: number; total: number }
   | { type: "turtle"; ops: TurtleOp[] };
 
 export interface Runner {

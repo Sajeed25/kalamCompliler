@@ -1,6 +1,7 @@
 /* Kalam Compiler service worker.
  * - App files (hashed, never change): cache-first, precached on install.
- * - Python runtime (/pyodide/): cache-first, cached the first time Python is used.
+ * - Python runtime (/pyodide/) and C/C++ compiler (/clang/): cache-first, cached the first
+ *   time they are used, so they download only once per device and then work offline.
  * - Pages: network-first, falling back to the cached app when offline.
  * - /api/: always network (never cached).
  */
@@ -78,7 +79,8 @@ self.addEventListener("fetch", (event) => {
     );
     return;
   }
-  if (url.pathname.includes("/pyodide/") || url.pathname.includes("/assets/")) {
-    event.respondWith(cacheFirst(req, url.pathname.includes("/pyodide/") ? RUNTIME_CACHE : APP_CACHE).then(withIsolation));
+  const runtime = url.pathname.includes("/pyodide/") || url.pathname.includes("/clang/");
+  if (runtime || url.pathname.includes("/assets/")) {
+    event.respondWith(cacheFirst(req, runtime ? RUNTIME_CACHE : APP_CACHE).then(withIsolation));
   }
 });

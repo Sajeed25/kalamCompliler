@@ -31,3 +31,15 @@ test("Python still works without cross-origin isolation", async ({ page }) => {
   await expect(page.getByTestId("error-simple")).toContainText("reload the page");
   expect(errors).toEqual([]);
 });
+
+test("C runs without cross-origin isolation or a backend; input() explains how to fix", async ({ page }) => {
+  test.setTimeout(180_000);
+  await page.route("**/api/**", (route) => route.fulfill({ status: 404, contentType: "text/html", body: "x" }));
+  await page.goto("/#/code/c");
+  await run(page);
+  await expectStatus(page, /Finished/);
+  await expect(page.getByTestId("output-text")).toContainText("Hello, World!");
+  await setCode(page, '#include <stdio.h>\nint main() {\n    int a;\n    scanf("%d", &a);\n    return 0;\n}\n');
+  await run(page);
+  await expect(page.getByTestId("error-simple")).toContainText("reload the page");
+});

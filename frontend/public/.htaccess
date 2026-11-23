@@ -8,6 +8,8 @@ DirectoryIndex index.html
 AddType application/wasm .wasm
 AddType application/javascript .mjs
 AddType application/manifest+json .webmanifest
+# The C/C++ compiler files are already compressed: serve them as plain bytes
+AddType application/octet-stream .kgz
 
 <IfModule mod_headers.c>
   # Required so Python can pause for input(): makes the page "cross-origin isolated".
@@ -23,8 +25,14 @@ AddType application/manifest+json .webmanifest
   # Caching: hashed build files forever, Python runtime 30 days, app shell always fresh
   SetEnvIf Request_URI "^/assets/" KALAM_IMMUTABLE
   SetEnvIf Request_URI "^/pyodide/" KALAM_PYODIDE
+  SetEnvIf Request_URI "^/clang/" KALAM_PYODIDE
   Header set Cache-Control "public, max-age=31536000, immutable" env=KALAM_IMMUTABLE
   Header set Cache-Control "public, max-age=2592000" env=KALAM_PYODIDE
+  # never let the server re-compress or mark the .kgz files as encoded
+  <FilesMatch "\.kgz$">
+    Header unset Content-Encoding
+    SetEnv no-gzip 1
+  </FilesMatch>
   <FilesMatch "^(index\.html|sw\.js|kalam-config\.json|precache-manifest\.json)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>

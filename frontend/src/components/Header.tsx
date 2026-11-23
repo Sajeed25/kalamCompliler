@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { navigate } from "../lib/router";
 import { useSession, setSession } from "../lib/auth";
+import { useServerConfig } from "../lib/serverConfig";
 import SettingsMenu from "./SettingsMenu";
 import { KalamFace } from "./Mascot";
 import type { ReactNode } from "react";
@@ -8,6 +9,7 @@ import type { ReactNode } from "react";
 export default function Header({ children }: { children?: ReactNode }) {
   const { t } = useTranslation();
   const session = useSession();
+  const server = useServerConfig(); // no backend (e.g. web hosting) = no accounts
   return (
     <header
       className="flex flex-wrap items-center gap-2 px-3 py-2 sm:px-4"
@@ -42,12 +44,12 @@ export default function Header({ children }: { children?: ReactNode }) {
               <span className="text-sm sm:text-base">{t("nav.logout")}</span>
             </button>
           </>
-        ) : (
+        ) : server?.accounts_enabled ? (
           <a className="btn" href="#/login">
             <span aria-hidden="true">🔑</span>
             <span className="text-sm sm:text-base">{t("nav.login")}</span>
           </a>
-        )}
+        ) : null}
         <SettingsMenu />
       </nav>
     </header>

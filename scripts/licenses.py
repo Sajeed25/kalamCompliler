@@ -65,6 +65,9 @@ OpenDyslexic are all under the SIL Open Font Licence 1.1 (see the `@fontsource/*
 
 ## Notes
 
+* **@yowasp/clang (ISC)** packages LLVM/Clang/LLD, which are under **Apache-2.0 WITH LLVM-exception**,
+  and wasi-libc / libc++ (Apache-2.0 WITH LLVM-exception, MIT, CC0 parts). All allow commercial use.
+  Programs compiled with it are not covered by these licences (the LLVM exception).
 * **Pyodide (MPL-2.0)** is file-level copyleft: commercial use is fine. If you modify Pyodide's
   own files you must publish those modified files. We ship it unmodified.
 * The **turtle** module in `frontend/src/runners/python/turtle.py` is our own implementation

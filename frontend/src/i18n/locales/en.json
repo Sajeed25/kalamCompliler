@@ -80,7 +80,8 @@
     "send": "Send",
     "longRunning": "Your program has been running for a while. Maybe a loop never stops?",
     "stoppedNote": "⏹ You stopped the program.",
-    "turtleCanvas": "Turtle drawing"
+    "turtleCanvas": "Turtle drawing",
+    "downloadingCompiler": "Getting the C/C++ compiler ready on this computer — only the first time ({{percent}}% of {{mb}} MB)…"
   },
   "status": {
     "idle": "Ready",
@@ -113,6 +114,7 @@
     "busy": "Lots of students are running code right now. Please try again in a few seconds. 🚦",
     "offline": "Can't reach the Kalam server. Check the internet connection. (Python works even without internet!) 📡",
     "server_setup": "C and C++ can't run on this website yet — the server that builds C programs isn't set up. Please tell your teacher. Python works! 🐍",
+    "compiler_load": "The C/C++ compiler couldn't be downloaded. Check the internet connection and press Run again. (Python works without it!) 📡",
     "code_too_long": "Your program is too long to run here. 📜",
     "python_load": "Python couldn't start in this browser. Try reloading the page, or use a newer Chrome, Edge or Firefox. 🔄",
     "py_name_bool": "In Python, {{name}} must be written as {{correct}} — with a capital letter at the start. 🔠",
@@ -217,7 +219,7 @@
     "c_div_zero": "Your program divided by zero — even computers can't do that! ➗",
     "c_out_of_range": "Your program asked for a position that doesn't exist (like item 10 in a list of 5). 📋",
     "c_invalid_argument": "Some text couldn't be turned into a number. Check what was typed. 🔢",
-    "c_abort": "Your program stopped itself because something went badly wrong (maybe too much memory). 🛑",
+    "c_abort": "Your program crashed and had to stop 💥 Common reasons: dividing by zero, using a position outside an array, a function that forgot to return a value, or using too much memory.",
     "c_exit_code": "Your program finished with code {{code}}. Usually main should end with  return 0;  ↩️",
     "c_generic_compile": "The compiler found a problem on this line. Look carefully for a missing ; bracket, or a spelling mistake. 🔍",
     "w_scanf_ampersand": "Did you forget & in scanf? Write scanf(\"%d\", &x) so the answer goes into x.",

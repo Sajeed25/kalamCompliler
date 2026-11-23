@@ -7,6 +7,8 @@ export const CLIENT_LIMITS = {
   longRunHintSeconds: 8,
   /** If Stop doesn't take effect within this time, the Python worker is restarted. */
   hardStopMs: 1500,
+  /** C/C++ compiled in the browser: seconds of running (waiting for typing doesn't count). */
+  browserRunSeconds: 5,
   /** Max characters a single line typed into input() may have. */
   maxInputChars: 4000,
 };

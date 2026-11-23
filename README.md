@@ -5,7 +5,7 @@ Made in-house by **Robokalam** (Hanamkonda, Telangana) for school coding labs an
 
 * Pick a language, press **▶ Run**. No sign-up.
 * **Python runs inside the browser** (Pyodide/WebAssembly): instant, works offline after the first visit, supports `input()` and `turtle`.
-* **C and C++ run on the server** in a sandbox (Piston), with input typed right inside the output screen.
+* **C and C++ run on the server** in a sandbox (Piston), **or entirely in the browser** (Clang → WebAssembly) when there is no backend, e.g. on Node.js/static web hosting. Input is typed right inside the output screen either way.
 * **Errors explained like a teacher would**: *"Oops! The computer doesn't know the word 'pritn'. Did you mean 'print'? 🔍"*, with the line highlighted. The full compiler error is one click away.
 * **English, Telugu and Hindi** interface. 56 graded examples across 3 levels. Stars and badges, no leaderboards.
 * **Classrooms** (optional): class code + name + 4-digit PIN for students, auto-checked assignments, a teacher dashboard, CSV export.
@@ -49,7 +49,8 @@ docker compose up -d --build
 docker compose exec backend python -m app.tools.piston_setup   # once: installs gcc + python into Piston
 ```
 
-**Hostinger?** Read [docs/HOSTINGER.md](docs/HOSTINGER.md). C/C++ need a VPS; web/shared hosting can serve only the website.
+**Hostinger Web apps (Node.js) or any static host?** Build command `npm run build`, start command `npm start`.
+Python and C/C++ then run in the browser. See [docs/HOSTINGER.md](docs/HOSTINGER.md). Classes/assignments need the Docker backend below.
 
 The site is on port 80. Put HTTPS in front of it (Caddy, Traefik or nginx with Let's Encrypt).
 Full guide, sizing and scaling: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).

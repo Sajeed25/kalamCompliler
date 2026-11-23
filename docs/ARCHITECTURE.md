@@ -7,11 +7,13 @@ flowchart LR
     EXP["Error explainer<br/>(rules → kid-friendly text)"]
     PYW["Web Worker<br/>Pyodide (Python in WebAssembly)<br/>input() · time.sleep · turtle"]
     TUR["Turtle canvas"]
+    CLW["Web Workers<br/>Clang/LLD (WebAssembly) compiles C/C++<br/>+ WASI runner for the program<br/>(when no backend)"]
     SW["Service worker<br/>(offline Python, instant reloads)"]
     LS[("localStorage<br/>autosave · stars · settings")]
     UI <-- "postMessage +<br/>SharedArrayBuffer" --> PYW
     PYW -- drawing ops --> TUR
     UI --> EXP
+    UI <-- "compile / run / stdin" --> CLW
     UI --- LS
   end
 
@@ -45,7 +47,17 @@ interrupt buffer (raises `KeyboardInterrupt`) and, if Python is stuck in native 
 is thrown away and restarted. `turtle` is our own module that sends drawing operations to a
 canvas, which animates them at the turtle's speed.
 
-**C/C++** opens a WebSocket to `/api/run/ws`:
+**C/C++ without a backend** (static or Node.js web hosting): `AutoCRunner` asks `/api/config`;
+if no backend answers it uses `BrowserCRunner`. A compiler worker loads Clang/LLD built for
+WebAssembly from `/clang/` (self-hosted; ~27 MB pre-compressed `.kgz` files, decompressed in the
+browser, cached by the service worker), compiles `main.c`/`main.cpp` + the unbuffering runtime to
+a WASI program, and a fresh program worker runs it with a small WASI implementation
+(`runners/clang/program.worker.ts`: stdout/stderr, blocking stdin over SharedArrayBuffer, clocks,
+random, sleep). Stop and the 5 s run limit terminate that worker. Memory is capped at 128 MB by the
+linker. Clang's messages use the same `file:line:col: error:` format, and the explainer has rules
+for both gcc and clang wording. `kalam-config.json` can force `"cRunner": "server" | "browser"`.
+
+**C/C++ with a backend** opens a WebSocket to `/api/run/ws`:
 
 ```
 browser → {type:"run", language:"c", code, client_id}
