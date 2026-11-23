@@ -20,6 +20,16 @@ async def lifespan(_app: FastAPI):
     await init_db()
     async with sessionmaker()() as db:
         await auth.ensure_admin(db)
+    # Report runner problems at startup (in `docker compose logs backend`), not at the first C run.
+    try:
+        from .executors import get_executor
+
+        health = await get_executor().health()
+        logging.getLogger("kalam").info("Code runner: %s", health)
+        if health.get("reachable") is False:
+            logging.getLogger("kalam").error("Piston is not reachable at %s — C/C++ runs will fail.", get_settings().piston_url)
+    except Exception:  # noqa: BLE001
+        logging.getLogger("kalam").exception("Code runner is misconfigured — C/C++ runs will fail")
     yield
 
 

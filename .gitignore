@@ -8,3 +8,4 @@ frontend/public/pyodide/
 test-results/
 playwright-report/
 .pytest_cache/
+*.tsbuildinfo

@@ -49,6 +49,8 @@ docker compose up -d --build
 docker compose exec backend python -m app.tools.piston_setup   # once: installs gcc + python into Piston
 ```
 
+**Hostinger?** Read [docs/HOSTINGER.md](docs/HOSTINGER.md). C/C++ need a VPS; web/shared hosting can serve only the website.
+
 The site is on port 80. Put HTTPS in front of it (Caddy, Traefik or nginx with Let's Encrypt).
 Full guide, sizing and scaling: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 No access to `ghcr.io`? Use the single-container sandbox: `docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build`.

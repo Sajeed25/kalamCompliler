@@ -36,6 +36,17 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+/** Add the headers Python needs (COOP/COEP) when the web host can't set them itself. */
+function withIsolation(res) {
+  if (!res || res.status === 0 || res.type === "opaque" || res.type === "opaqueredirect") return res;
+  if (res.headers.get("Cross-Origin-Embedder-Policy")) return res;
+  const headers = new Headers(res.headers);
+  headers.set("Cross-Origin-Opener-Policy", "same-origin");
+  headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+  headers.set("Cross-Origin-Resource-Policy", "same-origin");
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
+}
+
 async function cacheFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
   const hit = await cache.match(request, { ignoreSearch: true });
@@ -57,16 +68,17 @@ self.addEventListener("fetch", (event) => {
         try {
           const res = await fetch(req);
           const cache = await caches.open(APP_CACHE);
-          cache.put("./", res.clone());
-          return res;
+          if (res.ok) cache.put("./", res.clone());
+          return withIsolation(res);
         } catch {
-          return (await caches.match("./")) || Response.error();
+          const cached = await caches.match("./");
+          return cached ? withIsolation(cached) : Response.error();
         }
       })(),
     );
     return;
   }
   if (url.pathname.includes("/pyodide/") || url.pathname.includes("/assets/")) {
-    event.respondWith(cacheFirst(req, url.pathname.includes("/pyodide/") ? RUNTIME_CACHE : APP_CACHE));
+    event.respondWith(cacheFirst(req, url.pathname.includes("/pyodide/") ? RUNTIME_CACHE : APP_CACHE).then(withIsolation));
   }
 });

@@ -112,6 +112,7 @@
     "rate_limited": "Slow down a little! Wait a moment, then press Run again. 🐢",
     "busy": "Lots of students are running code right now. Please try again in a few seconds. 🚦",
     "offline": "Can't reach the Kalam server. Check the internet connection. (Python works even without internet!) 📡",
+    "server_setup": "C and C++ can't run on this website yet — the server that builds C programs isn't set up. Please tell your teacher. Python works! 🐍",
     "code_too_long": "Your program is too long to run here. 📜",
     "python_load": "Python couldn't start in this browser. Try reloading the page, or use a newer Chrome, Edge or Firefox. 🔄",
     "py_name_bool": "In Python, {{name}} must be written as {{correct}} — with a capital letter at the start. 🔠",

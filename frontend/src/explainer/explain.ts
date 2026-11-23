@@ -679,6 +679,7 @@ const SHARED_RULES: Rule[] = [
   { id: "rate_limited", match: ({ err }) => err.type === "rate_limited" },
   { id: "busy", match: ({ err }) => err.type === "busy" },
   { id: "offline", match: ({ err }) => err.type === "offline" },
+  { id: "server_setup", match: ({ err }) => err.type === "server_setup" },
   { id: "code_too_long", match: ({ err }) => err.type === "code_too_long" },
   { id: "python_load", match: ({ err }) => err.type === "LoadError" },
 ];

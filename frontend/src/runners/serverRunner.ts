@@ -1,7 +1,8 @@
-import type { Runner, RunEvent, RunResult } from "./types";
+import type { ProgramError, Runner, RunEvent, RunResult } from "./types";
 import type { LangId } from "../languages";
 import { getClientId } from "../lib/clientId";
 import { getAuthToken } from "../lib/auth";
+import { getRuntimeConfig } from "../lib/runtimeConfig";
 
 /**
  * C and C++ are compiled and run on our server (Piston or the local sandbox)
@@ -36,7 +37,17 @@ export class ServerRunner implements Runner {
         resolve({ ...r, timeMs: Math.round(performance.now() - started) });
       };
       this.finishFn = finish;
-      const ws = new WebSocket(wsUrl("/api/run/ws"));
+      let ws: WebSocket;
+      try {
+        ws = new WebSocket(wsUrl("/api/run/ws"));
+      } catch (e) {
+        // e.g. an https:// page trying to use an insecure ws:// backend address
+        resolve({
+          ok: false,
+          error: { kind: "system", type: "server_setup", message: "bad server address", raw: `Could not open the connection to the run server: ${String((e as Error)?.message ?? e)}` },
+        });
+        return;
+      }
       this.ws = ws;
       ws.onopen = () => {
         ws.send(
@@ -76,21 +87,20 @@ export class ServerRunner implements Runner {
             break;
         }
       };
+      let opened = false;
+      ws.addEventListener("open", () => (opened = true));
       ws.onerror = () => {
-        finish({
-          ok: false,
-          error: {
-            kind: "system",
-            type: "offline",
-            message: "Could not reach the Kalam server",
-            raw: "WebSocket connection to the run server failed",
-          },
-        });
+        /* details come from onclose / diagnose() */
       };
       ws.onclose = () => {
+        if (done) return;
+        if (!opened) {
+          void diagnoseServer().then((err) => finish({ ok: false, error: err }));
+          return;
+        }
         finish({
           ok: false,
-          error: { kind: "system", type: "offline", message: "Connection closed", raw: "WebSocket closed" },
+          error: { kind: "system", type: "offline", message: "Connection closed", raw: "The connection to the run server closed before the program finished." },
         });
       };
     });
@@ -111,12 +121,50 @@ export class ServerRunner implements Runner {
 }
 
 export function apiUrl(path: string): string {
-  const base = (import.meta.env.VITE_API_BASE as string | undefined) ?? "";
-  return base + path;
+  return getRuntimeConfig().apiBase + path;
 }
 
 function wsUrl(path: string): string {
   const u = new URL(apiUrl(path), location.href);
   u.protocol = u.protocol === "https:" ? "wss:" : "ws:";
   return u.href;
+}
+
+/**
+ * The WebSocket couldn't connect. Work out why, so the "Full error (for experts)"
+ * tells the person who set up the server exactly what to fix.
+ */
+export async function diagnoseServer(): Promise<ProgramError> {
+  const healthUrl = new URL(apiUrl("/api/health"), location.href).href;
+  const setup = (raw: string): ProgramError => ({ kind: "system", type: "server_setup", message: "server setup", raw });
+  if (!navigator.onLine) {
+    return { kind: "system", type: "offline", message: "offline", raw: "This device is offline." };
+  }
+  let res: Response;
+  try {
+    res = await fetch(healthUrl, { cache: "no-store" });
+  } catch {
+    return setup(
+      `Could not reach ${healthUrl} at all (network, CORS, DNS or Content-Security-Policy connect-src error).\n` +
+        "• If the backend is on another domain, set its address in /kalam-config.json (\"apiBase\") and add this site to KALAM_CORS_ORIGINS on the backend.\n" +
+        "• An https:// site can only talk to an https:// backend.\n" +
+        "See docs/HOSTINGER.md.",
+    );
+  }
+  const type = res.headers.get("content-type") ?? "";
+  const body = await res.text().catch(() => "");
+  if (res.ok && type.includes("json") && body.includes('"ok"')) {
+    return setup(
+      `The Kalam backend answers at ${healthUrl}, but the WebSocket connection to /api/run/ws was refused.\n` +
+        "The web server or proxy in front of the backend is not passing WebSocket upgrades. " +
+        "In nginx add: proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection \"upgrade\"; " +
+        "(already in frontend/nginx.conf). On Cloudflare, enable WebSockets. See docs/HOSTINGER.md.",
+    );
+  }
+  return setup(
+    `The Kalam backend is not running behind this website: ${healthUrl} returned HTTP ${res.status} (${type || "no content type"}) instead of {"ok": true}.\n` +
+      "This happens when only the frontend files were uploaded (e.g. to shared web hosting). " +
+      "Python still works because it runs in the browser, but C, C++, logins, assignments and sharing need the backend.\n" +
+      "Fix: run the backend with Docker on a VPS, then either serve this site from it or set \"apiBase\" in /kalam-config.json. See docs/HOSTINGER.md.",
+  );
 }
